@@ -28,6 +28,7 @@ namespace MediaPlayer
             timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Tick += new EventHandler(Tick);
             Start += StartTimerNew;
+            TimerText = "0:0/0:0";
         }
 
         private void StartTimerNew(AudioFileReader audioFile)

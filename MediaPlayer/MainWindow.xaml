@@ -15,7 +15,8 @@
         BorderThickness="5,0,5,5"
         ResizeMode="CanResizeWithGrip">
     <Window.Resources>
-        <local:AudioTime TimerText="0:0/0:0" x:Key="MusicTimer"/>
+        <local:AudioRecord x:Key="PlayingRecord"/>
+        <!--<local:AudioTime TimerText="0:0/0:0" x:Key="MusicTimer"/>-->
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -76,7 +77,9 @@
                 </Button>
             </Grid>
         </Grid>
-        <Grid Grid.Column="0" Grid.Row="1">
+        <Grid Grid.Column="0" 
+              Grid.Row="1"
+              DataContext="{StaticResource PlayingRecord}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -90,15 +93,13 @@
                          MaxWidth="300" 
                          Columns="2" 
                          Rows="1">
-                <Button x:Name="PlauStopMusicButton"
-                        Style="{StaticResource MusicControlButton}"
-                        Click="PlayPauseMusicButton_Click">
+                <Button Style="{StaticResource MusicControlButton}"
+                        Command="{Binding PlayPauseMusicCommand}">
                     <Button.Content>
-                        <Image x:Name="PlayPauseMusicImage" Source="music_control_images/play-music.png"/>
+                        <Image x:Name="PlayPauseMusicImage" Source="{Binding PlayPauseImageSource}"/>
                     </Button.Content>
                 </Button>
-                <Button x:Name="RestartMusicButton"
-                        Style="{StaticResource MusicControlButton}">
+                <Button Style="{StaticResource MusicControlButton}">
                     <Button.Content>
                         <Image Source="music_control_images/restart-music.png"/>
                     </Button.Content>
@@ -106,10 +107,10 @@
             </UniformGrid>
             <TextBlock Grid.Column="0" 
                        Grid.Row="1" 
-                       x:Name="MusicNameTextBox"
                        FontSize="24"
                        TextAlignment="Center"
-                       VerticalAlignment="Center"/>
+                       VerticalAlignment="Center"
+                       Text="{Binding AudioName}"/>
             <UniformGrid Grid.Column="0"
                          Grid.Row="2"
                          Columns="1" 
@@ -127,17 +128,15 @@
                              Width="15"
                              Height="15"/>
                 </Canvas>-->
-                <TextBlock x:Name="MusicTime"
-                           Text="{Binding Source={StaticResource MusicTimer}, Path=TimerText, Mode=TwoWay}"
+                <TextBlock Text="{Binding Source={StaticResource PlayingRecord}, Path=AudioTime.TimerText, Mode=TwoWay}"
                            FontSize="20"
                            TextAlignment="Center"/>
             </UniformGrid>
             <Button Grid.Column="0"
                     Grid.Row="3"
-                    x:Name="ChooseMusicButton"
                     Style="{StaticResource ChooseFileButton}"
-                    Click="ChooseMusicButton_Click"
-                    Content="Choose file"/>
+                    Content="Choose file"
+                    Command="{Binding ChooseAudioCommand}"/>
         </Grid>
     </Grid>
 </Window>
