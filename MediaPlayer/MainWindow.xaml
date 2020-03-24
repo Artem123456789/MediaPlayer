@@ -4,19 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Height="400"
         Width="600"
         WindowStyle="None"
         AllowsTransparency="True"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         BorderBrush="Black"
         Closing="PlaybackStoped"
         BorderThickness="5,0,5,5"
         ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <local:AudioRecord x:Key="PlayingRecord"/>
-        <!--<local:AudioTime TimerText="0:0/0:0" x:Key="MusicTimer"/>-->
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -29,7 +28,8 @@
         <Grid x:Name="WindowControlsGrid" 
               Background="Black"
               Grid.Column="0" 
-              Grid.Row="0">
+              Grid.Row="0"
+              MouseLeftButtonDown="Window_MouseLeftButtonDown">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition MaxWidth="100"></ColumnDefinition>
@@ -80,6 +80,11 @@
         <Grid Grid.Column="0" 
               Grid.Row="1"
               DataContext="{StaticResource PlayingRecord}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <i:InvokeCommandAction Command="{Binding DisableMoveRecordCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -94,12 +99,13 @@
                          Columns="2" 
                          Rows="1">
                 <Button Style="{StaticResource MusicControlButton}"
-                        Command="{Binding PlayPauseMusicCommand}">
+                         Command="{Binding PlayPauseMusicCommand}">
                     <Button.Content>
                         <Image x:Name="PlayPauseMusicImage" Source="{Binding PlayPauseImageSource}"/>
                     </Button.Content>
                 </Button>
-                <Button Style="{StaticResource MusicControlButton}">
+                <Button Style="{StaticResource MusicControlButton}"
+                        Command="{Binding RestartMusicCommand}">
                     <Button.Content>
                         <Image Source="music_control_images/restart-music.png"/>
                     </Button.Content>
@@ -116,18 +122,34 @@
                          Columns="1" 
                          Rows="2"
                          MaxHeight="80">
-                <Slider/>
-                <!--<Canvas>
+                <Canvas Width="590" Name="ProgressCanvas" HorizontalAlignment="Center">
                     <Line X1="20px" Y1="15"
-                          X2="570px" Y2="15"
-                          Stroke="Black"
-                          StrokeThickness="2"/>
-                    <Ellipse Fill="#00A2E8" 
+                          X2="570" Y2="15"
+                          VerticalAlignment="Center"
+                          StrokeThickness="3"
+                          Stroke="Black">
+                    </Line>
+                    <Ellipse x:Name="RecordProgress"
+                             Fill="#00A2E8"
                              Canvas.Top="8"
-                             Canvas.Left="15"
+                             Canvas.Left="{Binding Source={StaticResource PlayingRecord}, Path=RecordProgress.IndicatorCoord, Mode=TwoWay}"
                              Width="15"
-                             Height="15"/>
-                </Canvas>-->
+                             Height="15">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction 
+                                    Command="{Binding MoveRecordTime}"
+                                    CommandParameter="{Binding ElementName=ProgressCanvas}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding EnableMoveRecordCommand}"/>
+                            </i:EventTrigger>
+                            <!--<i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding DisableMoveRecordCommand}"/>
+                        </i:EventTrigger>-->
+                        </i:Interaction.Triggers>
+                    </Ellipse>
+                </Canvas>
                 <TextBlock Text="{Binding Source={StaticResource PlayingRecord}, Path=AudioTime.TimerText, Mode=TwoWay}"
                            FontSize="20"
                            TextAlignment="Center"/>

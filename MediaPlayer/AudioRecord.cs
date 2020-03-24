@@ -7,26 +7,38 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace MediaPlayer
 {
     class AudioRecord:INotifyPropertyChanged
     {
+        const int MAX_PROGRESS_LEN = 545;
         public WaveOutEvent OutputDevice { get; set; }
         public AudioFileReader Audio { get; set; }
         public AudioTime AudioTime { get; set; }
+        public RecordProgress RecordProgress { get; set; }
         AudioRecordCommand chooseAudioCommand;
         AudioRecordCommand playPauseMusicCommand;
+        AudioRecordCommand restartMusicCommand;
+        AudioRecordCommand moveRecordTimeCommand;
+        AudioRecordCommand enableMoveRecordTimeCommand;
+        AudioRecordCommand disableMoveRecordCommand;
         BitmapImage playPauseImageSource;
         string audioPath;
         string audioName;
         string playButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/play-music.png";
         string pauseButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/stop-music.png";
+        bool moveRecord = false;
+        TimeSpan newTime;
 
         public AudioRecord()
         {
             AudioTime = new AudioTime();
+            RecordProgress = new RecordProgress();
             ChangePlayPauseImage(true);
         }
 
@@ -37,13 +49,21 @@ namespace MediaPlayer
                 return chooseAudioCommand ??
                     (chooseAudioCommand = new AudioRecordCommand(obj =>
                     {
-                        StopMusic();
-                        OpenFileDialog fileDialog = new OpenFileDialog();
-                        fileDialog.Filter = "MP3 files|*.mp3";
-                        if (fileDialog.ShowDialog() == true) AudioPath = fileDialog.FileName;
-                        AudioName = GetMusicName(AudioPath);
-                        AudioTime.TimerText = "0:0/0:0";
-                        AudioTime.Stop();
+                        try
+                        {
+                            StopMusic();
+                            OpenFileDialog fileDialog = new OpenFileDialog();
+                            fileDialog.Filter = "MP3 files|*.mp3";
+                            if (fileDialog.ShowDialog() == true) AudioPath = fileDialog.FileName;
+                            AudioName = GetMusicName(AudioPath);
+                            AudioTime.TimerText = "0:0/0:0";
+                            AudioTime.Stop();
+                            RecordProgress.Stop();
+                        }
+                        catch
+                        {
+
+                        };
                     }));
             }
         }
@@ -56,18 +76,86 @@ namespace MediaPlayer
                 {
                     if (OutputDevice == null || OutputDevice.PlaybackState == PlaybackState.Paused)
                     {
-                        PlayMusic();
-                        ChangePlayPauseImage(false);
-                        AudioTime.Start(Audio);
+                        try
+                        {
+                            PlayMusic();
+                            ChangePlayPauseImage(false);
+                            AudioTime.Start(Audio);
+                            RecordProgress.Start(Convert.ToInt32(Audio.TotalTime.TotalSeconds), MAX_PROGRESS_LEN);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Please choose file");
+                        }
                     }
                     else
                     {
                         PauseMusic();
                         ChangePlayPauseImage(true);
                         AudioTime.Pause();
+                        RecordProgress.Pause();
                     }
                 }));
             }
+        }
+
+        public AudioRecordCommand RestartMusicCommand
+        {
+            get
+            {
+                return restartMusicCommand ?? (restartMusicCommand = new AudioRecordCommand(obj =>
+                {
+                    SetAudioTime(new TimeSpan(0,0,0));
+                }));
+            }
+        }
+
+        public AudioRecordCommand MoveRecordTime
+        {
+            get
+            {
+                return moveRecordTimeCommand ?? (moveRecordTimeCommand = new AudioRecordCommand(obj =>
+                {
+                    Point point = Mouse.GetPosition(obj as Canvas);
+                    double secondPixel = MAX_PROGRESS_LEN / Audio.TotalTime.TotalSeconds;
+                    double movedSecond = point.X / secondPixel;
+                    newTime = TimeSpan.FromSeconds(movedSecond);
+                    RecordProgress.IndicatorCoord = movedSecond * secondPixel - 6.5;
+                }, (obj) => moveRecord && Audio != null));
+            }
+        }
+
+        public AudioRecordCommand EnableMoveRecordCommand
+        {
+            get
+            {
+                return enableMoveRecordTimeCommand ?? (enableMoveRecordTimeCommand = new AudioRecordCommand(obj =>
+                {
+                    moveRecord = true;
+                },(obj) => Audio != null));
+            }
+        }
+
+        public AudioRecordCommand DisableMoveRecordCommand
+        {
+            get
+            {
+                return disableMoveRecordCommand ?? (disableMoveRecordCommand = new AudioRecordCommand(obj =>
+                {
+                    moveRecord = false;
+                    SetAudioTime(newTime);
+                }, (obj) => Audio != null));
+            }
+        }
+
+        private void SetAudioTime(TimeSpan timeSpan)
+        {
+            Audio.CurrentTime = timeSpan;
+            AudioTime.Stop();
+            RecordProgress.Stop();
+            AudioTime.Start(Audio);
+            RecordProgress.Start(Convert.ToInt32(Audio.TotalTime.TotalSeconds), MAX_PROGRESS_LEN);
+            RecordProgress.IndicatorCoord = timeSpan.TotalSeconds * MAX_PROGRESS_LEN / Audio.TotalTime.TotalSeconds + 6.5;
         }
 
         private void PlayMusic()
@@ -99,6 +187,14 @@ namespace MediaPlayer
             ChangePlayPauseImage(true);
         }
 
+        public void PlayBackStoped()
+        {
+            OutputDevice?.Dispose();
+            OutputDevice = null;
+            Audio?.Dispose();
+            Audio = null;
+        }
+
         private void ChangePlayPauseImage(bool stop)
         {
             BitmapImage image = new BitmapImage();
@@ -116,11 +212,11 @@ namespace MediaPlayer
             {
                 if (path[i] == '\\')
                 {
-                    slashIndex = path.Length - i;
+                    slashIndex = i;
                     break;
                 }
             }
-            return path.Substring(slashIndex, path.Length - slashIndex);
+            return path.Substring(slashIndex + 1, path.Length - 1 - slashIndex);
         }
 
         private void StopMusic()

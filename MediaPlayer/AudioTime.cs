@@ -35,9 +35,9 @@ namespace MediaPlayer
         {
             TotalMinutes = audioFile.TotalTime.Minutes;
             TotalSeconds = audioFile.TotalTime.Seconds;
-            CurrentMinutes = 0;
-            CurrentSeconds = 0;
-            TimerText = $"00:00/{TotalMinutes}:{TotalSeconds}";
+            CurrentMinutes = audioFile.CurrentTime.Minutes;
+            CurrentSeconds = audioFile.CurrentTime.Seconds;
+            TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
             timer.Start();
             Start -= StartTimerNew;
             Start += StartTimerPause;
@@ -45,7 +45,6 @@ namespace MediaPlayer
 
         private void StartTimerPause(AudioFileReader audioFile)
         {
-            CurrentSeconds++;
             timer.Start();
         }
 

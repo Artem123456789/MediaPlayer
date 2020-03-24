@@ -27,17 +27,23 @@ namespace MediaPlayer
     public partial class MainWindow : Window
     {
 
-        WaveOutEvent outputDevice;
-        AudioFileReader audioFile;
-        AudioTime musicTime;
-        string playingMusicFileName;
         AudioRecord playingRecord;
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetCursorPos(ref Win32Point pt);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct Win32Point
+        {
+            public Int32 X;
+            public Int32 Y;
+        };
 
         public MainWindow()
         {
             InitializeComponent();
-            musicTime = (AudioTime)this.Resources["MusicTimer"];
             playingRecord = (AudioRecord)this.Resources["PlayingRecord"];
+            
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -75,10 +81,7 @@ namespace MediaPlayer
 
         private void PlaybackStoped(object sender, CancelEventArgs e)
         {
-            outputDevice?.Dispose();
-            outputDevice = null;
-            audioFile?.Dispose();
-            audioFile = null;
+            playingRecord.PlayBackStoped();
         }
     }
 }
