@@ -15,7 +15,6 @@ namespace MediaPlayer
     class RecordProgress:INotifyPropertyChanged
     {
         const int UPDATE_TIME = 1000;
-        const int MILLISECONDS_SECOND = 1000;
         private DispatcherTimer time;
         public StartRecordProgress Start;
         private double indicatorCoord;
@@ -38,14 +37,14 @@ namespace MediaPlayer
             time.Interval = TimeSpan.FromMilliseconds(UPDATE_TIME);
             time.Tick += new EventHandler(MoveIndicator);
             Start += StartProgressNew;
-            IndicatorCoord = 15;
+            IndicatorCoord = 0;
         }
 
         public void StartProgressNew(int totalSeconds, int maxIndicatorLength)
         {
             this.totalSeconds = totalSeconds;
             this.maxIndicatorLength = maxIndicatorLength;
-            IndicatorCoord = 15;
+            IndicatorCoord = 0;
             time.Start();
             Start -= StartProgressNew;
             Start += StartProgressPause;
@@ -58,8 +57,8 @@ namespace MediaPlayer
 
         private void MoveIndicator(object sender, EventArgs e)
         {
-            IndicatorCoord += (double)maxIndicatorLength / (double)totalSeconds;
-            if (IndicatorCoord >= maxIndicatorLength + 15)
+            IndicatorCoord++;
+            if (IndicatorCoord == totalSeconds)
             {
                 time.Stop();
                 Start -= StartProgressPause;
@@ -70,7 +69,7 @@ namespace MediaPlayer
         public void Stop()
         {
             Pause();
-            IndicatorCoord = 15;
+            IndicatorCoord = 0;
             Start -= StartProgressPause;
             Start += StartProgressNew;
         }

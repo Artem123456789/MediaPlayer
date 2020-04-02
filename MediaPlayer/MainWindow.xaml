@@ -122,35 +122,12 @@
                          Columns="1" 
                          Rows="2"
                          MaxHeight="80">
-                <Canvas Width="590" Name="ProgressCanvas" HorizontalAlignment="Center">
-                    <Line X1="20px" Y1="15"
-                          X2="570" Y2="15"
-                          VerticalAlignment="Center"
-                          StrokeThickness="3"
-                          Stroke="Black">
-                    </Line>
-                    <Ellipse x:Name="RecordProgress"
-                             Fill="#00A2E8"
-                             Canvas.Top="8"
-                             Canvas.Left="{Binding Source={StaticResource PlayingRecord}, Path=RecordProgress.IndicatorCoord, Mode=TwoWay}"
-                             Width="15"
-                             Height="15">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseMove">
-                                <i:InvokeCommandAction 
-                                    Command="{Binding MoveRecordTime}"
-                                    CommandParameter="{Binding ElementName=ProgressCanvas}"/>
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding EnableMoveRecordCommand}"/>
-                            </i:EventTrigger>
-                            <!--<i:EventTrigger EventName="MouseLeftButtonUp">
-                            <i:InvokeCommandAction Command="{Binding DisableMoveRecordCommand}"/>
-                        </i:EventTrigger>-->
-                        </i:Interaction.Triggers>
-                    </Ellipse>
-                </Canvas>
-                <TextBlock Text="{Binding Source={StaticResource PlayingRecord}, Path=AudioTime.TimerText, Mode=TwoWay}"
+                <Slider Style="{StaticResource Horizontal_Slider}" 
+                        Width="560" 
+                        Minimum="0"
+                        Maximum="{Binding Path=TotalAudioSecondsTime, Mode=TwoWay}"
+                        Value="{Binding Path=RecordProgress.IndicatorCoord}"/>
+                <TextBlock Text="{Binding Path=AudioTime.TimerText, Mode=TwoWay}"
                            FontSize="20"
                            TextAlignment="Center"/>
             </UniformGrid>

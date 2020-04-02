@@ -25,7 +25,7 @@ namespace MediaPlayer
         public AudioTime()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += new EventHandler(Tick);
             Start += StartTimerNew;
             TimerText = "0:0/0:0";
@@ -51,8 +51,6 @@ namespace MediaPlayer
         public void Stop()
         {
             timer.Stop();
-            TotalMinutes = 0;
-            TotalSeconds = 0;
             CurrentMinutes = 0;
             CurrentSeconds = 0;
             Start -= StartTimerPause;
@@ -66,10 +64,14 @@ namespace MediaPlayer
 
         private void Tick(object sender, EventArgs e)
         {
-            if (CurrentSeconds == 59) CurrentMinutes++;
-            CurrentSeconds = CurrentSeconds == 59 ? 0 : CurrentSeconds + 1;
+            if (CurrentSeconds == 59)
+            {
+                CurrentMinutes++;
+                CurrentSeconds = 0;
+            }
+            else CurrentSeconds++;
             TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
-            if (TotalMinutes == CurrentMinutes && TotalSeconds == CurrentSeconds)
+            if (CurrentMinutes >= TotalMinutes && CurrentSeconds >= TotalSeconds)
             {
                 timer.Stop();
                 Start -= StartTimerPause;
@@ -103,7 +105,7 @@ namespace MediaPlayer
             set
             {
                 currentMinutes = value;
-                OnPropertyChanged("CurrentMinutes");
+                TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
             }
         }
 
@@ -113,7 +115,7 @@ namespace MediaPlayer
             set
             {
                 currentSeconds = value;
-                OnPropertyChanged("CurrentSeconds");
+                TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
             }
         }
 
