@@ -80,11 +80,6 @@
         <Grid Grid.Column="0" 
               Grid.Row="1"
               DataContext="{StaticResource PlayingRecord}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <i:InvokeCommandAction Command="{Binding DisableMoveRecordCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -125,8 +120,13 @@
                 <Slider Style="{StaticResource Horizontal_Slider}" 
                         Width="560" 
                         Minimum="0"
+                        Name="AudioProgress"
+                        IsMoveToPointEnabled="True"
                         Maximum="{Binding Path=TotalAudioSecondsTime, Mode=TwoWay}"
-                        Value="{Binding Path=RecordProgress.IndicatorCoord}"/>
+                        Value="{Binding Path=RecordProgress.IndicatorCoord}"
+                        Thumb.DragCompleted="MoveAudio"
+                        Thumb.DragDelta="MovingAudio">
+                </Slider>
                 <TextBlock Text="{Binding Path=AudioTime.TimerText, Mode=TwoWay}"
                            FontSize="20"
                            TextAlignment="Center"/>

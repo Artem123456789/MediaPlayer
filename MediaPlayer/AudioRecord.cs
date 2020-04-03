@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Windows.Media.Imaging;
 
 namespace MediaPlayer
 {
-    class AudioRecord:INotifyPropertyChanged
+    class AudioRecord : INotifyPropertyChanged
     {
         const int MAX_PROGRESS_LEN = 545;
         public WaveOutEvent OutputDevice { get; set; }
@@ -25,11 +26,12 @@ namespace MediaPlayer
         AudioRecordCommand playPauseMusicCommand;
         AudioRecordCommand restartMusicCommand;
         BitmapImage playPauseImageSource;
+        TimeSpan newTime;
+        int movedSeconds;
         string audioPath;
         string audioName;
         string playButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/play-music.png";
         string pauseButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/stop-music.png";
-        public int r = 100;
         double totalAudioSecondsTime;
         public double TotalAudioSecondsTime
         {
@@ -43,7 +45,6 @@ namespace MediaPlayer
                 OnPropertyChanged("TotalAudioSecondsTime");
             }
         }
-        TimeSpan newTime;
 
         public AudioRecord()
         {
@@ -71,7 +72,7 @@ namespace MediaPlayer
                             AudioTime.Stop();
                             RecordProgress.Stop();
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         };
@@ -91,23 +92,23 @@ namespace MediaPlayer
                         TotalAudioSecondsTime = Audio.TotalTime.TotalSeconds;
                         ChangePlayPauseImage(false);
                         AudioTime.Start(Audio);
-                        RecordProgress.Start(Convert.ToInt32(Audio.TotalTime.TotalSeconds), MAX_PROGRESS_LEN);
+                        RecordProgress.Start(Audio);
                     }
                     else
                     {
                         try
                         {
-                        PauseMusic();
-                        ChangePlayPauseImage(true);
-                        AudioTime.Pause();
-                        RecordProgress.Pause();
+                            PauseMusic();
+                            ChangePlayPauseImage(true);
+                            AudioTime.Pause();
+                            RecordProgress.Pause();
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         }
                     }
-                }, (obj)=> audioPath != null));
+                }, (obj) => audioPath != null));
             }
         }
 
@@ -126,12 +127,18 @@ namespace MediaPlayer
 
         private void SetAudioTime(TimeSpan timeSpan)
         {
-            Audio.CurrentTime = timeSpan;
-            AudioTime.Stop();
-            RecordProgress.Stop();
-            AudioTime.Start(Audio);
-            RecordProgress.Start(Convert.ToInt32(Audio.TotalTime.TotalSeconds), MAX_PROGRESS_LEN);
-            RecordProgress.IndicatorCoord = timeSpan.TotalSeconds * MAX_PROGRESS_LEN / Audio.TotalTime.TotalSeconds;
+            try
+            {
+                Audio.CurrentTime = timeSpan;
+                AudioTime.Stop();
+                RecordProgress.Stop();
+                AudioTime.Start(Audio);
+                RecordProgress.Start(Audio);
+            }
+            catch(NullReferenceException)
+            {
+                MessageBox.Show("Pleace choose and play aduio");
+            }
         }
 
         private void PlayMusic()
@@ -147,6 +154,21 @@ namespace MediaPlayer
                 OutputDevice.Init(Audio);
             }
             OutputDevice.Play();
+        }
+
+        public void MoveAudio(object sender)
+        {
+            Slider slider = sender as Slider;
+            RecordProgress.IndicatorCoord = slider.Value;
+            newTime = TimeSpan.FromSeconds(movedSeconds);
+            SetAudioTime(newTime);
+        }
+
+        public void MovingAudio(object sender)
+        {
+            movedSeconds = (int)(sender as Slider).Value;
+            AudioTime.CurrentSeconds = TimeSpan.FromSeconds(movedSeconds).Seconds;
+            AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
         }
 
         private void PauseMusic()

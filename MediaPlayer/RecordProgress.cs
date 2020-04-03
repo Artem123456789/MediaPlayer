@@ -6,11 +6,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using NAudio.Wave;
 
 namespace MediaPlayer
 {
 
-    public delegate void StartRecordProgress(int totalSeconds, int maxIndicatorLength);
+    public delegate void StartRecordProgress(AudioFileReader audio);
 
     class RecordProgress:INotifyPropertyChanged
     {
@@ -19,7 +20,6 @@ namespace MediaPlayer
         public StartRecordProgress Start;
         private double indicatorCoord;
         private int totalSeconds;
-        private int maxIndicatorLength;
         public double IndicatorCoord
         {
             get { return indicatorCoord; }
@@ -40,17 +40,16 @@ namespace MediaPlayer
             IndicatorCoord = 0;
         }
 
-        public void StartProgressNew(int totalSeconds, int maxIndicatorLength)
+        public void StartProgressNew(AudioFileReader audio)
         {
-            this.totalSeconds = totalSeconds;
-            this.maxIndicatorLength = maxIndicatorLength;
-            IndicatorCoord = 0;
+            this.totalSeconds = (int)audio.TotalTime.TotalSeconds;
+            IndicatorCoord = audio.CurrentTime.TotalSeconds;
             time.Start();
             Start -= StartProgressNew;
             Start += StartProgressPause;
         }
 
-        public void StartProgressPause(int totalSeconds, int maxIndicatorLength)
+        public void StartProgressPause(AudioFileReader audio)
         {
             time.Start();
         }

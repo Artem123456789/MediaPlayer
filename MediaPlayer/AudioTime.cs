@@ -21,11 +21,12 @@ namespace MediaPlayer
         private int currentMinutes;
         private int currentSeconds;
         private string timerText;
+        const int UPDATE_INTERVAL = 1000;
 
         public AudioTime()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Interval = TimeSpan.FromMilliseconds(UPDATE_INTERVAL);
             timer.Tick += new EventHandler(Tick);
             Start += StartTimerNew;
             TimerText = "0:0/0:0";
@@ -37,7 +38,7 @@ namespace MediaPlayer
             TotalSeconds = audioFile.TotalTime.Seconds;
             CurrentMinutes = audioFile.CurrentTime.Minutes;
             CurrentSeconds = audioFile.CurrentTime.Seconds;
-            TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
+            TimerText = $"{CurrentMinutes}:{CurrentSeconds}:{TotalSeconds}";
             timer.Start();
             Start -= StartTimerNew;
             Start += StartTimerPause;
@@ -70,7 +71,6 @@ namespace MediaPlayer
                 CurrentSeconds = 0;
             }
             else CurrentSeconds++;
-            TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
             if (CurrentMinutes >= TotalMinutes && CurrentSeconds >= TotalSeconds)
             {
                 timer.Stop();

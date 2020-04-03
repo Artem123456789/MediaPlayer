@@ -33,7 +33,6 @@ namespace MediaPlayer
         {
             InitializeComponent();
             playingRecord = (AudioRecord)this.Resources["PlayingRecord"];
-            
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -67,6 +66,21 @@ namespace MediaPlayer
             }
             bitmapImage.EndInit();
             RestoreWindowImage.Source = bitmapImage;
+        }
+
+        private void MoveAudioMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            playingRecord.MovingAudio(sender);
+        }
+
+        private void MoveAudio(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            playingRecord.MoveAudio(sender);
+        }
+
+        private void MovingAudio(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            playingRecord.MovingAudio(sender);
         }
 
         private void PlaybackStoped(object sender, CancelEventArgs e)
