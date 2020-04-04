@@ -141,7 +141,6 @@
   <ItemGroup>
     <Resource Include="window_control_images\normal-window.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="music_control_images\restart-music.png" />
   </ItemGroup>

@@ -25,6 +25,7 @@ namespace MediaPlayer
         AudioRecordCommand chooseAudioCommand;
         AudioRecordCommand playPauseMusicCommand;
         AudioRecordCommand restartMusicCommand;
+        AudioRecordCommand showHideVolumeControl;
         BitmapImage playPauseImageSource;
         TimeSpan newTime;
         int movedSeconds;
@@ -63,6 +64,7 @@ namespace MediaPlayer
                     {
                         try
                         {
+                            PlayBackStoped();
                             StopMusic();
                             OpenFileDialog fileDialog = new OpenFileDialog();
                             fileDialog.Filter = "MP3 files|*.mp3";
@@ -125,6 +127,20 @@ namespace MediaPlayer
             }
         }
 
+        public AudioRecordCommand ShowHideVolumeControl
+        {
+            get
+            {
+                return showHideVolumeControl ?? (showHideVolumeControl = new AudioRecordCommand(obj =>
+                {
+                    if ((obj as RowDefinition).Height.Value == 0)
+                        (obj as RowDefinition).Height = new GridLength(50, GridUnitType.Pixel);
+                    else
+                        (obj as RowDefinition).Height = new GridLength(0, GridUnitType.Pixel);
+                }));
+            }
+        }
+
         private void SetAudioTime(TimeSpan timeSpan)
         {
             try
@@ -143,12 +159,12 @@ namespace MediaPlayer
 
         private void PlayMusic()
         {
-            if (OutputDevice == null)
+            if(OutputDevice == null)
             {
                 OutputDevice = new WaveOutEvent();
                 OutputDevice.PlaybackStopped += PlaybackStoped;
             }
-            if (Audio == null)
+            if(Audio == null)
             {
                 Audio = new AudioFileReader(AudioPath);
                 OutputDevice.Init(Audio);
