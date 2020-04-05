@@ -16,6 +16,9 @@ namespace MediaPlayer
     /// <param name="audioFile">The audio to launch. Serves as model</param>
     public delegate void StartTimer(AudioFileReader audioFile);
 
+    /// <summary>
+    /// The view model responsible for displaying the ratio of the current time audio and total
+    /// </summary>
     public class AudioTime : INotifyPropertyChanged
     {
         public StartTimer Start;

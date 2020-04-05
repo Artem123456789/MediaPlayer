@@ -10,9 +10,15 @@ using NAudio.Wave;
 
 namespace MediaPlayer
 {
-    class AudioProgress:INotifyPropertyChanged
+    /// <summary>
+    /// The view model that is responsible for displaying the audio progress
+    /// </summary>
+    class AudioProgress :INotifyPropertyChanged
     {
+        //public field
         public StartTimer Start;
+
+        //properties
         public double IndicatorCoord
         {
             get { return indicatorCoord; }
@@ -22,47 +28,52 @@ namespace MediaPlayer
                 OnProperyChanged("IndicatorCoord");
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
 
+        //constants
         const int UPDATE_TIME = 1000;
-        DispatcherTimer time;
+
+        //private fields
+        DispatcherTimer timer;
         double indicatorCoord;
         int totalSeconds;
 
+        /// <summary>
+        /// Default contstructor. Sets default parameters
+        /// </summary>
         public AudioProgress()
         {
-            time = new DispatcherTimer();
-            time.Interval = TimeSpan.FromMilliseconds(UPDATE_TIME);
-            time.Tick += new EventHandler(MoveIndicator);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(UPDATE_TIME);
+            timer.Tick += new EventHandler(MoveIndicator);
             Start += StartProgressNew;
             IndicatorCoord = 0;
         }
 
+        /// <summary>
+        /// Starts the timer when new audio is selected
+        /// </summary>
+        /// <param name="audioFile">New audio where do the parameters come from. Serves as model</param>
         public void StartProgressNew(AudioFileReader audio)
         {
             this.totalSeconds = (int)audio.TotalTime.TotalSeconds;
             IndicatorCoord = audio.CurrentTime.TotalSeconds;
-            time.Start();
+            timer.Start();
             Start -= StartProgressNew;
             Start += StartProgressPause;
         }
 
+        /// <summary>
+        /// Starts timer after it is paused
+        /// </summary>
+        /// <param name="audioFile">Parameter required to match the delegate signature</param>
         public void StartProgressPause(AudioFileReader audio)
         {
-            time.Start();
+            timer.Start();
         }
 
-        private void MoveIndicator(object sender, EventArgs e)
-        {
-            IndicatorCoord++;
-            if (IndicatorCoord == totalSeconds)
-            {
-                time.Stop();
-                Start -= StartProgressPause;
-                Start += StartProgressNew;
-            }
-        }
-
+        /// <summary>
+        /// Stops the timer
+        /// </summary>
         public void Stop()
         {
             Pause();
@@ -71,11 +82,31 @@ namespace MediaPlayer
             Start += StartProgressNew;
         }
 
+        /// <summary>
+        /// Put the timer on pause
+        /// </summary>
         public void Pause()
         {
-            time?.Stop();
+            timer?.Stop();
         }
 
+        /// <summary>
+        /// Called when the timer interval expires. moves the audio progress line
+        /// </summary>
+        /// <param name="sender">Object that called event</param>
+        /// <param name="e">Event arguments</param>
+        private void MoveIndicator(object sender, EventArgs e)
+        {
+            IndicatorCoord++;
+            if (IndicatorCoord == totalSeconds)
+            {
+                timer.Stop();
+                Start -= StartProgressPause;
+                Start += StartProgressNew;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
         public void OnProperyChanged([CallerMemberName]string prop="")
         {
             if (PropertyChanged != null)
