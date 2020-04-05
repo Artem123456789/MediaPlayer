@@ -13,7 +13,7 @@ namespace MediaPlayer
     /// <summary>
     /// The delegate that is used to control the audio launch
     /// </summary>
-    /// <param name="audioFile">The audio to launch</param>
+    /// <param name="audioFile">The audio to launch. Serves as model</param>
     public delegate void StartTimer(AudioFileReader audioFile);
 
     public class AudioTime : INotifyPropertyChanged
@@ -94,7 +94,7 @@ namespace MediaPlayer
         /// <summary>
         /// Starts the timer when new audio is selected
         /// </summary>
-        /// <param name="audioFile">New audio where do the parameters come from</param>
+        /// <param name="audioFile">New audio where do the parameters come from. Serves as model</param>
         private void StartTimerNew(AudioFileReader audioFile)
         {
             TotalMinutes = audioFile.TotalTime.Minutes;
