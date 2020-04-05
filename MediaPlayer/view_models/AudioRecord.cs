@@ -15,14 +15,19 @@ using System.Windows.Media.Imaging;
 
 namespace MediaPlayer
 {
+
+    /// <summary>
+    /// The ViewModel that is responsible for all the logic of the audio being played.
+    /// </summary>
     class AudioRecord : INotifyPropertyChanged
     {
+        //properties and simultaneously models for this ViewModel.
         public WaveOutEvent OutputDevice { get; set; }
         public AudioFileReader Audio { get; set; }
-
         public AudioTime AudioTime { get; set; }
         public AudioProgress AudioProgress { get; set; }
 
+        //commands properties
         public AudioRecordCommand ChooseAudioCommand
         {
             get
@@ -57,7 +62,7 @@ namespace MediaPlayer
                 {
                     if (OutputDevice == null || OutputDevice.PlaybackState == PlaybackState.Paused)
                     {
-                        PlayMusic();
+                        PlayAudio();
                         TotalAudioSecondsTime = Audio.TotalTime.TotalSeconds;
                         ChangePlayPauseImage(false);
                         AudioTime.Start(Audio);
@@ -67,7 +72,7 @@ namespace MediaPlayer
                     {
                         try
                         {
-                            PauseMusic();
+                            PauseAudio();
                             ChangePlayPauseImage(true);
                             AudioTime.Pause();
                             AudioProgress.Pause();
@@ -88,7 +93,7 @@ namespace MediaPlayer
                 {
                     SetAudioTime(new TimeSpan(0, 0, 0));
                     ChangePlayPauseImage(false);
-                    PlayMusic();
+                    PlayAudio();
                 }, (obj) => Audio != null));
             }
         }
@@ -105,6 +110,8 @@ namespace MediaPlayer
                 }));
             }
         }
+
+        //all other properties
         public BitmapImage PlayPauseImageSource
         {
             get { return playPauseImageSource; }
@@ -145,6 +152,7 @@ namespace MediaPlayer
             }
         }
 
+        //fields
         AudioRecordCommand chooseAudioCommand;
         AudioRecordCommand playPauseMusicCommand;
         AudioRecordCommand restartMusicCommand;
@@ -158,6 +166,9 @@ namespace MediaPlayer
         string pauseButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/stop-music.png";
         double totalAudioSecondsTime;
 
+        /// <summary>
+        /// Default constructor. Sets default values
+        /// </summary>
         public AudioRecord()
         {
             AudioTime = new AudioTime();
@@ -166,6 +177,10 @@ namespace MediaPlayer
             ChangePlayPauseImage(true);
         }
 
+        /// <summary>
+        /// Called when the slider that controls the audio progress is completed
+        /// </summary>
+        /// <param name="sender">The slider object is passed here</param>
         public void MoveAudio(object sender)
         {
             Slider slider = sender as Slider;
@@ -174,6 +189,10 @@ namespace MediaPlayer
             SetAudioTime(newTime);
         }
 
+        /// <summary>
+        /// Called when the slider slider is moving to control the audio progress
+        /// </summary>
+        /// <param name="sender">The slider object is passed here</param>
         public void MovingAudio(object sender)
         {
             movedSeconds = (int)(sender as Slider).Value;
@@ -181,7 +200,10 @@ namespace MediaPlayer
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
         }
 
-        private void PlayMusic()
+        /// <summary>
+        /// Starts playing audio
+        /// </summary>
+        private void PlayAudio()
         {
             if (OutputDevice == null)
             {
@@ -196,11 +218,18 @@ namespace MediaPlayer
             OutputDevice.Play();
         }
 
-        private void PauseMusic()
+        /// <summary>
+        /// Pauses audio playback
+        /// </summary>
+        private void PauseAudio()
         {
             OutputDevice?.Pause();
         }
 
+        /// <summary>
+        /// Peridural audio on the time span specified as a parameter
+        /// </summary>
+        /// <param name="timeSpan">New audio time</param>
         private void SetAudioTime(TimeSpan timeSpan)
         {
             try
@@ -217,11 +246,19 @@ namespace MediaPlayer
             }
         }
 
+        /// <summary>
+        /// Called when audio playback stops
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlaybackStoped(object sender, StoppedEventArgs e)
         {
             ChangePlayPauseImage(true);
         }
 
+        /// <summary>
+        /// Called to force audio to stop
+        /// </summary>
         public void PlayBackStoped()
         {
             OutputDevice?.Dispose();
@@ -230,6 +267,10 @@ namespace MediaPlayer
             Audio = null;
         }
 
+        /// <summary>
+        /// Changes play or pause image
+        /// </summary>
+        /// <param name="stop"></param>
         private void ChangePlayPauseImage(bool stop)
         {
             BitmapImage image = new BitmapImage();
@@ -240,6 +281,11 @@ namespace MediaPlayer
             PlayPauseImageSource = image;
         }
 
+        /// <summary>
+        /// Gets the short name of the audio
+        /// </summary>
+        /// <param name="path">Full audio path</param>
+        /// <returns>Short name of the audio</returns>
         private string GetMusicName(string path)
         {
             int slashIndex = 0;
@@ -254,6 +300,9 @@ namespace MediaPlayer
             return path.Substring(slashIndex + 1, path.Length - 1 - slashIndex);
         }
 
+        /// <summary>
+        /// Stops the music
+        /// </summary>
         private void StopMusic()
         {
             OutputDevice?.Stop();

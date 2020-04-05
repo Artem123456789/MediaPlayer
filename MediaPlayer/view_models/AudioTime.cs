@@ -17,7 +17,7 @@ namespace MediaPlayer
     public delegate void StartTimer(AudioFileReader audioFile);
 
     /// <summary>
-    /// The view model responsible for displaying the ratio of the current time audio and total
+    /// The ViewModel responsible for displaying the ratio of the current time audio and total
     /// </summary>
     public class AudioTime : INotifyPropertyChanged
     {

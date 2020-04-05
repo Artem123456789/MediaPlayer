@@ -11,7 +11,7 @@ using NAudio.Wave;
 namespace MediaPlayer
 {
     /// <summary>
-    /// The view model that is responsible for displaying the audio progress
+    /// The ViewModel that is responsible for displaying the audio progress
     /// </summary>
     class AudioProgress :INotifyPropertyChanged
     {
