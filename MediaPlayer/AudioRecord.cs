@@ -19,6 +19,7 @@ namespace MediaPlayer
     {
         public WaveOutEvent OutputDevice { get; set; }
         public AudioFileReader Audio { get; set; }
+
         public AudioTime AudioTime { get; set; }
         public AudioProgress AudioProgress { get; set; }
 

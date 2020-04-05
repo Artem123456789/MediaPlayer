@@ -26,7 +26,6 @@ namespace MediaPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
-
         AudioRecord playingRecord;
 
         public MainWindow()
