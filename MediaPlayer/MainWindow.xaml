@@ -25,6 +25,7 @@
             <RowDefinition MaxHeight="38"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <!-- Window controlls -->
         <Grid x:Name="WindowControlsGrid" 
               Background="Black"
               Grid.Column="0" 
@@ -46,6 +47,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
+                <!--Window controlls buttons-->
                 <Button x:Name="HideWindowButton"
                         Click="HideWindowButton_Click"
                         Style="{StaticResource ControlButton}"
@@ -77,6 +79,7 @@
                 </Button>
             </Grid>
         </Grid>
+        <!--Main audiorecord interface-->
         <Grid Grid.Column="1" 
               Grid.Row="1"
               DataContext="{StaticResource PlayingRecord}">
@@ -89,6 +92,7 @@
                 <RowDefinition MinHeight="100"></RowDefinition>
                 <RowDefinition MinHeight="60" MaxHeight="100"></RowDefinition>
             </Grid.RowDefinitions>
+            <!--Audio record state controll panel-->
             <UniformGrid Grid.Column="0" Grid.Row="0" 
                          MaxWidth="300" 
                          Columns="2" 
@@ -106,12 +110,14 @@
                     </Button.Content>
                 </Button>
             </UniformGrid>
+            <!--Audio record name text block-->
             <TextBlock Grid.Column="0" 
                        Grid.Row="1" 
                        FontSize="24"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
                        Text="{Binding AudioName}"/>
+            <!--Panel that shows the time of the audio recording-->
             <UniformGrid Grid.Column="0"
                          Grid.Row="2"
                          Columns="1" 
@@ -129,6 +135,7 @@
                                FontSize="20"
                                TextAlignment="Center"/>
             </UniformGrid>
+            <!--Button for selecting audio-->
             <Button Grid.Column="0"
                     Grid.Row="3"
                     Style="{StaticResource ChooseFileButton}"
