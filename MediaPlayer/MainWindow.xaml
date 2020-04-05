@@ -122,7 +122,7 @@
                         Margin="20,0,20,0"
                         Name="AudioProgress"
                         Maximum="{Binding Path=TotalAudioSecondsTime, Mode=TwoWay}"
-                        Value="{Binding Path=RecordProgress.IndicatorCoord}"
+                        Value="{Binding Path=AudioProgress.IndicatorCoord}"
                         Thumb.DragCompleted="MoveAudio"
                         Thumb.DragDelta="MovingAudio"/>
                 <TextBlock Text="{Binding Path=AudioTime.TimerText, Mode=TwoWay}"

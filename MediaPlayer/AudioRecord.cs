@@ -17,11 +17,10 @@ namespace MediaPlayer
 {
     class AudioRecord : INotifyPropertyChanged
     {
-        const int MAX_PROGRESS_LEN = 545;
         public WaveOutEvent OutputDevice { get; set; }
         public AudioFileReader Audio { get; set; }
         public AudioTime AudioTime { get; set; }
-        public RecordProgress RecordProgress { get; set; }
+        public AudioProgress AudioProgress { get; set; }
         AudioRecordCommand chooseAudioCommand;
         AudioRecordCommand playPauseMusicCommand;
         AudioRecordCommand restartMusicCommand;
@@ -50,7 +49,7 @@ namespace MediaPlayer
         public AudioRecord()
         {
             AudioTime = new AudioTime();
-            RecordProgress = new RecordProgress();
+            AudioProgress = new AudioProgress();
             TotalAudioSecondsTime = 0;
             ChangePlayPauseImage(true);
         }
@@ -72,7 +71,7 @@ namespace MediaPlayer
                             AudioName = GetMusicName(AudioPath);
                             AudioTime.TimerText = "0:0/0:0";
                             AudioTime.Stop();
-                            RecordProgress.Stop();
+                            AudioProgress.Stop();
                         }
                         catch (Exception ex)
                         {
@@ -94,7 +93,7 @@ namespace MediaPlayer
                         TotalAudioSecondsTime = Audio.TotalTime.TotalSeconds;
                         ChangePlayPauseImage(false);
                         AudioTime.Start(Audio);
-                        RecordProgress.Start(Audio);
+                        AudioProgress.Start(Audio);
                     }
                     else
                     {
@@ -103,7 +102,7 @@ namespace MediaPlayer
                             PauseMusic();
                             ChangePlayPauseImage(true);
                             AudioTime.Pause();
-                            RecordProgress.Pause();
+                            AudioProgress.Pause();
                         }
                         catch (Exception ex)
                         {
@@ -147,9 +146,9 @@ namespace MediaPlayer
             {
                 Audio.CurrentTime = timeSpan;
                 AudioTime.Stop();
-                RecordProgress.Stop();
+                AudioProgress.Stop();
                 AudioTime.Start(Audio);
-                RecordProgress.Start(Audio);
+                AudioProgress.Start(Audio);
             }
             catch(NullReferenceException)
             {
@@ -175,7 +174,7 @@ namespace MediaPlayer
         public void MoveAudio(object sender)
         {
             Slider slider = sender as Slider;
-            RecordProgress.IndicatorCoord = slider.Value;
+            AudioProgress.IndicatorCoord = slider.Value;
             newTime = TimeSpan.FromSeconds(movedSeconds);
             SetAudioTime(newTime);
         }

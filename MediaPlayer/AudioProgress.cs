@@ -10,16 +10,9 @@ using NAudio.Wave;
 
 namespace MediaPlayer
 {
-
-    public delegate void StartRecordProgress(AudioFileReader audio);
-
-    class RecordProgress:INotifyPropertyChanged
+    class AudioProgress:INotifyPropertyChanged
     {
-        const int UPDATE_TIME = 1000;
-        private DispatcherTimer time;
-        public StartRecordProgress Start;
-        private double indicatorCoord;
-        private int totalSeconds;
+        public StartTimer Start;
         public double IndicatorCoord
         {
             get { return indicatorCoord; }
@@ -30,8 +23,12 @@ namespace MediaPlayer
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
+        const int UPDATE_TIME = 1000;
+        DispatcherTimer time;
+        double indicatorCoord;
+        int totalSeconds;
 
-        public RecordProgress()
+        public AudioProgress()
         {
             time = new DispatcherTimer();
             time.Interval = TimeSpan.FromMilliseconds(UPDATE_TIME);

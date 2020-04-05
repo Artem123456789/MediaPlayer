@@ -15,13 +15,14 @@ namespace MediaPlayer
     public class AudioTime : INotifyPropertyChanged
     {
         public StartTimer Start;
-        private DispatcherTimer timer;
-        private int totalMinutes;
-        private int totalSeconds;
-        private int currentMinutes;
-        private int currentSeconds;
-        private string timerText;
         const int UPDATE_INTERVAL = 1000;
+        const int SECONDS_MINUTE = 59;
+        DispatcherTimer timer;
+        int totalMinutes;
+        int totalSeconds;
+        int currentMinutes;
+        int currentSeconds;
+        string timerText;
 
         public AudioTime()
         {
@@ -65,7 +66,7 @@ namespace MediaPlayer
 
         private void Tick(object sender, EventArgs e)
         {
-            if (CurrentSeconds == 59)
+            if (CurrentSeconds == SECONDS_MINUTE)
             {
                 CurrentMinutes++;
                 CurrentSeconds = 0;
