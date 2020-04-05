@@ -68,11 +68,6 @@ namespace MediaPlayer
             RestoreWindowImage.Source = bitmapImage;
         }
 
-        private void MoveAudioMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            playingRecord.MovingAudio(sender);
-        }
-
         private void MoveAudio(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
             playingRecord.MoveAudio(sender);

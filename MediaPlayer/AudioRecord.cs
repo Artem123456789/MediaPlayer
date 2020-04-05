@@ -21,38 +21,6 @@ namespace MediaPlayer
         public AudioFileReader Audio { get; set; }
         public AudioTime AudioTime { get; set; }
         public AudioProgress AudioProgress { get; set; }
-        AudioRecordCommand chooseAudioCommand;
-        AudioRecordCommand playPauseMusicCommand;
-        AudioRecordCommand restartMusicCommand;
-        AudioRecordCommand showHideVolumeControl;
-        BitmapImage playPauseImageSource;
-        TimeSpan newTime;
-        int movedSeconds;
-        string audioPath;
-        string audioName;
-        string playButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/play-music.png";
-        string pauseButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/stop-music.png";
-        double totalAudioSecondsTime;
-        public double TotalAudioSecondsTime
-        {
-            get
-            {
-                return totalAudioSecondsTime;
-            }
-            set
-            {
-                totalAudioSecondsTime = value;
-                OnPropertyChanged("TotalAudioSecondsTime");
-            }
-        }
-
-        public AudioRecord()
-        {
-            AudioTime = new AudioTime();
-            AudioProgress = new AudioProgress();
-            TotalAudioSecondsTime = 0;
-            ChangePlayPauseImage(true);
-        }
 
         public AudioRecordCommand ChooseAudioCommand
         {
@@ -80,7 +48,6 @@ namespace MediaPlayer
                     }));
             }
         }
-
         public AudioRecordCommand PlayPauseMusicCommand
         {
             get
@@ -112,20 +79,18 @@ namespace MediaPlayer
                 }, (obj) => audioPath != null));
             }
         }
-
         public AudioRecordCommand RestartMusicCommand
         {
             get
             {
                 return restartMusicCommand ?? (restartMusicCommand = new AudioRecordCommand(obj =>
                 {
-                    SetAudioTime(new TimeSpan(0,0,0));
+                    SetAudioTime(new TimeSpan(0, 0, 0));
                     ChangePlayPauseImage(false);
                     PlayMusic();
-                },(obj)=> Audio != null));
+                }, (obj) => Audio != null));
             }
         }
-
         public AudioRecordCommand ShowHideVolumeControl
         {
             get
@@ -139,36 +104,65 @@ namespace MediaPlayer
                 }));
             }
         }
-
-        private void SetAudioTime(TimeSpan timeSpan)
+        public BitmapImage PlayPauseImageSource
         {
-            try
+            get { return playPauseImageSource; }
+            set
             {
-                Audio.CurrentTime = timeSpan;
-                AudioTime.Stop();
-                AudioProgress.Stop();
-                AudioTime.Start(Audio);
-                AudioProgress.Start(Audio);
+                playPauseImageSource = value;
+                OnPropertyChanged("PlayPauseImageSource");
             }
-            catch(NullReferenceException)
+        }
+        public string AudioPath
+        {
+            get { return audioPath; }
+            set
             {
-                MessageBox.Show("Pleace choose and play aduio");
+                audioPath = value;
+                OnPropertyChanged("AudioPath");
+            }
+        }
+        public string AudioName
+        {
+            get { return audioName; }
+            set
+            {
+                audioName = value;
+                OnPropertyChanged("AudioName");
+            }
+        }
+        public double TotalAudioSecondsTime
+        {
+            get
+            {
+                return totalAudioSecondsTime;
+            }
+            set
+            {
+                totalAudioSecondsTime = value;
+                OnPropertyChanged("TotalAudioSecondsTime");
             }
         }
 
-        private void PlayMusic()
+        AudioRecordCommand chooseAudioCommand;
+        AudioRecordCommand playPauseMusicCommand;
+        AudioRecordCommand restartMusicCommand;
+        AudioRecordCommand showHideVolumeControl;
+        BitmapImage playPauseImageSource;
+        TimeSpan newTime;
+        int movedSeconds;
+        string audioPath;
+        string audioName;
+        string playButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/play-music.png";
+        string pauseButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/stop-music.png";
+        double totalAudioSecondsTime;
+
+        public AudioRecord()
         {
-            if(OutputDevice == null)
-            {
-                OutputDevice = new WaveOutEvent();
-                OutputDevice.PlaybackStopped += PlaybackStoped;
-            }
-            if(Audio == null)
-            {
-                Audio = new AudioFileReader(AudioPath);
-                OutputDevice.Init(Audio);
-            }
-            OutputDevice.Play();
+            AudioTime = new AudioTime();
+            AudioProgress = new AudioProgress();
+            TotalAudioSecondsTime = 0;
+            ChangePlayPauseImage(true);
         }
 
         public void MoveAudio(object sender)
@@ -186,9 +180,40 @@ namespace MediaPlayer
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
         }
 
+        private void PlayMusic()
+        {
+            if (OutputDevice == null)
+            {
+                OutputDevice = new WaveOutEvent();
+                OutputDevice.PlaybackStopped += PlaybackStoped;
+            }
+            if (Audio == null)
+            {
+                Audio = new AudioFileReader(AudioPath);
+                OutputDevice.Init(Audio);
+            }
+            OutputDevice.Play();
+        }
+
         private void PauseMusic()
         {
             OutputDevice?.Pause();
+        }
+
+        private void SetAudioTime(TimeSpan timeSpan)
+        {
+            try
+            {
+                Audio.CurrentTime = timeSpan;
+                AudioTime.Stop();
+                AudioProgress.Stop();
+                AudioTime.Start(Audio);
+                AudioProgress.Start(Audio);
+            }
+            catch(NullReferenceException)
+            {
+                MessageBox.Show("Pleace choose and play aduio");
+            }
         }
 
         private void PlaybackStoped(object sender, StoppedEventArgs e)
@@ -231,36 +256,6 @@ namespace MediaPlayer
         private void StopMusic()
         {
             OutputDevice?.Stop();
-        }
-
-        public string AudioPath
-        {
-            get { return audioPath; }
-            set
-            {
-                audioPath = value;
-                OnPropertyChanged("AudioPath");
-            }
-        }
-
-        public string AudioName
-        {
-            get { return audioName; }
-            set
-            {
-                audioName = value;
-                OnPropertyChanged("AudioName");
-            }
-        }
-
-        public BitmapImage PlayPauseImageSource
-        {
-            get { return playPauseImageSource; }
-            set
-            {
-                playPauseImageSource = value;
-                OnPropertyChanged("PlayPauseImageSource");
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

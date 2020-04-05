@@ -23,6 +23,7 @@ namespace MediaPlayer
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
+
         const int UPDATE_TIME = 1000;
         DispatcherTimer time;
         double indicatorCoord;

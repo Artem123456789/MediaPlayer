@@ -15,6 +15,52 @@ namespace MediaPlayer
     public class AudioTime : INotifyPropertyChanged
     {
         public StartTimer Start;
+        public int TotalMinutes
+        {
+            get { return totalMinutes; }
+            set
+            {
+                totalMinutes = value;
+                OnPropertyChanged("TotalMinutes");
+            }
+        }
+        public int TotalSeconds
+        {
+            get { return totalSeconds; }
+            set
+            {
+                totalSeconds = value;
+                OnPropertyChanged("TotalSeconds");
+            }
+        }
+        public int CurrentMinutes
+        {
+            get { return currentMinutes; }
+            set
+            {
+                currentMinutes = value;
+                TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
+            }
+        }
+        public int CurrentSeconds
+        {
+            get { return currentSeconds; }
+            set
+            {
+                currentSeconds = value;
+                TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
+            }
+        }
+        public string TimerText
+        {
+            get { return timerText; }
+            set
+            {
+                timerText = value;
+                OnPropertyChanged("TimerText");
+            }
+        }
+
         const int UPDATE_INTERVAL = 1000;
         const int SECONDS_MINUTE = 59;
         DispatcherTimer timer;
@@ -77,56 +123,6 @@ namespace MediaPlayer
                 timer.Stop();
                 Start -= StartTimerPause;
                 Start += StartTimerNew;
-            }
-        }
-
-        public int TotalMinutes
-        {
-            get { return totalMinutes; }
-            set
-            {
-                totalMinutes = value;
-                OnPropertyChanged("TotalMinutes");
-            }
-        }
-
-        public int TotalSeconds
-        {
-            get { return totalSeconds; }
-            set
-            {
-                totalSeconds = value;
-                OnPropertyChanged("TotalSeconds");
-            }
-        }
-
-        public int CurrentMinutes
-        {
-            get { return currentMinutes; }
-            set
-            {
-                currentMinutes = value;
-                TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
-            }
-        }
-
-        public int CurrentSeconds
-        {
-            get { return currentSeconds; }
-            set
-            {
-                currentSeconds = value;
-                TimerText = $"{CurrentMinutes}:{CurrentSeconds}/{TotalMinutes}:{TotalSeconds}";
-            }
-        }
-
-        public string TimerText
-        {
-            get { return timerText; }
-            set
-            {
-                timerText = value;
-                OnPropertyChanged("TimerText");
             }
         }
 
