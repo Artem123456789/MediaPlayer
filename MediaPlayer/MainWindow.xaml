@@ -7,7 +7,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Height="450"
-        Width="600"
+        Width="500"
         WindowStyle="None"
         AllowsTransparency="True"
         BorderBrush="Black"
@@ -16,6 +16,9 @@
         ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <local:AudioRecord x:Key="PlayingRecord"/>
+        <Style TargetType="MenuItem">
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -87,13 +90,18 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition MinHeight="150"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition MinHeight="60"></RowDefinition>
                 <RowDefinition MinHeight="100"></RowDefinition>
-                <RowDefinition MinHeight="60" MaxHeight="100"></RowDefinition>
             </Grid.RowDefinitions>
+            <Menu>
+                <MenuItem Header="File">
+                    <MenuItem Header="Open" Command="{Binding ChooseAudioCommand}"/>
+                </MenuItem>
+            </Menu>
             <!--Audio record state controll panel-->
-            <UniformGrid Grid.Column="0" Grid.Row="0" 
+            <UniformGrid Grid.Column="0" Grid.Row="1" 
                          MaxWidth="300" 
                          Columns="2" 
                          Rows="1">
@@ -112,17 +120,16 @@
             </UniformGrid>
             <!--Audio record name text block-->
             <TextBlock Grid.Column="0" 
-                       Grid.Row="1" 
+                       Grid.Row="2" 
                        FontSize="24"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
                        Text="{Binding AudioName}"/>
             <!--Panel that shows the time of the audio recording-->
             <UniformGrid Grid.Column="0"
-                         Grid.Row="2"
+                         Grid.Row="3"
                          Columns="1" 
-                         Rows="2"
-                         MaxHeight="80">
+                         Rows="2">
                 <Slider Style="{StaticResource Horizontal_Slider}" 
                         Minimum="0"
                         Margin="20,0,20,0"
@@ -135,12 +142,6 @@
                                FontSize="20"
                                TextAlignment="Center"/>
             </UniformGrid>
-            <!--Button for selecting audio-->
-            <Button Grid.Column="0"
-                    Grid.Row="3"
-                    Style="{StaticResource ChooseFileButton}"
-                    Content="Choose file"
-                    Command="{Binding ChooseAudioCommand}"/>
         </Grid>
     </Grid>
 </Window>
