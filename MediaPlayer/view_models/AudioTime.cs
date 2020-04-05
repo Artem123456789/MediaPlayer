@@ -10,11 +10,17 @@ using System.Windows.Threading;
 
 namespace MediaPlayer
 {
+    /// <summary>
+    /// The delegate that is used to control the audio launch
+    /// </summary>
+    /// <param name="audioFile">The audio to launch</param>
     public delegate void StartTimer(AudioFileReader audioFile);
 
     public class AudioTime : INotifyPropertyChanged
     {
         public StartTimer Start;
+
+        //properties
         public int TotalMinutes
         {
             get { return totalMinutes; }
@@ -61,8 +67,11 @@ namespace MediaPlayer
             }
         }
 
+        //constants
         const int UPDATE_INTERVAL = 1000;
         const int SECONDS_MINUTE = 59;
+
+        //fields
         DispatcherTimer timer;
         int totalMinutes;
         int totalSeconds;
@@ -70,6 +79,9 @@ namespace MediaPlayer
         int currentSeconds;
         string timerText;
 
+        /// <summary>
+        /// Default contstructor. Sets default parameters
+        /// </summary>
         public AudioTime()
         {
             timer = new DispatcherTimer();
@@ -79,6 +91,10 @@ namespace MediaPlayer
             TimerText = "0:0/0:0";
         }
 
+        /// <summary>
+        /// Starts the timer when new audio is selected
+        /// </summary>
+        /// <param name="audioFile">New audio where do the parameters come from</param>
         private void StartTimerNew(AudioFileReader audioFile)
         {
             TotalMinutes = audioFile.TotalTime.Minutes;
@@ -91,11 +107,18 @@ namespace MediaPlayer
             Start += StartTimerPause;
         }
 
+        /// <summary>
+        /// Starts timer after it is paused
+        /// </summary>
+        /// <param name="audioFile">Parameter required to match the delegate signature</param>
         private void StartTimerPause(AudioFileReader audioFile)
         {
             timer.Start();
         }
 
+        /// <summary>
+        /// Stops the timer
+        /// </summary>
         public void Stop()
         {
             timer.Stop();
@@ -105,11 +128,19 @@ namespace MediaPlayer
             Start += StartTimerNew;
         }
 
+        /// <summary>
+        /// Put the timer on pause
+        /// </summary>
         public void Pause()
         {
             timer.Stop();
         }
 
+        /// <summary>
+        /// Called when the timer interval expires. Updates the timer.
+        /// </summary>
+        /// <param name="sender">Object that called event</param>
+        /// <param name="e">Event arguments</param>
         private void Tick(object sender, EventArgs e)
         {
             if (CurrentSeconds == SECONDS_MINUTE)
