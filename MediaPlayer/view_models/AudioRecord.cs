@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MediaPlayer.view_models;
 using Microsoft.Win32;
 using NAudio.Wave;
 using System;

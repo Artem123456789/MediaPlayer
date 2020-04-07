@@ -4,14 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer.views"
+        xmlns:local_parent="clr-namespace:MediaPlayer"
         mc:Ignorable="d"
         Height="400"
-        Width="450"
+        Width="500"
         WindowStyle="None"
         AllowsTransparency="True"
         BorderBrush="Black"
         BorderThickness="5,0,5,5"
         ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <local_parent:AudioRecord x:Key="AudioRecord"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -72,6 +81,48 @@
                     </Button.Content>
                 </Button>
             </Grid>
+        </Grid>
+        <Grid Name="MainInterfaceGrid"
+              Grid.Row="1"
+              Grid.Column="0"
+              DataContext="{StaticResource AudioRecord}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="70"></RowDefinition>
+                <RowDefinition MinHeight="120"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Playing audiorecord name:"
+                       Grid.Row="0"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"/>
+            <TextBlock Text="{Binding AudioName}"
+                       Grid.Row="0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Grid.Column="1"/>
+            <TextBlock Text="Sound volume:"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"
+                       Grid.Row="1"/>
+            <UniformGrid Grid.Column="1" 
+                        Grid.Row="1"
+                         Columns="1"
+                         Rows="2">
+                <TextBlock Text="{Binding ElementName=VolumeSlider, Path=Value}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Bottom"/>
+                <Slider Name="VolumeSlider"
+                        Style="{StaticResource Horizontal_Slider}"
+                        Minimum="0"
+                        VerticalAlignment="Center"
+                        Maximum="100"
+                        Margin="5"/>
+            </UniformGrid>
         </Grid>
     </Grid>
 </Window>

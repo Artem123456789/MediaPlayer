@@ -19,6 +19,7 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.ComponentModel;
 using MediaPlayer.view_models;
+using MediaPlayer.views;
 
 namespace MediaPlayer
 {
@@ -34,11 +35,13 @@ namespace MediaPlayer
             InitializeComponent();
             playingRecord = (AudioRecord)this.Resources["PlayingRecord"];
         }
-
+            
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
             SettingsWindow window = new SettingsWindow();
-            window.AudioRecord = playingRecord;
+            window.AudioRecord.OutputDevice = playingRecord.OutputDevice;
+            window.AudioRecord.Audio = playingRecord.Audio;
+            window.AudioRecord.AudioName = playingRecord.AudioName;
             window.ShowDialog();
         }
 

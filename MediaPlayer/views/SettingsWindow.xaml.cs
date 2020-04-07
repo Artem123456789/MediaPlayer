@@ -20,11 +20,23 @@ namespace MediaPlayer.views
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public AudioRecord AudioRecord { get; set; }
+        private AudioRecord audioRecord;
+        public AudioRecord AudioRecord
+        {
+            get
+            {
+                return audioRecord;
+            }
+            set
+            {
+                audioRecord = value;
+            }
+        }
 
         public SettingsWindow()
         {
             InitializeComponent();
+            AudioRecord = (AudioRecord)this.Resources["AudioRecord"];
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
