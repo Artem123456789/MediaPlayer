@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MediaPlayer.views"
         xmlns:local_parent="clr-namespace:MediaPlayer"
         mc:Ignorable="d"
-        Height="400"
+        Height="350"
         Width="500"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -94,7 +94,6 @@
                 <RowDefinition MaxHeight="70"></RowDefinition>
                 <RowDefinition MinHeight="120"></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="Playing audiorecord name:"
                        Grid.Row="0"
@@ -109,10 +108,10 @@
                        VerticalAlignment="Center"
                        Grid.Column="0"
                        Grid.Row="1"/>
-            <UniformGrid Grid.Column="1" 
-                        Grid.Row="1"
-                         Columns="1"
-                         Rows="2">
+            <UniformGrid Grid.Row="1"
+                        Grid.Column="1" 
+                        Columns="1"
+                        Rows="2">
                 <TextBlock Text="{Binding ElementName=VolumeSlider, Path=Value}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Bottom"/>
@@ -123,6 +122,14 @@
                         Maximum="100"
                         Margin="5"/>
             </UniformGrid>
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="Loop:"/>
+            <CheckBox Grid.Row="2"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Grid.Column="1"/>
         </Grid>
     </Grid>
 </Window>
