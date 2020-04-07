@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediaPlayer.view_models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

@@ -18,7 +18,6 @@ using System.Windows.Shapes;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.ComponentModel;
-using MediaPlayer.views;
 using MediaPlayer.view_models;
 
 namespace MediaPlayer

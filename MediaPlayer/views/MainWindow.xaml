@@ -16,7 +16,7 @@
         BorderThickness="5,0,5,5"
         ResizeMode="CanResizeWithGrip">
     <Window.Resources>
-        <vm:AudioRecord x:Key="PlayingRecord"/>
+        <local:AudioRecord x:Key="PlayingRecord"/>
         <Style TargetType="MenuItem">
             <Setter Property="Cursor" Value="Hand"/>
         </Style>

@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace MediaPlayer
 {
-    class AudioRecordCommand: ICommand
+    public class AudioRecordCommand: ICommand
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;

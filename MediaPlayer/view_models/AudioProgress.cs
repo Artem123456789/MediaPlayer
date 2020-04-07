@@ -13,7 +13,7 @@ namespace MediaPlayer.view_models
     /// <summary>
     /// The ViewModel that is responsible for displaying the audio progress
     /// </summary>
-    class AudioProgress :INotifyPropertyChanged
+    public class AudioProgress :INotifyPropertyChanged
     {
         //public field
         public StartTimer Start;

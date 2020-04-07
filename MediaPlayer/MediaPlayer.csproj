@@ -93,8 +93,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="view_models\AudioRecord.cs" />
     <Compile Include="AudioRecordCommand.cs" />
+    <Compile Include="view_models\AudioRecord.cs" />
     <Compile Include="view_models\AudioTime.cs" />
     <Compile Include="views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

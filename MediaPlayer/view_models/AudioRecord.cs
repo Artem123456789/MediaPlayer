@@ -13,13 +13,13 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-namespace MediaPlayer.view_models
+namespace MediaPlayer
 {
 
     /// <summary>
     /// The ViewModel that is responsible for all the logic of the audio being played.
     /// </summary>
-    class AudioRecord : INotifyPropertyChanged
+    public class AudioRecord : INotifyPropertyChanged
     {
         //properties and simultaneously models for this ViewModel.
         public WaveOutEvent OutputDevice { get; set; }
@@ -240,7 +240,7 @@ namespace MediaPlayer.view_models
                 AudioTime.Start(Audio);
                 AudioProgress.Start(Audio);
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Pleace choose and play aduio");
             }
