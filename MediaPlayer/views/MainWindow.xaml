@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer"
+        xmlns:vm="clr-namespace:MediaPlayer.view_models"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Height="400"
@@ -15,7 +16,7 @@
         BorderThickness="5,0,5,5"
         ResizeMode="CanResizeWithGrip">
     <Window.Resources>
-        <local:AudioRecord x:Key="PlayingRecord"/>
+        <vm:AudioRecord x:Key="PlayingRecord"/>
         <Style TargetType="MenuItem">
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
@@ -58,7 +59,7 @@
                         Grid.Row="0"
                         HorizontalAlignment="Left">
                     <Button.Content>
-                        <Image Source="window_control_images/hide-window.png"/>
+                        <Image Source="/MediaPlayer;component/window_control_images/hide-window.png"/>
                     </Button.Content>
                 </Button>
                 <Button x:Name="RestoreWindowButton"
@@ -67,7 +68,7 @@
                         Grid.Column="1"
                         Grid.Row="0">
                     <Button.Content>
-                        <Image x:Name="RestoreWindowImage" Source="window_control_images/maximize-window.png"/>
+                        <Image x:Name="RestoreWindowImage" Source="/MediaPlayer;component/window_control_images/maximize-window.png"/>
                     </Button.Content>
                 </Button>
                 <Button x:Name="CloseWindowButton"
@@ -77,7 +78,7 @@
                         Grid.Row="0"
                         HorizontalAlignment="Right">
                     <Button.Content>
-                        <Image Source="window_control_images/close-window.png"/>
+                        <Image Source="/MediaPlayer;component/window_control_images/close-window.png"/>
                     </Button.Content>
                 </Button>
             </Grid>
@@ -99,7 +100,7 @@
                 <MenuItem Header="File">
                     <MenuItem Header="Open" Command="{Binding ChooseAudioCommand}"/>
                 </MenuItem>
-                <MenuItem Header="Settings"/>
+                <MenuItem Header="Settings" Click="OpenSettings"/>
             </Menu>
             <!--Audio record state controll panel-->
             <UniformGrid Grid.Column="0" Grid.Row="1" 
@@ -115,7 +116,7 @@
                 <Button Style="{StaticResource MusicControlButton}"
                         Command="{Binding RestartMusicCommand}">
                     <Button.Content>
-                        <Image Source="music_control_images/restart-music.png"/>
+                        <Image Source="/MediaPlayer;component/music_control_images/restart-music.png"/>
                     </Button.Content>
                 </Button>
             </UniformGrid>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using NAudio.Wave;
 
-namespace MediaPlayer
+namespace MediaPlayer.view_models
 {
     /// <summary>
     /// The ViewModel that is responsible for displaying the audio progress

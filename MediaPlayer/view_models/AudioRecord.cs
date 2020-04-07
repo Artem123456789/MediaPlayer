@@ -13,7 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-namespace MediaPlayer
+namespace MediaPlayer.view_models
 {
 
     /// <summary>

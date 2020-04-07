@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-namespace MediaPlayer
+namespace MediaPlayer.view_models
 {
     /// <summary>
     /// The delegate that is used to control the audio launch
