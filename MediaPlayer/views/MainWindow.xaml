@@ -99,7 +99,7 @@
                 <MenuItem Header="File">
                     <MenuItem Header="Open" Command="{Binding ChooseAudioCommand}"/>
                 </MenuItem>
-                <MenuItem Header="Settings" Click="OpenSettings"/>
+                <MenuItem Header="Settings" Command="{Binding OpenSettings}"/>
             </Menu>
             <!--Audio record state controll panel-->
             <UniformGrid Grid.Column="0" Grid.Row="1" 

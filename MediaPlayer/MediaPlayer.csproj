@@ -87,6 +87,7 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="view_models\AudioProgress.cs" />
+    <Compile Include="view_models\SettingsAudioRecord.cs" />
     <Page Include="resource_dictionaries\Buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

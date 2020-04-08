@@ -35,15 +35,6 @@ namespace MediaPlayer
             InitializeComponent();
             playingRecord = (AudioRecord)this.Resources["PlayingRecord"];
         }
-            
-        private void OpenSettings(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow window = new SettingsWindow();
-            window.AudioRecord.OutputDevice = playingRecord.OutputDevice;
-            window.AudioRecord.Audio = playingRecord.Audio;
-            window.AudioRecord.AudioName = playingRecord.AudioName;
-            window.ShowDialog();
-        }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using MediaPlayer.view_models;
+using MediaPlayer.views;
 using Microsoft.Win32;
 using NAudio.Wave;
 using System;
@@ -28,7 +29,6 @@ namespace MediaPlayer
         public AudioFileReader Audio { get; set; }
         public AudioTime AudioTime { get; set; }
         public AudioProgress AudioProgress { get; set; }
-        public AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice defaultPlayBack;
 
         //commands properties
         public AudioRecordCommand ChooseAudioCommand
@@ -100,16 +100,18 @@ namespace MediaPlayer
                 }, (obj) => Audio != null));
             }
         }
-        public AudioRecordCommand ShowHideVolumeControl
+        public AudioRecordCommand OpenSettings
         {
             get
             {
-                return showHideVolumeControl ?? (showHideVolumeControl = new AudioRecordCommand(obj =>
+                return openSettings ?? (openSettings = new AudioRecordCommand(obj =>
                 {
-                    if ((obj as RowDefinition).Height.Value == 0)
-                        (obj as RowDefinition).Height = new GridLength(50, GridUnitType.Pixel);
-                    else
-                        (obj as RowDefinition).Height = new GridLength(0, GridUnitType.Pixel);
+
+                    SettingsWindow window = new SettingsWindow();
+                    window.AudioRecord.AudioName = AudioName;
+                    window.AudioRecord.IsLoop = IsLoop;
+                    window.ShowDialog();
+                    IsLoop = window.AudioRecord.IsLoop;
                 }));
             }
         }
@@ -154,16 +156,16 @@ namespace MediaPlayer
                 OnPropertyChanged("TotalAudioSecondsTime");
             }
         }
-        public double VolumeLevel
+        public bool IsLoop
         {
             get
             {
-                return defaultPlayBack.Volume;
+                return isLoop;
             }
             set
             {
-                defaultPlayBack.Volume = value;
-                OnPropertyChanged("VolumeLevel");
+                isLoop = value;
+                OnPropertyChanged("IsLoop");
             }
         }
 
@@ -171,10 +173,11 @@ namespace MediaPlayer
         AudioRecordCommand chooseAudioCommand;
         AudioRecordCommand playPauseMusicCommand;
         AudioRecordCommand restartMusicCommand;
-        AudioRecordCommand showHideVolumeControl;
+        AudioRecordCommand openSettings;
         BitmapImage playPauseImageSource;
         TimeSpan newTime;
         int movedSeconds;
+        bool isLoop;
         string audioPath;
         string audioName;
         string playButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/play-music.png";
@@ -188,7 +191,7 @@ namespace MediaPlayer
         {
             AudioTime = new AudioTime();
             AudioProgress = new AudioProgress();
-            defaultPlayBack = new AudioSwitcher.AudioApi.CoreAudio.CoreAudioController().DefaultPlaybackDevice;
+            IsLoop = false;
             TotalAudioSecondsTime = 0;
             ChangePlayPauseImage(true);
         }
@@ -214,35 +217,6 @@ namespace MediaPlayer
             movedSeconds = (int)(sender as Slider).Value;
             AudioTime.CurrentSeconds = TimeSpan.FromSeconds(movedSeconds).Seconds;
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
-        }
-
-        [DllImport("user32.dll")]
-        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
-
-        [DllImport("winmm.dll", EntryPoint = "waveOutGetVolume")]
-        static extern void GetWaveVolume(IntPtr devicehandle, out int Volume);
-
-        /// <summary>
-        /// Adjusting volume
-        /// </summary>
-        /// <param name="newValue"></param>
-        /// <param name="oldValue"></param>
-        private void AdjustVolume(int oldValue, int newValue)
-        {
-            if (oldValue > newValue)
-            {
-                for (int i = newValue; i < oldValue; i++)
-                {
-                    keybd_event((byte)System.Windows.Forms.Keys.VolumeDown, 0, 0, 0);
-                }
-            }
-            else if (oldValue < newValue)
-            {
-                for (int i = oldValue; i < newValue; i++)
-                {
-                    keybd_event((byte)System.Windows.Forms.Keys.VolumeUp, 0, 0, 0);
-                }
-            }
         }
 
         /// <summary>
@@ -298,7 +272,12 @@ namespace MediaPlayer
         /// <param name="e"></param>
         private void PlaybackStoped(object sender, StoppedEventArgs e)
         {
-            ChangePlayPauseImage(true);
+            if (IsLoop)
+            {
+                SetAudioTime(new TimeSpan(0, 0, 0));
+                PlayAudio();
+            }
+            else ChangePlayPauseImage(true);
         }
 
         /// <summary>
@@ -310,6 +289,7 @@ namespace MediaPlayer
             OutputDevice = null;
             Audio?.Dispose();
             Audio = null;
+            IsLoop = false;
         }
 
         /// <summary>

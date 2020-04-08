@@ -20,7 +20,7 @@
             <Setter Property="Margin" Value="5"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
-        <local_parent:AudioRecord x:Key="AudioRecord"/>
+        <local_parent:SettingsAudioRecord x:Key="AudioRecord"/>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -117,8 +117,7 @@
                            HorizontalAlignment="Center"
                            VerticalAlignment="Bottom"/>
                 <Slider Name="VolumeSlider"
-                        Value="{Binding VolumeLevel, 
-                        Mode=TwoWay}"
+                        Value="{Binding VolumeLevel}"
                         Style="{StaticResource Horizontal_Slider}"
                         Minimum="0"
                         VerticalAlignment="Center"
@@ -130,11 +129,12 @@
                        VerticalAlignment="Center"
                        Text="Loop:"/>
             <ToggleButton Grid.Row="2"
-                      Style="{StaticResource SwitchTypeToggleButton}"
-                      VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
-                      Cursor="Hand"
-                      Grid.Column="1"/>
+                        IsChecked="{Binding IsLoop}"
+                        Grid.Column="1"
+                        Style="{StaticResource SwitchTypeToggleButton}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Cursor="Hand"/>
         </Grid>
     </Grid>
 </Window>
