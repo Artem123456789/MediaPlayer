@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer.views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local_parent="clr-namespace:MediaPlayer"
         mc:Ignorable="d"
         Height="350"
@@ -112,23 +113,28 @@
                         Grid.Column="1" 
                         Columns="1"
                         Rows="2">
-                <TextBlock Text="{Binding ElementName=VolumeSlider, Path=Value}"
+                <TextBlock Text="{Binding OutputDevice.Volume}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Bottom"/>
                 <Slider Name="VolumeSlider"
+                        Value="{Binding OutputDevice.Volume}"
                         Style="{StaticResource Horizontal_Slider}"
                         Minimum="0"
                         VerticalAlignment="Center"
                         Maximum="100"
+                        Thumb.DragCompleted="VolumeSlider_DragCompleted"
+                        Thumb.DragDelta="VolumeSlider_DragDelta"
                         Margin="5"/>
             </UniformGrid>
             <TextBlock Grid.Row="2"
                        Grid.Column="0"
                        VerticalAlignment="Center"
                        Text="Loop:"/>
-            <CheckBox Grid.Row="2"
+            <ToggleButton Grid.Row="2"
+                      Style="{StaticResource SwitchTypeToggleButton}"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
+                      Cursor="Hand"
                       Grid.Column="1"/>
         </Grid>
     </Grid>

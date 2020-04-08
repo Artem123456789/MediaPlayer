@@ -71,5 +71,15 @@ namespace MediaPlayer.views
             bitmapImage.EndInit();
             RestoreWindowImage.Source = bitmapImage;
         }
+
+        private void VolumeSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            audioRecord.AdjustVolume(sender as Slider);
+        }
+
+        private void VolumeSlider_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            audioRecord.AdjustVolume(sender as Slider);
+        }
     }
 }

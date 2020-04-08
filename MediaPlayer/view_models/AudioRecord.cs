@@ -201,6 +201,11 @@ namespace MediaPlayer
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
         }
 
+        public void AdjustVolume(Slider slider)
+        {
+            OutputDevice.Volume = (float)slider.Value / 100f;
+        }
+
         /// <summary>
         /// Starts playing audio
         /// </summary>
