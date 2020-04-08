@@ -105,7 +105,7 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Grid.Column="1"/>
-            <TextBlock Text="Sound volume:"
+            <TextBlock Text="Volume level:"
                        VerticalAlignment="Center"
                        Grid.Column="0"
                        Grid.Row="1"/>
@@ -134,7 +134,6 @@
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                       Cursor="Hand"
-                          Click="ToggleButton_Click"
                       Grid.Column="1"/>
         </Grid>
     </Grid>

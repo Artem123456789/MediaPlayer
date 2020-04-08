@@ -28,6 +28,7 @@ namespace MediaPlayer
         public AudioFileReader Audio { get; set; }
         public AudioTime AudioTime { get; set; }
         public AudioProgress AudioProgress { get; set; }
+        public AudioSwitcher.AudioApi.CoreAudio.CoreAudioDevice defaultPlayBack;
 
         //commands properties
         public AudioRecordCommand ChooseAudioCommand
@@ -153,15 +154,15 @@ namespace MediaPlayer
                 OnPropertyChanged("TotalAudioSecondsTime");
             }
         }
-        public float VolumeLevel
+        public double VolumeLevel
         {
             get
             {
-                return OutputDevice.Volume;
+                return defaultPlayBack.Volume;
             }
             set
             {
-                OutputDevice.Volume = value / 100f;
+                defaultPlayBack.Volume = value;
                 OnPropertyChanged("VolumeLevel");
             }
         }
@@ -187,6 +188,7 @@ namespace MediaPlayer
         {
             AudioTime = new AudioTime();
             AudioProgress = new AudioProgress();
+            defaultPlayBack = new AudioSwitcher.AudioApi.CoreAudio.CoreAudioController().DefaultPlaybackDevice;
             TotalAudioSecondsTime = 0;
             ChangePlayPauseImage(true);
         }

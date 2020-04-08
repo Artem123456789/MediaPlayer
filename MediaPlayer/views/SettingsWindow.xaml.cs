@@ -60,10 +60,5 @@ namespace MediaPlayer.views
             bitmapImage.EndInit();
             RestoreWindowImage.Source = bitmapImage;
         }
-
-        private void ToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(AudioRecord.VolumeLevel.ToString());
-        }
     }
 }
