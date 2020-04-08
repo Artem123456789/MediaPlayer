@@ -20,18 +20,7 @@ namespace MediaPlayer.views
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        private AudioRecord audioRecord;
-        public AudioRecord AudioRecord
-        {
-            get
-            {
-                return audioRecord;
-            }
-            set
-            {
-                audioRecord = value;
-            }
-        }
+        public AudioRecord AudioRecord { get; set; }
 
         public SettingsWindow()
         {
@@ -72,14 +61,9 @@ namespace MediaPlayer.views
             RestoreWindowImage.Source = bitmapImage;
         }
 
-        private void VolumeSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            audioRecord.AdjustVolume(sender as Slider);
-        }
-
-        private void VolumeSlider_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
-        {
-            audioRecord.AdjustVolume(sender as Slider);
+            MessageBox.Show(AudioRecord.VolumeLevel.ToString());
         }
     }
 }

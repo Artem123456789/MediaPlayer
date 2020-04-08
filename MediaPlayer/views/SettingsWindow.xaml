@@ -113,17 +113,16 @@
                         Grid.Column="1" 
                         Columns="1"
                         Rows="2">
-                <TextBlock Text="{Binding OutputDevice.Volume}"
+                <TextBlock Text="{Binding VolumeLevel, Mode=OneWay}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Bottom"/>
                 <Slider Name="VolumeSlider"
-                        Value="{Binding OutputDevice.Volume}"
+                        Value="{Binding VolumeLevel, 
+                        Mode=TwoWay}"
                         Style="{StaticResource Horizontal_Slider}"
                         Minimum="0"
                         VerticalAlignment="Center"
                         Maximum="100"
-                        Thumb.DragCompleted="VolumeSlider_DragCompleted"
-                        Thumb.DragDelta="VolumeSlider_DragDelta"
                         Margin="5"/>
             </UniformGrid>
             <TextBlock Grid.Row="2"
@@ -135,6 +134,7 @@
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                       Cursor="Hand"
+                          Click="ToggleButton_Click"
                       Grid.Column="1"/>
         </Grid>
     </Grid>

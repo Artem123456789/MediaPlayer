@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -152,6 +153,18 @@ namespace MediaPlayer
                 OnPropertyChanged("TotalAudioSecondsTime");
             }
         }
+        public float VolumeLevel
+        {
+            get
+            {
+                return OutputDevice.Volume;
+            }
+            set
+            {
+                OutputDevice.Volume = value / 100f;
+                OnPropertyChanged("VolumeLevel");
+            }
+        }
 
         //fields
         AudioRecordCommand chooseAudioCommand;
@@ -201,9 +214,33 @@ namespace MediaPlayer
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
         }
 
-        public void AdjustVolume(Slider slider)
+        [DllImport("user32.dll")]
+        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
+        [DllImport("winmm.dll", EntryPoint = "waveOutGetVolume")]
+        static extern void GetWaveVolume(IntPtr devicehandle, out int Volume);
+
+        /// <summary>
+        /// Adjusting volume
+        /// </summary>
+        /// <param name="newValue"></param>
+        /// <param name="oldValue"></param>
+        private void AdjustVolume(int oldValue, int newValue)
         {
-            OutputDevice.Volume = (float)slider.Value / 100f;
+            if (oldValue > newValue)
+            {
+                for (int i = newValue; i < oldValue; i++)
+                {
+                    keybd_event((byte)System.Windows.Forms.Keys.VolumeDown, 0, 0, 0);
+                }
+            }
+            else if (oldValue < newValue)
+            {
+                for (int i = oldValue; i < newValue; i++)
+                {
+                    keybd_event((byte)System.Windows.Forms.Keys.VolumeUp, 0, 0, 0);
+                }
+            }
         }
 
         /// <summary>
