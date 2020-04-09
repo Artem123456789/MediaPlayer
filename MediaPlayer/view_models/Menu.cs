@@ -49,9 +49,21 @@ namespace MediaPlayer.view_models
                 }));
             }
         }
+        public AudioRecordCommand OpenPlaylists
+        {
+            get
+            {
+                return openPlaylists ?? (openPlaylists = new AudioRecordCommand(obj =>
+                {
+                    PlaylistsWindow playlistsWindow = new PlaylistsWindow();
+                    playlistsWindow.ShowDialog();
+                }));
+            }
+        }
 
         AudioRecordCommand chooseAudio;
         AudioRecordCommand openSettings;
+        AudioRecordCommand openPlaylists;
 
         public Menu()
         {

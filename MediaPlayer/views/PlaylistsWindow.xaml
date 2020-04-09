@@ -11,11 +11,11 @@
         WindowStyle="None"
         AllowsTransparency="True"
         BorderBrush="Black"
-        Closing="PlaybackStoped"
         BorderThickness="5,0,5,5"
         ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <vm:WindowControll x:Key="WindowControll"/>
+        <vm:PlaylistsCollection x:Key="PlaylistsCollection"/>
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -95,8 +95,9 @@
                 </Button>
             </Grid>
         </Grid>
-        <UniformGrid Columns="1" Rows="1">
-            
-        </UniformGrid>
+        <ListBox Grid.Column="0"
+                 Grid.Row="1">
+                
+        </ListBox>
     </Grid>
 </Window>

@@ -122,7 +122,7 @@
                     <MenuItem Header="Open" Command="{Binding ChooseAudio}"/>
                 </MenuItem>
                 <MenuItem Header="Settings" Command="{Binding OpenSettings}"/>
-                <MenuItem Header="Playlists"/>
+                <MenuItem Header="Playlists" Command="{Binding OpenPlaylists}"/>
             </Menu>
             <!--Audio record state controll panel-->
             <UniformGrid Grid.Column="0" Grid.Row="1" 

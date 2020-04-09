@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediaPlayer.view_models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,15 @@ namespace MediaPlayer.views
     /// </summary>
     public partial class PlaylistsWindow : Window
     {
+
+        WindowControll windowControll;
+
         public PlaylistsWindow()
         {
             InitializeComponent();
+            windowControll = (WindowControll)this.Resources["WindowControll"];
+            windowControll.CurrentWindow = this;
+            windowControll.RestoreWindowImage = RestoreWindowImage;
         }
     }
 }
