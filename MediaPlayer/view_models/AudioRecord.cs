@@ -219,6 +219,20 @@ namespace MediaPlayer
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
         }
 
+        public void BeforeChoose()
+        {
+            PlayBackStoped();
+            StopMusic();
+        }
+
+        public void AfterChoose()
+        {
+            AudioName = GetMusicName(AudioPath);
+            AudioTime.TimerText = "0:0/0:0";
+            AudioTime.Stop();
+            AudioProgress.Stop();
+        }
+
         /// <summary>
         /// Starts playing audio
         /// </summary>
