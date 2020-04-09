@@ -88,6 +88,8 @@
     </Compile>
     <Compile Include="view_models\AudioProgress.cs" />
     <Compile Include="view_models\SettingsAudioRecord.cs" />
+    <Compile Include="view_models\WindowControlls.cs" />
+    <Compile Include="WindowControllCommand.cs" />
     <Page Include="resource_dictionaries\Buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
