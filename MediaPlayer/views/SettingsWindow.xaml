@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MediaPlayer.views"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local_parent="clr-namespace:MediaPlayer"
+        WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
         Height="350"
         Width="500"
