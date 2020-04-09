@@ -31,32 +31,6 @@ namespace MediaPlayer
         public AudioProgress AudioProgress { get; set; }
 
         //commands properties
-        public AudioRecordCommand ChooseAudioCommand
-        {
-            get
-            {
-                return chooseAudioCommand ??
-                    (chooseAudioCommand = new AudioRecordCommand(obj =>
-                    {
-                        try
-                        {
-                            PlayBackStoped();
-                            StopMusic();
-                            OpenFileDialog fileDialog = new OpenFileDialog();
-                            fileDialog.Filter = "MP3 files|*.mp3";
-                            if (fileDialog.ShowDialog() == true) AudioPath = fileDialog.FileName;
-                            AudioName = GetMusicName(AudioPath);
-                            AudioTime.TimerText = "0:0/0:0";
-                            AudioTime.Stop();
-                            AudioProgress.Stop();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        };
-                    }));
-            }
-        }
         public AudioRecordCommand PlayPauseMusicCommand
         {
             get
@@ -98,21 +72,6 @@ namespace MediaPlayer
                     ChangePlayPauseImage(false);
                     PlayAudio();
                 }, (obj) => Audio != null));
-            }
-        }
-        public AudioRecordCommand OpenSettings
-        {
-            get
-            {
-                return openSettings ?? (openSettings = new AudioRecordCommand(obj =>
-                {
-
-                    SettingsWindow window = new SettingsWindow();
-                    window.AudioRecord.AudioName = AudioName;
-                    window.AudioRecord.IsLoop = IsLoop;
-                    window.ShowDialog();
-                    IsLoop = window.AudioRecord.IsLoop;
-                }));
             }
         }
 
@@ -170,10 +129,8 @@ namespace MediaPlayer
         }
 
         //fields
-        AudioRecordCommand chooseAudioCommand;
         AudioRecordCommand playPauseMusicCommand;
         AudioRecordCommand restartMusicCommand;
-        AudioRecordCommand openSettings;
         BitmapImage playPauseImageSource;
         TimeSpan newTime;
         int movedSeconds;

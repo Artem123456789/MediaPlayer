@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace MediaPlayer.view_models
 {
-    class Menu
+    public class Menu
     {
         public AudioRecord SingleAudio { get; set; }
         public AudioRecordCommand ChooseAudio

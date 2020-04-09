@@ -30,12 +30,15 @@ namespace MediaPlayer
     {
         AudioRecord playingRecord;
         WindowControll windowControll;
+        view_models.Menu menu;
 
         public MainWindow()
         {
             InitializeComponent();
             playingRecord = (AudioRecord)this.Resources["PlayingRecord"];
             windowControll = (WindowControll)this.Resources["WindowControll"];
+            menu = (view_models.Menu)this.Resources["Menu"];
+            menu.SingleAudio = playingRecord;
             windowControll.CurrentWindow = this;
             windowControll.RestoreWindowImage = RestoreWindowImage;
         }

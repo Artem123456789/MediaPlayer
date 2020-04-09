@@ -19,6 +19,7 @@
     <Window.Resources>
         <local:AudioRecord x:Key="PlayingRecord"/>
         <vm:WindowControll x:Key="WindowControll"/>
+        <vm:Menu x:Key="Menu"/>
         <Style TargetType="MenuItem">
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
@@ -115,9 +116,10 @@
                 <RowDefinition MinHeight="60"></RowDefinition>
                 <RowDefinition MinHeight="100"></RowDefinition>
             </Grid.RowDefinitions>
-            <Menu Background="White">
+            <Menu Background="White"
+                  DataContext="{StaticResource Menu}">
                 <MenuItem Header="File">
-                    <MenuItem Header="Open" Command="{Binding ChooseAudioCommand}"/>
+                    <MenuItem Header="Open" Command="{Binding ChooseAudio}"/>
                 </MenuItem>
                 <MenuItem Header="Settings" Command="{Binding OpenSettings}"/>
                 <MenuItem Header="Playlists"/>
