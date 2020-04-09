@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="view_models\AudioProgress.cs" />
     <Compile Include="view_models\Playlist.cs" />
+    <Compile Include="view_models\PlaylistsCollection.cs" />
     <Compile Include="view_models\SettingsAudioRecord.cs" />
     <Compile Include="view_models\WindowControll.cs" />
     <Compile Include="WindowControllCommand.cs" />

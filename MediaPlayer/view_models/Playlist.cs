@@ -44,10 +44,23 @@ namespace MediaPlayer.view_models
                 }));
             }
         }
+        public string Header
+        {
+            get
+            {
+                return header;
+            }
+            set
+            {
+                header = value;
+                OnPropertyChanged("Header");
+            }
+        }
 
         AudioRecordCommand addAudio;
         AudioRecordCommand removeAudio;
         AudioRecord currentRecord;
+        string header;
 
         public Playlist()
         {
