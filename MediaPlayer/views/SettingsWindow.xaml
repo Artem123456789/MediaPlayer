@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer.views"
+        xmlns:vm="clr-namespace:MediaPlayer.view_models"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local_parent="clr-namespace:MediaPlayer"
         WindowStartupLocation="CenterOwner"
@@ -22,6 +23,7 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
         <local_parent:SettingsAudioRecord x:Key="AudioRecord"/>
+        <vm:WindowControll x:Key="WindowControll"/>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -33,9 +35,9 @@
         </Grid.RowDefinitions>
         <Grid x:Name="WindowControlsGrid" 
               Background="Black"
+              DataContext="{StaticResource WindowControll}"
               Grid.Column="0" 
-              Grid.Row="0"
-              MouseLeftButtonDown="Window_MouseLeftButtonDown">
+              Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition MaxWidth="110"></ColumnDefinition>
@@ -43,6 +45,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding DragWindow}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <Grid Grid.Column="1" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -54,7 +61,6 @@
                 </Grid.RowDefinitions>
                 <!--Window controlls buttons-->
                 <Button x:Name="HideWindowButton"
-                        Click="HideWindowButton_Click"
                         Style="{StaticResource ControlButton}"
                         Grid.Column="0"
                         Grid.Row="0"
@@ -62,18 +68,26 @@
                     <Button.Content>
                         <Image Source="/MediaPlayer;component/window_control_images/hide-window.png"/>
                     </Button.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding HideWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
                 <Button x:Name="RestoreWindowButton"
-                        Click="RestoreWindowButton_Click"
                         Style="{StaticResource ControlButton}"
                         Grid.Column="1"
                         Grid.Row="0">
                     <Button.Content>
                         <Image x:Name="RestoreWindowImage" Source="/MediaPlayer;component/window_control_images/maximize-window.png"/>
                     </Button.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding RestoreWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
                 <Button x:Name="CloseWindowButton"
-                        Click="CloseWindowButton_Click"
                         Style="{StaticResource ControlButton}"
                         Grid.Column="2"
                         Grid.Row="0"
@@ -81,6 +95,11 @@
                     <Button.Content>
                         <Image Source="/MediaPlayer;component/window_control_images/close-window.png"/>
                     </Button.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CloseWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </Grid>
         </Grid>
