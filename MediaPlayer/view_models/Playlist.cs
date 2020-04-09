@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,7 +11,7 @@ namespace MediaPlayer.view_models
 {
     class Playlist : INotifyPropertyChanged
     {
-        public List<AudioRecord> AudioRecords { get; set; }
+        public ObservableCollection<AudioRecord> AudioRecords { get; set; }
         public AudioRecord CurrentRecord
         { 
             get
@@ -64,7 +65,7 @@ namespace MediaPlayer.view_models
 
         public Playlist()
         {
-            AudioRecords = new List<AudioRecord>();
+            AudioRecords = new ObservableCollection<AudioRecord>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

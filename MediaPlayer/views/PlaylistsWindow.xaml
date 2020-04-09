@@ -1,0 +1,102 @@
+﻿<Window x:Class="MediaPlayer.views.PlaylistsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaPlayer.views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:vm="clr-namespace:MediaPlayer.view_models"
+        mc:Ignorable="d"
+        Title="PlaylistsWindow" Height="450" Width="400"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        BorderBrush="Black"
+        Closing="PlaybackStoped"
+        BorderThickness="5,0,5,5"
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <vm:WindowControll x:Key="WindowControll"/>
+    </Window.Resources>
+    <Grid Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="38"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid x:Name="WindowControlsGrid" 
+              Background="Black"
+              Grid.Column="0" 
+              Grid.Row="0"
+              DataContext="{StaticResource WindowControll}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition MaxWidth="110"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding DragWindow}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--Window controlls buttons-->
+                <Button x:Name="HideWindowButton"
+                        Style="{StaticResource ControlButton}"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        HorizontalAlignment="Left">
+                    <Button.Content>
+                        <Image Source="/MediaPlayer;component/window_control_images/hide-window.png"/>
+                    </Button.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding HideWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="RestoreWindowButton"
+                        Style="{StaticResource ControlButton}"
+                        Grid.Column="1"
+                        Grid.Row="0">
+                    <Button.Content>
+                        <Image x:Name="RestoreWindowImage" Source="/MediaPlayer;component/window_control_images/maximize-window.png"/>
+                    </Button.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding RestoreWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="CloseWindowButton"
+                        Style="{StaticResource ControlButton}"
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        HorizontalAlignment="Right">
+                    <Button.Content>
+                        <Image Source="/MediaPlayer;component/window_control_images/close-window.png"/>
+                    </Button.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CloseWindow}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </Grid>
+        <UniformGrid Columns="1" Rows="1">
+            
+        </UniformGrid>
+    </Grid>
+</Window>
