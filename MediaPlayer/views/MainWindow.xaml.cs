@@ -29,44 +29,15 @@ namespace MediaPlayer
     public partial class MainWindow : Window
     {
         AudioRecord playingRecord;
+        WindowControll windowControll;
 
         public MainWindow()
         {
             InitializeComponent();
             playingRecord = (AudioRecord)this.Resources["PlayingRecord"];
-        }
-
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-
-        private void HideWindowButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
-        private void CloseWindowButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void RestoreWindowButton_Click(object sender, RoutedEventArgs e)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            if (WindowState == WindowState.Normal)
-            {
-                bitmapImage.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/window_control_images/normal-window.png");
-                WindowState = WindowState.Maximized;
-            }
-            else
-            {
-                bitmapImage.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/window_control_images/maximize-window.png");
-                WindowState = WindowState.Normal;
-            }
-            bitmapImage.EndInit();
-            RestoreWindowImage.Source = bitmapImage;
+            windowControll = (WindowControll)this.Resources["WindowControll"];
+            windowControll.CurrentWindow = this;
+            windowControll.RestoreWindowImage = RestoreWindowImage;
         }
 
         private void MoveAudio(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)

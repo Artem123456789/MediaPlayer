@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace MediaPlayer
 {
-    class WindowControllCommand : ICommand
+    public class WindowControllCommand : ICommand
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;
