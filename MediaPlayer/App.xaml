@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="resource_dictionaries/Buttons.xaml"/>
                 <ResourceDictionary Source="resource_dictionaries/Slider.xaml"/>
                 <ResourceDictionary Source="resource_dictionaries/ToggleButton.xaml"/>
+                <ResourceDictionary Source="resource_dictionaries/PlaylistExpander.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

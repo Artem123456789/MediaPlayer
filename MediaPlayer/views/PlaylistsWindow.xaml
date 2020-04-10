@@ -96,8 +96,13 @@
             </Grid>
         </Grid>
         <ListBox Grid.Column="0"
-                 Grid.Row="1">
-                
+                 Grid.Row="1"
+                 x:Name="PlaylistsList">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Expander Style="{StaticResource PlaylistExpander}" Header="{Binding Header}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </Window>

@@ -22,13 +22,19 @@ namespace MediaPlayer.views
     {
 
         WindowControll windowControll;
+        PlaylistsCollection playlistsCollection;
 
         public PlaylistsWindow()
         {
             InitializeComponent();
             windowControll = (WindowControll)this.Resources["WindowControll"];
+            playlistsCollection = (PlaylistsCollection)this.Resources["PlaylistsCollection"];
             windowControll.CurrentWindow = this;
             windowControll.RestoreWindowImage = RestoreWindowImage;
+            playlistsCollection.Playlists.Add(new Playlist() { Header = "XX1" });
+            playlistsCollection.Playlists.Add(new Playlist() { Header = "XX2" });
+            playlistsCollection.Playlists.Add(new Playlist() { Header = "XX3" });
+            PlaylistsList.ItemsSource = playlistsCollection.Playlists;
         }
     }
 }
