@@ -95,14 +95,117 @@
                 </Button>
             </Grid>
         </Grid>
-        <ListBox Grid.Column="0"
+        <Grid Grid.Column="0"
                  Grid.Row="1"
-                 x:Name="PlaylistsList">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Expander Style="{StaticResource PlaylistExpander}" Header="{Binding Header}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            DataContext="{StaticResource PlaylistsCollection}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition MaxHeight="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ListBox
+                Grid.Row="0"
+                Grid.Column="0"
+                 x:Name="PlaylistsList"
+                 ItemsSource="{Binding Playlists}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Background" Value="#C4C4C4"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#C4C4C4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <UniformGrid Columns="1" Rows="2">
+                            <Expander Style="{StaticResource PlaylistExpander}" 
+                                      Header="{Binding Header}"
+                                      FontSize="18"
+                                      Margin="5">
+                                    <ListBox ItemsSource="{Binding AudioRecords}">
+                                        <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Margin" Value="5"/>
+                                            <Setter Property="BorderBrush" Value="Black"/>
+                                            <Setter Property="BorderThickness" Value="5"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#C4C4C4"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                        </ListBox.ItemContainerStyle>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <UniformGrid Columns="2"
+                                                         Rows="1">
+                                                    <TextBlock Text="{Binding AudioName}"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="16"/>
+                                            </UniformGrid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                            </Expander>
+                            <UniformGrid Columns="3" Rows="1" 
+                                         VerticalAlignment="Bottom"
+                                         Margin="0,0,0,10">
+                                <Button Style="{StaticResource ControllPlaylistButton}"
+                                        HorizontalAlignment="Left">
+                                    <Image Source="/MediaPlayer;component/music_control_images/play-playlist.png"/>
+                                </Button>
+                                <Button Style="{StaticResource ControllPlaylistButton}">
+                                    <Image Source="/MediaPlayer;component/music_control_images/remove-playlist.png"/>
+                                </Button>
+                                <Button Style="{StaticResource ControllPlaylistButton}"
+                                        HorizontalAlignment="Right"
+                                        Margin="0,0,7,0">
+                                    <Image Source="/MediaPlayer;component/music_control_images/edit-playlist.png"/>
+                                </Button>
+                            </UniformGrid>
+                        </UniformGrid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <UniformGrid Grid.Row="1"
+                         Grid.Column="0"
+                         Columns="1" 
+                         Rows="2"
+                         Margin="5">
+                <TextBox Name="NewPlaylistName" 
+                         Text="{Binding NewPlaylistName, Mode=TwoWay}"
+                         FontSize="14"
+                         Margin="3"/>
+                <Button Content="Add new" 
+                        Command="{Binding AddPlaylist}"
+                        FontSize="16"
+                        Margin="3"/>
+            </UniformGrid>
+        </Grid>
     </Grid>
 </Window>

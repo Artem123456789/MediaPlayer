@@ -34,7 +34,9 @@ namespace MediaPlayer.views
             playlistsCollection.Playlists.Add(new Playlist() { Header = "XX1" });
             playlistsCollection.Playlists.Add(new Playlist() { Header = "XX2" });
             playlistsCollection.Playlists.Add(new Playlist() { Header = "XX3" });
-            PlaylistsList.ItemsSource = playlistsCollection.Playlists;
+            playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord { AudioName = "test1" });
+            playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord { AudioName = "test2" });
+            playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord { AudioName = "test3" });
         }
     }
 }

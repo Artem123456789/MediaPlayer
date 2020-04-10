@@ -26,13 +26,25 @@ namespace MediaPlayer.view_models
             }
         }
         public int CurrentPlaylistIndex { get; set; }
+        public string NewPlaylistName
+        {
+            get
+            {
+                return newPlaylistName;
+            }
+            set
+            {
+                newPlaylistName = value;
+                OnPropertyChanged("NewPlaylistName");
+            }
+        }
         public AudioRecordCommand AddPlaylist
         {
             get
             {
                 return addPlaylist ?? (addPlaylist = new AudioRecordCommand(obj =>
                 {
-                    Playlists.Add(obj as Playlist);
+                    Playlists.Add(new Playlist() { Header = NewPlaylistName });
                 }));
             }
         }
@@ -50,6 +62,7 @@ namespace MediaPlayer.view_models
         AudioRecordCommand addPlaylist;
         AudioRecordCommand removePlaylist;
         Playlist currentPlaylist;
+        string newPlaylistName;
 
         public PlaylistsCollection()
         {
