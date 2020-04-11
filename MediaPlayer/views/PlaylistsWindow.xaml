@@ -182,13 +182,11 @@
                                                                                              From="10"
                                                                                              To="3"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:0.5"/>
                                                                             <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
                                                                                              From="11"
                                                                                              To="18"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:0.5"/>
                                                                         </Storyboard>
                                                                     </BeginStoryboard>
@@ -208,13 +206,11 @@
                                                                                              From="12"
                                                                                              To="1"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:1"/>
                                                                             <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
                                                                                              From="9"
                                                                                              To="20"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:1"/>
                                                                         </Storyboard>
                                                                     </BeginStoryboard>
@@ -234,13 +230,11 @@
                                                                                              From="7"
                                                                                              To="13"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:0.5"/>
                                                                             <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
                                                                                              From="14"
                                                                                              To="8"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:0.5"/>
                                                                         </Storyboard>
                                                                     </BeginStoryboard>
@@ -260,13 +254,11 @@
                                                                                              From="15"
                                                                                              To="2"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:0.5"/>
                                                                             <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
                                                                                              From="6"
                                                                                              To="19"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:0.5"/>
                                                                         </Storyboard>
                                                                     </BeginStoryboard>
@@ -286,13 +278,11 @@
                                                                                              From="10"
                                                                                              To="18"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:1"/>
                                                                             <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
                                                                                              From="11"
                                                                                              To="3"
                                                                                              AutoReverse="True"
-                                                                                             RepeatBehavior="0:0:5"
                                                                                              Duration="0:0:1"/>
                                                                         </Storyboard>
                                                                     </BeginStoryboard>
