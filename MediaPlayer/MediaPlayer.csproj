@@ -83,6 +83,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="views\EditPlaylistWindow.xaml.cs">
+      <DependentUpon>EditPlaylistWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\PlaylistsWindow.xaml.cs">
       <DependentUpon>PlaylistsWindow.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,10 @@
     <Page Include="resource_dictionaries\ToggleButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="views\EditPlaylistWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

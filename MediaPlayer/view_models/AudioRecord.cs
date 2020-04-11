@@ -29,6 +29,7 @@ namespace MediaPlayer
         public AudioFileReader Audio { get; set; }
         public AudioTime AudioTime { get; set; }
         public AudioProgress AudioProgress { get; set; }
+        public Playlist ParentPlayList { get; set; }
 
         //commands properties
         public AudioRecordCommand PlayPauseMusicCommand
@@ -72,6 +73,16 @@ namespace MediaPlayer
                     ChangePlayPauseImage(false);
                     PlayAudio();
                 }, (obj) => Audio != null));
+            }
+        }
+        public AudioRecordCommand ChoosePlayingPlaylist
+        {
+            get
+            {
+                return choosePlayingPlaylist ?? (choosePlayingPlaylist = new AudioRecordCommand(obj =>
+                {
+                    ParentPlayList.ChoosePlayingAudio(this);
+                }));
             }
         }
 
@@ -127,14 +138,28 @@ namespace MediaPlayer
                 OnPropertyChanged("IsLoop");
             }
         }
+        public bool IsPlayingInPlaylist
+        {
+            get
+            {
+                return isPlayingInPlaylist;
+            }
+            set
+            {
+                isPlayingInPlaylist = value;
+                OnPropertyChanged("IsPlayingInPlaylist");
+            }
+        }
 
         //fields
         AudioRecordCommand playPauseMusicCommand;
         AudioRecordCommand restartMusicCommand;
+        AudioRecordCommand choosePlayingPlaylist;
         BitmapImage playPauseImageSource;
         TimeSpan newTime;
         int movedSeconds;
         bool isLoop;
+        bool isPlayingInPlaylist;
         string audioPath;
         string audioName;
         string playButtonImagePath = "pack://application:,,,/MediaPlayer;component/music_control_images/play-music.png";
@@ -146,6 +171,16 @@ namespace MediaPlayer
         /// </summary>
         public AudioRecord()
         {
+            AudioTime = new AudioTime();
+            AudioProgress = new AudioProgress();
+            IsLoop = false;
+            TotalAudioSecondsTime = 0;
+            ChangePlayPauseImage(true);
+        }
+
+        public AudioRecord(Playlist parentPlaylist)
+        {
+            ParentPlayList = parentPlaylist;
             AudioTime = new AudioTime();
             AudioProgress = new AudioProgress();
             IsLoop = false;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MediaPlayer.view_models
 {
-    class PlaylistsCollection : INotifyPropertyChanged
+    public class PlaylistsCollection : INotifyPropertyChanged
     {
 
         public ObservableCollection<Playlist> Playlists { get; set; }
@@ -48,19 +48,8 @@ namespace MediaPlayer.view_models
                 }));
             }
         }
-        public AudioRecordCommand RemovePlaylist
-        {
-            get
-            {
-                return removePlaylist ?? (removePlaylist = new AudioRecordCommand(obj =>
-                {
-                    Playlists.Remove(Playlists.ElementAt((int)obj));
-                }));
-            }
-        }
 
         AudioRecordCommand addPlaylist;
-        AudioRecordCommand removePlaylist;
         Playlist currentPlaylist;
         string newPlaylistName;
 
@@ -68,6 +57,8 @@ namespace MediaPlayer.view_models
         {
             Playlists = new ObservableCollection<Playlist>();
         }
+
+        public void RemovePlaylist(Playlist playlist) => Playlists.Remove(playlist);
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

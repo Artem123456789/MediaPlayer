@@ -16,6 +16,7 @@
     <Window.Resources>
         <vm:WindowControll x:Key="WindowControll"/>
         <vm:PlaylistsCollection x:Key="PlaylistsCollection"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -160,31 +161,173 @@
                                             </Style.Triggers>
                                         </Style>
                                         </ListBox.ItemContainerStyle>
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <UniformGrid Columns="2"
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <UniformGrid Columns="2"
                                                          Rows="1">
-                                                    <TextBlock Text="{Binding AudioName}"
+                                                <TextBlock Text="{Binding AudioName}"
                                                            VerticalAlignment="Center"
                                                            FontSize="16"/>
+                                                <Canvas Visibility="{Binding Path=IsPlayingInPlaylist, Converter={StaticResource BoolToVis}}">
+                                                    <Rectangle Width="1" Height="10" Fill="#00A2E8" 
+                                                               Canvas.Top="11"
+                                                               Canvas.Right="14"
+                                                               Name="MusicRectA">
+                                                        <Rectangle.Triggers>
+                                                            <EventTrigger RoutedEvent="Window.Loaded">
+                                                                <EventTrigger.Actions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard RepeatBehavior="Forever">
+                                                                            <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                                                             From="10"
+                                                                                             To="3"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:0.5"/>
+                                                                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
+                                                                                             From="11"
+                                                                                             To="18"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:0.5"/>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </EventTrigger.Actions>
+                                                            </EventTrigger>
+                                                        </Rectangle.Triggers>
+                                                    </Rectangle>
+                                                    <Rectangle Width="1" Height="12" Fill="#00A2E8" 
+                                                               Canvas.Top="9"
+                                                               Canvas.Right="11">
+                                                        <Rectangle.Triggers>
+                                                            <EventTrigger RoutedEvent="Window.Loaded">
+                                                                <EventTrigger.Actions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard RepeatBehavior="Forever">
+                                                                            <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                                                             From="12"
+                                                                                             To="1"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:1"/>
+                                                                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
+                                                                                             From="9"
+                                                                                             To="20"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:1"/>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </EventTrigger.Actions>
+                                                            </EventTrigger>
+                                                        </Rectangle.Triggers>
+                                                    </Rectangle>
+                                                    <Rectangle Width="1" Height="7" Fill="#00A2E8" 
+                                                               Canvas.Top="14"
+                                                               Canvas.Right="7">
+                                                        <Rectangle.Triggers>
+                                                            <EventTrigger RoutedEvent="Window.Loaded">
+                                                                <EventTrigger.Actions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard RepeatBehavior="Forever">
+                                                                            <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                                                             From="7"
+                                                                                             To="13"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:0.5"/>
+                                                                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
+                                                                                             From="14"
+                                                                                             To="8"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:0.5"/>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </EventTrigger.Actions>
+                                                            </EventTrigger>
+                                                        </Rectangle.Triggers>
+                                                    </Rectangle>
+                                                    <Rectangle Width="1" Height="15" Fill="#00A2E8" 
+                                                               Canvas.Top="6"
+                                                               Canvas.Right="4">
+                                                        <Rectangle.Triggers>
+                                                            <EventTrigger RoutedEvent="Window.Loaded">
+                                                                <EventTrigger.Actions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard RepeatBehavior="Forever">
+                                                                            <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                                                             From="15"
+                                                                                             To="2"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:0.5"/>
+                                                                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
+                                                                                             From="6"
+                                                                                             To="19"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:0.5"/>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </EventTrigger.Actions>
+                                                            </EventTrigger>
+                                                        </Rectangle.Triggers>
+                                                    </Rectangle>
+                                                    <Rectangle Width="1" Height="10" Fill="#00A2E8" 
+                                                               Canvas.Top="11"
+                                                               Canvas.Right="1">
+                                                        <Rectangle.Triggers>
+                                                            <EventTrigger RoutedEvent="Window.Loaded">
+                                                                <EventTrigger.Actions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard RepeatBehavior="Forever">
+                                                                            <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                                                             From="10"
+                                                                                             To="18"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:1"/>
+                                                                            <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)"
+                                                                                             From="11"
+                                                                                             To="3"
+                                                                                             AutoReverse="True"
+                                                                                             RepeatBehavior="0:0:5"
+                                                                                             Duration="0:0:1"/>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </EventTrigger.Actions>
+                                                            </EventTrigger>
+                                                        </Rectangle.Triggers>
+                                                    </Rectangle>
+                                                </Canvas>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction Command="{Binding ChoosePlayingPlaylist}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
                                             </UniformGrid>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                             </Expander>
                             <UniformGrid Columns="3" Rows="1" 
                                          VerticalAlignment="Bottom"
-                                         Margin="0,0,0,10">
+                                         Margin="0,0,0,10"
+                                         HorizontalAlignment="Left"
+                                         MaxWidth="150">
                                 <Button Style="{StaticResource ControllPlaylistButton}"
-                                        HorizontalAlignment="Left">
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding Play}">
                                     <Image Source="/MediaPlayer;component/music_control_images/play-playlist.png"/>
                                 </Button>
-                                <Button Style="{StaticResource ControllPlaylistButton}">
+                                <Button Style="{StaticResource ControllPlaylistButton}"
+                                        Command="{Binding Remove}">
                                     <Image Source="/MediaPlayer;component/music_control_images/remove-playlist.png"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         HorizontalAlignment="Right"
-                                        Margin="0,0,7,0">
+                                        Command="{Binding EditName}">
                                     <Image Source="/MediaPlayer;component/music_control_images/edit-playlist.png"/>
                                 </Button>
                             </UniformGrid>
