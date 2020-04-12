@@ -85,6 +85,16 @@ namespace MediaPlayer
                 }));
             }
         }
+        public AudioRecordCommand RemoveFromPlaylist
+        {
+            get
+            {
+                return removeFromPlaylist ?? (removeFromPlaylist = new AudioRecordCommand(obj =>
+                {
+                    ParentPlayList.RemoveAudio(this);
+                }));
+            }
+        }
 
         //all other properties
         public BitmapImage PlayPauseImageSource
@@ -155,6 +165,7 @@ namespace MediaPlayer
         AudioRecordCommand playPauseMusicCommand;
         AudioRecordCommand restartMusicCommand;
         AudioRecordCommand choosePlayingPlaylist;
+        AudioRecordCommand removeFromPlaylist;
         BitmapImage playPauseImageSource;
         TimeSpan newTime;
         int movedSeconds;

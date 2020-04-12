@@ -194,5 +194,8 @@
   <ItemGroup>
     <Resource Include="music_control_images\edit-playlist.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="music_control_images\add-playlist-audio.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿using MediaPlayer.views;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,17 +34,21 @@ namespace MediaPlayer.view_models
             {
                 return addAudio ?? (addAudio = new AudioRecordCommand(obj =>
                 {
-                    AudioRecords.Add(obj as AudioRecord);
-                }));
-            }
-        }
-        public AudioRecordCommand RemoveAudio
-        {
-            get
-            {
-                return removeAudio ?? (removeAudio = new AudioRecordCommand(obj =>
-                {
-                    AudioRecords.Remove(AudioRecords.ElementAt((int)obj));
+                    try
+                    {
+                        AudioRecord audioRecord = new AudioRecord(this);
+                        audioRecord.BeforeChoose();
+                        OpenFileDialog openFileDialog = new OpenFileDialog();
+                        OpenFileDialog fileDialog = new OpenFileDialog();
+                        fileDialog.Filter = "MP3 files|*.mp3";
+                        if (fileDialog.ShowDialog() == true) audioRecord.AudioPath = fileDialog.FileName;
+                        audioRecord.AfterChoose();
+                        AudioRecords.Add(audioRecord);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }));
             }
         }
@@ -93,7 +98,6 @@ namespace MediaPlayer.view_models
         }
 
         AudioRecordCommand addAudio;
-        AudioRecordCommand removeAudio;
         AudioRecordCommand play;
         AudioRecordCommand remove;
         AudioRecordCommand editName;
@@ -119,6 +123,8 @@ namespace MediaPlayer.view_models
             CurrentRecord = audioRecord;
             CurrentRecord.IsPlayingInPlaylist = true;
         }
+
+        public void RemoveAudio(AudioRecord audioRecord) => AudioRecords.Remove(audioRecord);
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

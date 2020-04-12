@@ -20,7 +20,6 @@ namespace MediaPlayer.view_models
                 {
                     try
                     {
-
                     SingleAudio.BeforeChoose();
                     OpenFileDialog fileDialog = new OpenFileDialog();
                     fileDialog.Filter = "MP3 files|*.mp3";

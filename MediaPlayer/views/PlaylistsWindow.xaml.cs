@@ -32,8 +32,6 @@ namespace MediaPlayer.views
             windowControll.CurrentWindow = this;
             windowControll.RestoreWindowImage = RestoreWindowImage;
             playlistsCollection.Playlists.Add(new Playlist(playlistsCollection) { Header = "XX1" });
-            playlistsCollection.Playlists.Add(new Playlist(playlistsCollection) { Header = "XX2" });
-            playlistsCollection.Playlists.Add(new Playlist(playlistsCollection) { Header = "XX3" });
             playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord(playlistsCollection.Playlists.ElementAt(0)) { AudioName = "test1" });
             playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord(playlistsCollection.Playlists.ElementAt(0)) { AudioName = "test2" });
             playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord(playlistsCollection.Playlists.ElementAt(0)) { AudioName = "test3" });

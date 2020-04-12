@@ -163,15 +163,26 @@
                                         </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <UniformGrid Columns="2"
-                                                         Rows="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition MaxWidth="35"></ColumnDefinition>
+                                                    <ColumnDefinition MaxWidth="35"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
                                                 <TextBlock Text="{Binding AudioName}"
                                                            VerticalAlignment="Center"
-                                                           FontSize="16"/>
-                                                <Canvas Visibility="{Binding Path=IsPlayingInPlaylist, Converter={StaticResource BoolToVis}}">
+                                                           FontSize="16"
+                                                           Grid.Row="0"
+                                                           Grid.Column="0"/>
+                                                <Canvas Visibility="{Binding Path=IsPlayingInPlaylist, Converter={StaticResource BoolToVis}}"
+                                                        Grid.Row="0" Grid.Column="1"
+                                                        MaxHeight="24">
                                                     <Rectangle Width="1" Height="10" Fill="#00A2E8" 
                                                                Canvas.Top="11"
-                                                               Canvas.Right="14"
+                                                               Canvas.Left="10"
                                                                Name="MusicRectA">
                                                         <Rectangle.Triggers>
                                                             <EventTrigger RoutedEvent="Window.Loaded">
@@ -196,7 +207,7 @@
                                                     </Rectangle>
                                                     <Rectangle Width="1" Height="12" Fill="#00A2E8" 
                                                                Canvas.Top="9"
-                                                               Canvas.Right="11">
+                                                               Canvas.Left="13">
                                                         <Rectangle.Triggers>
                                                             <EventTrigger RoutedEvent="Window.Loaded">
                                                                 <EventTrigger.Actions>
@@ -220,7 +231,7 @@
                                                     </Rectangle>
                                                     <Rectangle Width="1" Height="7" Fill="#00A2E8" 
                                                                Canvas.Top="14"
-                                                               Canvas.Right="7">
+                                                               Canvas.Left="16">
                                                         <Rectangle.Triggers>
                                                             <EventTrigger RoutedEvent="Window.Loaded">
                                                                 <EventTrigger.Actions>
@@ -244,7 +255,7 @@
                                                     </Rectangle>
                                                     <Rectangle Width="1" Height="15" Fill="#00A2E8" 
                                                                Canvas.Top="6"
-                                                               Canvas.Right="4">
+                                                               Canvas.Left="19">
                                                         <Rectangle.Triggers>
                                                             <EventTrigger RoutedEvent="Window.Loaded">
                                                                 <EventTrigger.Actions>
@@ -268,7 +279,7 @@
                                                     </Rectangle>
                                                     <Rectangle Width="1" Height="10" Fill="#00A2E8" 
                                                                Canvas.Top="11"
-                                                               Canvas.Right="1">
+                                                               Canvas.Left="22">
                                                         <Rectangle.Triggers>
                                                             <EventTrigger RoutedEvent="Window.Loaded">
                                                                 <EventTrigger.Actions>
@@ -291,17 +302,23 @@
                                                         </Rectangle.Triggers>
                                                     </Rectangle>
                                                 </Canvas>
+                                                <Button Style="{StaticResource ControllPlaylistButton}"
+                                                        Command="{Binding RemoveFromPlaylist}"
+                                                        Grid.Row="1"
+                                                        Grid.Column="2">
+                                                    <Image Source="/MediaPlayer;component/music_control_images/remove-playlist.png"/>
+                                                </Button>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                                         <i:InvokeCommandAction Command="{Binding ChoosePlayingPlaylist}"/>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
-                                            </UniformGrid>
+                                            </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                             </Expander>
-                            <UniformGrid Columns="3" Rows="1" 
+                            <UniformGrid Columns="4" Rows="1" 
                                          VerticalAlignment="Bottom"
                                          Margin="0,0,0,10"
                                          HorizontalAlignment="Left"
@@ -316,9 +333,13 @@
                                     <Image Source="/MediaPlayer;component/music_control_images/remove-playlist.png"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
-                                        HorizontalAlignment="Right"
                                         Command="{Binding EditName}">
                                     <Image Source="/MediaPlayer;component/music_control_images/edit-playlist.png"/>
+                                </Button>
+                                <Button Style="{StaticResource ControllPlaylistButton}"
+                                        Command="{Binding AddAudio}"
+                                        HorizontalAlignment="Right">
+                                    <Image Source="/MediaPlayer;component/music_control_images/add-playlist-audio.png"/>
                                 </Button>
                             </UniformGrid>
                         </UniformGrid>

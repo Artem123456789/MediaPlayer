@@ -20,6 +20,7 @@
         <local:AudioRecord x:Key="PlayingRecord"/>
         <vm:WindowControll x:Key="WindowControll"/>
         <vm:Menu x:Key="Menu"/>
+        <vm:PlaylistsCollection x:Key="PlaylistsCollection"/>
         <Style TargetType="MenuItem">
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
