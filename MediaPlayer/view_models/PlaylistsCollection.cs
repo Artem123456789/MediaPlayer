@@ -61,7 +61,15 @@ namespace MediaPlayer.view_models
         }
 
         public void RemovePlaylist(Playlist playlist) => Playlists.Remove(playlist);
-        public void ChooseCurrentPlaylist(Playlist playlist) => CurrentPlaylist = playlist;
+        public void ChooseCurrentPlaylist(Playlist playlist)
+        {
+            if(CurrentPlaylist.Header != DefaultPlaylist.Header)
+            {
+                CurrentPlaylist.IsPlaying = false;
+                CurrentPlaylist.ChangePlayPauseImage();
+            }
+            CurrentPlaylist = playlist;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

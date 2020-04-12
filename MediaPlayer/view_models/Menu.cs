@@ -71,8 +71,15 @@ namespace MediaPlayer.view_models
                 return openPlaylists ?? (openPlaylists = new AudioRecordCommand(obj =>
                 {
                     PlaylistsWindow playlistsWindow = new PlaylistsWindow();
+                    foreach (var item in Collection.Playlists)
+                    {
+                        playlistsWindow.PlaylistsCollection.Playlists.Add(item);
+                    }
+                    playlistsWindow.PlaylistsCollection.CurrentPlaylist = Collection.CurrentPlaylist;
                     playlistsWindow.ShowDialog();
-                    Collection = playlistsWindow.PlaylistsCollection;
+                    Collection.Playlists = playlistsWindow.PlaylistsCollection.Playlists;
+                    try { Collection.CurrentPlaylist = playlistsWindow.PlaylistsCollection.CurrentPlaylist; }
+                    catch (NullReferenceException) { }
                 }));
             }
         }

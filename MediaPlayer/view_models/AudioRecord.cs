@@ -67,6 +67,11 @@ namespace MediaPlayer
             {
                 return choosePlayingPlaylist ?? (choosePlayingPlaylist = new AudioRecordCommand(obj =>
                 {
+                    if(ParentPlayList.CurrentRecord != null)
+                    {
+                        ParentPlayList.CurrentRecord.StopMusic();
+                        ParentPlayList.CurrentRecord.PlayBackStoped();
+                    }
                     ParentPlayList.ChoosePlayingAudio(this);
                 }));
             }
@@ -208,7 +213,7 @@ namespace MediaPlayer
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
         }
 
-        private void Play()
+        public void Play()
         {
             PlayAudio();
             TotalAudioSecondsTime = Audio.TotalTime.TotalSeconds;
@@ -217,7 +222,7 @@ namespace MediaPlayer
             AudioProgress.Start(Audio);
         }
 
-        private void Pause()
+        public void Pause()
         {
             try
             {
@@ -304,7 +309,15 @@ namespace MediaPlayer
                 SetAudioTime(new TimeSpan(0, 0, 0));
                 PlayAudio();
             }
-            else ChangePlayPauseImage(true);
+            else
+            {
+                if (ParentPlayList.AudioRecords.IndexOf(this) + 1 < ParentPlayList.AudioRecords.Count)
+                {
+                    ParentPlayList.ChoosePlayingAudio(ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.IndexOf(this) + 1));
+                    ParentPlayList.CurrentRecord.Play();
+                }
+                ChangePlayPauseImage(true);
+            }
         }
 
         /// <summary>

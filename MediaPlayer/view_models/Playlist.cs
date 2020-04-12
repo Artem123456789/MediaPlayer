@@ -61,8 +61,8 @@ namespace MediaPlayer.view_models
             {
                 return play ?? (play = new AudioRecordCommand(obj =>
                 {
-                    parentCollection.ChooseCurrentPlaylist(this);
-                    isPlaying = !isPlaying;
+                    IsPlaying = !IsPlaying;
+                    if(IsPlaying) parentCollection.ChooseCurrentPlaylist(this);
                     if (CurrentRecord == null)
                     {
                         ChoosePlayingAudio(AudioRecords.ElementAt(0));
@@ -98,18 +98,7 @@ namespace MediaPlayer.view_models
         {
             get
             {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                if (isPlaying)
-                {
-                    image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/pause-playlist.png");
-                }
-                else
-                {
-                    image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/play-playlist.png");
-                }
-                image.EndInit();
-                return image;
+                return playPauseImage;
             }
             set
             {
@@ -155,7 +144,7 @@ namespace MediaPlayer.view_models
         public Playlist()
         {
             AudioRecords = new ObservableCollection<AudioRecord>();
-            isPlaying = false;
+            IsPlaying = false;
             {
                 BitmapImage image = new BitmapImage();
                 image.BeginInit();
@@ -175,7 +164,7 @@ namespace MediaPlayer.view_models
         public Playlist(PlaylistsCollection parentCollection)
         {
             AudioRecords = new ObservableCollection<AudioRecord>();
-            isPlaying = false;
+            IsPlaying = false;
             {
                 BitmapImage image = new BitmapImage();
                 image.BeginInit();
@@ -199,15 +188,15 @@ namespace MediaPlayer.view_models
             catch(NullReferenceException){}
             CurrentRecord = audioRecord;
             CurrentRecord.IsPlayingInPlaylist = true;
-            IsPlaying = true;
             ChangePlayPauseImage();
+            if(!IsPlaying) parentCollection.ChooseCurrentPlaylist(this);
         }
 
-        private void ChangePlayPauseImage()
+        public void ChangePlayPauseImage()
         {
             BitmapImage image = new BitmapImage();
             image.BeginInit();
-            if (isPlaying)
+            if (IsPlaying)
             {
                 image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/pause-playlist.png");
                 CurrentRecord.IsPlayingInPlaylist = true;
