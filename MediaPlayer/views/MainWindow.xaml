@@ -25,7 +25,7 @@
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </Window.Resources>
-    <Grid Name="MainGrid">
+    <Grid Name="MainGrid" DataContext="{StaticResource Menu}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -107,7 +107,7 @@
         <!--Main audiorecord interface-->
         <Grid Grid.Column="1" 
               Grid.Row="1"
-              DataContext="{StaticResource PlayingRecord}">
+              DataContext="{Binding Collection.CurrentPlaylist.CurrentRecord}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
@@ -117,13 +117,12 @@
                 <RowDefinition MinHeight="60"></RowDefinition>
                 <RowDefinition MinHeight="100"></RowDefinition>
             </Grid.RowDefinitions>
-            <Menu Background="White"
-                  DataContext="{StaticResource Menu}">
+            <Menu Background="White" DataContext="{StaticResource Menu}">
                 <MenuItem Header="File">
                     <MenuItem Header="Open" Command="{Binding ChooseAudio}"/>
                 </MenuItem>
                 <MenuItem Header="Settings" Command="{Binding OpenSettings}"/>
-                <MenuItem Header="Playlists" Command="{Binding OpenPlaylists}"/>
+                <MenuItem Header="Playlists" Command="{Binding OpenPlaylists}" CommandParameter="{StaticResource PlaylistsCollection}"/>
             </Menu>
             <!--Audio record state controll panel-->
             <UniformGrid Grid.Column="0" Grid.Row="1" 

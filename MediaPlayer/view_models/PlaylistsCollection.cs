@@ -11,7 +11,6 @@ namespace MediaPlayer.view_models
 {
     public class PlaylistsCollection : INotifyPropertyChanged
     {
-
         public ObservableCollection<Playlist> Playlists { get; set; }
         public Playlist CurrentPlaylist 
         {
@@ -44,10 +43,11 @@ namespace MediaPlayer.view_models
             {
                 return addPlaylist ?? (addPlaylist = new AudioRecordCommand(obj =>
                 {
-                    Playlists.Add(new Playlist() { Header = NewPlaylistName });
+                    Playlists.Add(new Playlist(this) { Header = NewPlaylistName });
                 }));
             }
         }
+        public Playlist DefaultPlaylist { get; set; }
 
         AudioRecordCommand addPlaylist;
         Playlist currentPlaylist;
@@ -56,9 +56,12 @@ namespace MediaPlayer.view_models
         public PlaylistsCollection()
         {
             Playlists = new ObservableCollection<Playlist>();
+            DefaultPlaylist = new Playlist();
+            CurrentPlaylist = DefaultPlaylist;
         }
 
         public void RemovePlaylist(Playlist playlist) => Playlists.Remove(playlist);
+        public void ChooseCurrentPlaylist(Playlist playlist) => CurrentPlaylist = playlist;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

@@ -2,16 +2,31 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace MediaPlayer.view_models
 {
-    public class Menu
+    public class Menu:INotifyPropertyChanged
     {
         public AudioRecord SingleAudio { get; set; }
+        public Playlist DefaultPlaylist { get; set; }
+        public PlaylistsCollection Collection 
+        {
+            get
+            {
+                return collection;
+            }
+            set
+            {
+                collection = value;
+                OnPropertyChanged("Collection");
+            }
+        }
         public AudioRecordCommand ChooseAudio
         {
             get
@@ -20,11 +35,12 @@ namespace MediaPlayer.view_models
                 {
                     try
                     {
-                    SingleAudio.BeforeChoose();
-                    OpenFileDialog fileDialog = new OpenFileDialog();
-                    fileDialog.Filter = "MP3 files|*.mp3";
-                    if (fileDialog.ShowDialog() == true) SingleAudio.AudioPath = fileDialog.FileName;
-                    SingleAudio.AfterChoose();
+                        Collection.CurrentPlaylist = DefaultPlaylist;
+                        DefaultPlaylist.CurrentRecord.BeforeChoose();
+                        OpenFileDialog fileDialog = new OpenFileDialog();
+                        fileDialog.Filter = "MP3 files|*.mp3";
+                        if (fileDialog.ShowDialog() == true) DefaultPlaylist.CurrentRecord.AudioPath = fileDialog.FileName;
+                            DefaultPlaylist.CurrentRecord.AfterChoose();
                     }
                     catch(Exception ex)
                     {
@@ -41,10 +57,10 @@ namespace MediaPlayer.view_models
                 {
 
                     SettingsWindow window = new SettingsWindow();
-                    window.AudioRecord.AudioName = SingleAudio.AudioName;
-                    window.AudioRecord.IsLoop = SingleAudio.IsLoop;
+                    window.AudioRecord.AudioName = DefaultPlaylist.CurrentRecord.AudioName;
+                    window.AudioRecord.IsLoop = DefaultPlaylist.CurrentRecord.IsLoop;
                     window.ShowDialog();
-                    SingleAudio.IsLoop = window.AudioRecord.IsLoop;
+                    DefaultPlaylist.CurrentRecord.IsLoop = window.AudioRecord.IsLoop;
                 }));
             }
         }
@@ -56,6 +72,7 @@ namespace MediaPlayer.view_models
                 {
                     PlaylistsWindow playlistsWindow = new PlaylistsWindow();
                     playlistsWindow.ShowDialog();
+                    Collection = playlistsWindow.PlaylistsCollection;
                 }));
             }
         }
@@ -63,10 +80,34 @@ namespace MediaPlayer.view_models
         AudioRecordCommand chooseAudio;
         AudioRecordCommand openSettings;
         AudioRecordCommand openPlaylists;
+        PlaylistsCollection collection;
 
         public Menu()
         {
             SingleAudio = new AudioRecord();
+            DefaultPlaylist = new Playlist();
+            SingleAudio.ParentPlayList = DefaultPlaylist;
+            Collection = new PlaylistsCollection();
+            Collection.CurrentPlaylist = DefaultPlaylist;
+            DefaultPlaylist.AudioRecords.Add(SingleAudio);
+            DefaultPlaylist.CurrentRecord = SingleAudio;
+        }
+
+        public void BeforeInit()
+        {
+            SingleAudio = new AudioRecord();
+            DefaultPlaylist = new Playlist();
+            SingleAudio.ParentPlayList = DefaultPlaylist;
+            Collection.CurrentPlaylist = DefaultPlaylist;
+            DefaultPlaylist.AudioRecords.Add(SingleAudio);
+            DefaultPlaylist.CurrentRecord = SingleAudio;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

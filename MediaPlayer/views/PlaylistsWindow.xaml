@@ -172,12 +172,12 @@
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition></RowDefinition>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock Text="{Binding AudioName}"
+                                                <TextBlock Text="{Binding AudioName}"   
                                                            VerticalAlignment="Center"
                                                            FontSize="16"
                                                            Grid.Row="0"
                                                            Grid.Column="0"/>
-                                                <Canvas Visibility="{Binding Path=IsPlayingInPlaylist, Converter={StaticResource BoolToVis}}"
+                                                <Canvas  Visibility="{Binding Path=IsPlayingInPlaylist, Converter={StaticResource BoolToVis}}"
                                                         Grid.Row="0" Grid.Column="1"
                                                         MaxHeight="24">
                                                     <Rectangle Width="1" Height="10" Fill="#00A2E8" 
@@ -302,11 +302,11 @@
                                                         </Rectangle.Triggers>
                                                     </Rectangle>
                                                 </Canvas>
-                                                <Button Style="{StaticResource ControllPlaylistButton}"
+                                                <Button Style="{StaticResource BasicButton}"
                                                         Command="{Binding RemoveFromPlaylist}"
                                                         Grid.Row="1"
                                                         Grid.Column="2">
-                                                    <Image Source="/MediaPlayer;component/music_control_images/remove-playlist.png"/>
+                                                    <Image Source="/MediaPlayer;component/music_control_images/remove-audio-playlist.png"/>
                                                 </Button>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -326,7 +326,7 @@
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         HorizontalAlignment="Left"
                                         Command="{Binding Play}">
-                                    <Image Source="/MediaPlayer;component/music_control_images/play-playlist.png"/>
+                                    <Image Name="PlayPauseImage" Source="{Binding PlayPauseImage}"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding Remove}">

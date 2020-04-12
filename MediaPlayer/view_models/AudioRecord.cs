@@ -40,25 +40,11 @@ namespace MediaPlayer
                 {
                     if (OutputDevice == null || OutputDevice.PlaybackState == PlaybackState.Paused)
                     {
-                        PlayAudio();
-                        TotalAudioSecondsTime = Audio.TotalTime.TotalSeconds;
-                        ChangePlayPauseImage(false);
-                        AudioTime.Start(Audio);
-                        AudioProgress.Start(Audio);
+                        Play();
                     }
                     else
                     {
-                        try
-                        {
-                            PauseAudio();
-                            ChangePlayPauseImage(true);
-                            AudioTime.Pause();
-                            AudioProgress.Pause();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        Pause();
                     }
                 }, (obj) => audioPath != null));
             }
@@ -220,6 +206,30 @@ namespace MediaPlayer
             movedSeconds = (int)(sender as Slider).Value;
             AudioTime.CurrentSeconds = TimeSpan.FromSeconds(movedSeconds).Seconds;
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
+        }
+
+        private void Play()
+        {
+            PlayAudio();
+            TotalAudioSecondsTime = Audio.TotalTime.TotalSeconds;
+            ChangePlayPauseImage(false);
+            AudioTime.Start(Audio);
+            AudioProgress.Start(Audio);
+        }
+
+        private void Pause()
+        {
+            try
+            {
+                PauseAudio();
+                ChangePlayPauseImage(true);
+                AudioTime.Pause();
+                AudioProgress.Pause();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void BeforeChoose()

@@ -22,19 +22,15 @@ namespace MediaPlayer.views
     {
 
         WindowControll windowControll;
-        PlaylistsCollection playlistsCollection;
+        public PlaylistsCollection PlaylistsCollection { get; set; }
 
         public PlaylistsWindow()
         {
             InitializeComponent();
             windowControll = (WindowControll)this.Resources["WindowControll"];
-            playlistsCollection = (PlaylistsCollection)this.Resources["PlaylistsCollection"];
+            PlaylistsCollection = (PlaylistsCollection)this.Resources["PlaylistsCollection"];
             windowControll.CurrentWindow = this;
             windowControll.RestoreWindowImage = RestoreWindowImage;
-            playlistsCollection.Playlists.Add(new Playlist(playlistsCollection) { Header = "XX1" });
-            playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord(playlistsCollection.Playlists.ElementAt(0)) { AudioName = "test1" });
-            playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord(playlistsCollection.Playlists.ElementAt(0)) { AudioName = "test2" });
-            playlistsCollection.Playlists.ElementAt(0).AudioRecords.Add(new AudioRecord(playlistsCollection.Playlists.ElementAt(0)) { AudioName = "test3" });
         }
     }
 }

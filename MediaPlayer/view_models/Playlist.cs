@@ -1,5 +1,6 @@
 ﻿using MediaPlayer.views;
 using Microsoft.Win32;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace MediaPlayer.view_models
 {
@@ -51,15 +54,22 @@ namespace MediaPlayer.view_models
                     }
                 }));
             }
-        }
+        }   
         public AudioRecordCommand Play
         {
             get
             {
                 return play ?? (play = new AudioRecordCommand(obj =>
                 {
-                    ChoosePlayingAudio(AudioRecords.ElementAt(0));
-                }));
+                    parentCollection.ChooseCurrentPlaylist(this);
+                    isPlaying = !isPlaying;
+                    if (CurrentRecord == null)
+                    {
+                        ChoosePlayingAudio(AudioRecords.ElementAt(0));
+                        CurrentRecordIndex = 0;
+                    }
+                    ChangePlayPauseImage();
+                }, (obj)=>AudioRecords.Count > 0));
             }
         }
         public AudioRecordCommand EditName
@@ -84,6 +94,29 @@ namespace MediaPlayer.view_models
                 }));
             }
         }
+        public BitmapImage PlayPauseImage
+        {
+            get
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                if (isPlaying)
+                {
+                    image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/pause-playlist.png");
+                }
+                else
+                {
+                    image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/play-playlist.png");
+                }
+                image.EndInit();
+                return image;
+            }
+            set
+            {
+                playPauseImage = value;
+                OnPropertyChanged("PlayPauseImage");
+            }
+        }
         public string Header
         {
             get
@@ -96,23 +129,67 @@ namespace MediaPlayer.view_models
                 OnPropertyChanged("Header");
             }
         }
+        public bool IsPlaying
+        {
+            get
+            {
+                return isPlaying;
+            }
+            set
+            {
+                isPlaying = value;
+                OnPropertyChanged("IsPlaying");
+            }
+        }
 
         AudioRecordCommand addAudio;
         AudioRecordCommand play;
         AudioRecordCommand remove;
         AudioRecordCommand editName;
         AudioRecord currentRecord;
+        BitmapImage playPauseImage;
         PlaylistsCollection parentCollection;
         string header;
+        bool isPlaying;
 
         public Playlist()
         {
             AudioRecords = new ObservableCollection<AudioRecord>();
+            isPlaying = false;
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                if (isPlaying)
+                {
+                    image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/pause-playlist.png");
+                }
+                else
+                {
+                    image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/play-playlist.png");
+                }
+                image.EndInit();
+                PlayPauseImage = image;
+            }
         }
 
         public Playlist(PlaylistsCollection parentCollection)
         {
             AudioRecords = new ObservableCollection<AudioRecord>();
+            isPlaying = false;
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                if (isPlaying)
+                {
+                    image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/pause-playlist.png");
+                }
+                else
+                {
+                    image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/play-playlist.png");
+                }
+                image.EndInit();
+                PlayPauseImage = image;
+            }
             this.parentCollection = parentCollection;
         }
 
@@ -122,6 +199,26 @@ namespace MediaPlayer.view_models
             catch(NullReferenceException){}
             CurrentRecord = audioRecord;
             CurrentRecord.IsPlayingInPlaylist = true;
+            IsPlaying = true;
+            ChangePlayPauseImage();
+        }
+
+        private void ChangePlayPauseImage()
+        {
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            if (isPlaying)
+            {
+                image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/pause-playlist.png");
+                CurrentRecord.IsPlayingInPlaylist = true;
+            }
+            else
+            {
+                image.UriSource = new Uri("pack://application:,,,/MediaPlayer;component/music_control_images/play-playlist.png");
+                CurrentRecord.IsPlayingInPlaylist = false;
+            }
+            image.EndInit();
+            PlayPauseImage = image;
         }
 
         public void RemoveAudio(AudioRecord audioRecord) => AudioRecords.Remove(audioRecord);

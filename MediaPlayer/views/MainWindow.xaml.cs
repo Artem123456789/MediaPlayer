@@ -28,34 +28,33 @@ namespace MediaPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
-        AudioRecord playingRecord;
         WindowControll windowControll;
         view_models.Menu menu;
 
         public MainWindow()
         {
             InitializeComponent();
-            playingRecord = (AudioRecord)this.Resources["PlayingRecord"];
             windowControll = (WindowControll)this.Resources["WindowControll"];
             menu = (view_models.Menu)this.Resources["Menu"];
-            menu.SingleAudio = playingRecord;
+            menu.Collection = (PlaylistsCollection)this.Resources["PlaylistsCollection"];
+            menu.BeforeInit();
             windowControll.CurrentWindow = this;
             windowControll.RestoreWindowImage = RestoreWindowImage;
         }
 
         private void MoveAudio(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            playingRecord.MoveAudio(sender);
+            menu.Collection.CurrentPlaylist.CurrentRecord.MoveAudio(sender);
         }
 
         private void MovingAudio(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
         {
-            playingRecord.MovingAudio(sender);
+            menu.Collection.CurrentPlaylist.CurrentRecord.MovingAudio(sender);
         }
 
         private void PlaybackStoped(object sender, CancelEventArgs e)
         {
-            playingRecord.PlayBackStoped();
+            menu.Collection.CurrentPlaylist.CurrentRecord.PlayBackStoped();
         }
     }
 }
