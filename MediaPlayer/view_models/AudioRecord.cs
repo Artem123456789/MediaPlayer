@@ -94,13 +94,15 @@ namespace MediaPlayer
             {
                 return playNextAudio ?? (playNextAudio = new AudioRecordCommand(obj =>
                 {
+                    ChangedByButton = true;
                     StopMusic();
                     PlayBackStoped();
                     AudioTime.Stop();
                     AudioProgress.Stop();
                     ParentPlayList.ChoosePlayingAudio(ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.IndexOf(this) + 1));
+                    ParentPlayList.CurrentRecord.ChangedByButton = false;
                     ParentPlayList.CurrentRecord.Play();
-                },(obj)=>ParentPlayList.CurrentRecord != ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.Count - 1)));
+                },(obj)=>this != ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.Count - 1)));
             }
         }
         public AudioRecordCommand PlayPrevAudio
@@ -109,13 +111,15 @@ namespace MediaPlayer
             {
                 return playPrevAudio ?? (playPrevAudio = new AudioRecordCommand(obj =>
                 {
+                    ChangedByButton = true;
                     StopMusic();
                     PlayBackStoped();
                     AudioTime.Stop();
                     AudioProgress.Stop();
                     ParentPlayList.ChoosePlayingAudio(ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.IndexOf(this) - 1));
+                    ParentPlayList.CurrentRecord.ChangedByButton = false;
                     ParentPlayList.CurrentRecord.Play();
-                },(obj)=>ParentPlayList.CurrentRecord != ParentPlayList.AudioRecords.ElementAt(0)));
+                },(obj)=>this != ParentPlayList.AudioRecords.ElementAt(0)));
             }
         }
 
@@ -183,6 +187,7 @@ namespace MediaPlayer
                 OnPropertyChanged("IsPlayingInPlaylist");
             }
         }
+        public bool ChangedByButton { get; set; }
 
         //fields
         AudioRecordCommand playPauseMusicCommand;
@@ -211,6 +216,7 @@ namespace MediaPlayer
             AudioProgress = new AudioProgress();
             IsLoop = false;
             TotalAudioSecondsTime = 0;
+            ChangedByButton = false;
             ChangePlayPauseImage(true);
         }
 
@@ -220,6 +226,7 @@ namespace MediaPlayer
             AudioTime = new AudioTime();
             AudioProgress = new AudioProgress();
             IsLoop = false;
+            ChangedByButton = false;
             TotalAudioSecondsTime = 0;
             ChangePlayPauseImage(true);
         }
@@ -345,7 +352,7 @@ namespace MediaPlayer
             }
             else
             {
-                if ((ParentPlayList.AudioRecords.IndexOf(this) + 1 < ParentPlayList.AudioRecords.Count) && ParentPlayList.IsPlaying)
+                if ((ParentPlayList.AudioRecords.IndexOf(this) + 1 < ParentPlayList.AudioRecords.Count) && ParentPlayList.IsPlaying && !ChangedByButton)
                 {
                     ParentPlayList.ChoosePlayingAudio(ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.IndexOf(this) + 1));
                     ParentPlayList.CurrentRecord.Play();
