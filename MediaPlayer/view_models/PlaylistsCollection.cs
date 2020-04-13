@@ -64,7 +64,7 @@ namespace MediaPlayer.view_models
         public void RemovePlaylist(Playlist playlist) => Playlists.Remove(playlist);
         public void ChooseCurrentPlaylist(Playlist playlist)
         {
-            if(CurrentPlaylist.Header != DefaultPlaylist.Header)
+            if (CurrentPlaylist.Header != DefaultPlaylist.Header)
             {
                 CurrentPlaylist.IsPlaying = false;
                 CurrentPlaylist.CurrentRecord.StopMusic();

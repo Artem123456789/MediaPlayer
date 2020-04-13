@@ -72,6 +72,13 @@ namespace MediaPlayer.view_models
             {
                 return openPlaylists ?? (openPlaylists = new AudioRecordCommand(obj =>
                 {
+                    if(Collection.CurrentPlaylist == DefaultPlaylist)
+                    {
+                        DefaultPlaylist.CurrentRecord.PlayBackStoped();
+                        DefaultPlaylist.CurrentRecord.StopMusic();
+                        DefaultPlaylist.CurrentRecord.AudioTime.Stop();
+                        DefaultPlaylist.CurrentRecord.AudioProgress.Stop();
+                    }
                     PlaylistsWindow playlistsWindow = new PlaylistsWindow();
                     foreach (var item in Collection.Playlists)
                     {
