@@ -66,6 +66,8 @@ namespace MediaPlayer.view_models
             if(CurrentPlaylist.Header != DefaultPlaylist.Header)
             {
                 CurrentPlaylist.IsPlaying = false;
+                CurrentPlaylist.CurrentRecord.StopMusic();
+                CurrentPlaylist.CurrentRecord.PlayBackStoped();
                 CurrentPlaylist.ChangePlayPauseImage();
             }
             CurrentPlaylist = playlist;

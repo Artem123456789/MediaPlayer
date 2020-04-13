@@ -62,7 +62,12 @@ namespace MediaPlayer.view_models
                 return play ?? (play = new AudioRecordCommand(obj =>
                 {
                     IsPlaying = !IsPlaying;
-                    if(IsPlaying) parentCollection.ChooseCurrentPlaylist(this);
+                    if(IsPlaying) ParentCollection.ChooseCurrentPlaylist(this);
+                    else
+                    {
+                        CurrentRecord.StopMusic();
+                        CurrentRecord.PlayBackStoped();
+                    }
                     if (CurrentRecord == null)
                     {
                         ChoosePlayingAudio(AudioRecords.ElementAt(0));
@@ -90,7 +95,7 @@ namespace MediaPlayer.view_models
             {
                 return remove ?? (remove = new AudioRecordCommand(obj =>
                 {
-                    parentCollection.RemovePlaylist(this);
+                    ParentCollection.RemovePlaylist(this);
                 }));
             }
         }
@@ -131,13 +136,26 @@ namespace MediaPlayer.view_models
             }
         }
 
+        public Playlist Copy()
+        {
+            Playlist playlist = new Playlist(ParentCollection);
+            foreach (var item in AudioRecords)
+            {
+                playlist.AudioRecords.Add(item);
+            }
+            playlist.CurrentRecord = CurrentRecord;
+            playlist.Header = Header;
+            playlist.IsPlaying = IsPlaying;
+            return playlist;
+        }
+
         AudioRecordCommand addAudio;
         AudioRecordCommand play;
         AudioRecordCommand remove;
         AudioRecordCommand editName;
         AudioRecord currentRecord;
         BitmapImage playPauseImage;
-        PlaylistsCollection parentCollection;
+        public PlaylistsCollection ParentCollection { get; set; }
         string header;
         bool isPlaying;
 
@@ -161,7 +179,7 @@ namespace MediaPlayer.view_models
             }
         }
 
-        public Playlist(PlaylistsCollection parentCollection)
+        public Playlist(PlaylistsCollection ParentCollection)
         {
             AudioRecords = new ObservableCollection<AudioRecord>();
             IsPlaying = false;
@@ -179,7 +197,7 @@ namespace MediaPlayer.view_models
                 image.EndInit();
                 PlayPauseImage = image;
             }
-            this.parentCollection = parentCollection;
+            this.ParentCollection = ParentCollection;
         }
 
         public void ChoosePlayingAudio(AudioRecord audioRecord)
@@ -189,7 +207,7 @@ namespace MediaPlayer.view_models
             CurrentRecord = audioRecord;
             CurrentRecord.IsPlayingInPlaylist = true;
             ChangePlayPauseImage();
-            if(!IsPlaying) parentCollection.ChooseCurrentPlaylist(this);
+            if(!IsPlaying) ParentCollection.ChooseCurrentPlaylist(this);
         }
 
         public void ChangePlayPauseImage()

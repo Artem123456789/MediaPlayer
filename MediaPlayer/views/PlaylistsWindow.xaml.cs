@@ -32,5 +32,10 @@ namespace MediaPlayer.views
             windowControll.CurrentWindow = this;
             windowControll.RestoreWindowImage = RestoreWindowImage;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(PlaylistsCollection.CurrentPlaylist.Header);
+        }
     }
 }

@@ -368,7 +368,7 @@ namespace MediaPlayer
         /// <summary>
         /// Stops the music
         /// </summary>
-        private void StopMusic()
+        public void StopMusic()
         {
             OutputDevice?.Stop();
         }

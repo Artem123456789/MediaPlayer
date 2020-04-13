@@ -73,13 +73,14 @@ namespace MediaPlayer.view_models
                     PlaylistsWindow playlistsWindow = new PlaylistsWindow();
                     foreach (var item in Collection.Playlists)
                     {
+                        item.ParentCollection = playlistsWindow.PlaylistsCollection;
                         playlistsWindow.PlaylistsCollection.Playlists.Add(item);
                     }
                     playlistsWindow.PlaylistsCollection.CurrentPlaylist = Collection.CurrentPlaylist;
                     playlistsWindow.ShowDialog();
                     Collection.Playlists = playlistsWindow.PlaylistsCollection.Playlists;
                     try { Collection.CurrentPlaylist = playlistsWindow.PlaylistsCollection.CurrentPlaylist; }
-                    catch (NullReferenceException) { }
+                    catch (NullReferenceException) { MessageBox.Show("f"); }
                 }));
             }
         }
