@@ -162,9 +162,40 @@
                         Value="{Binding Path=AudioProgress.IndicatorCoord}"
                         Thumb.DragCompleted="MoveAudio"
                         Thumb.DragDelta="MovingAudio"/>
-                <TextBlock Text="{Binding Path=AudioTime.TimerText, Mode=TwoWay}"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Style="{StaticResource BasicButton}"
+                            Width="25"
+                            Height="25"
+                            HorizontalAlignment="Right"
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Command="{Binding PlayPrevAudio}">
+                        <Image Source="/MediaPlayer;component/music_control_images/prev-playlist-audio.png"/>
+                    </Button>
+                    <TextBlock Text="{Binding Path=AudioTime.TimerText, Mode=TwoWay}"
                                FontSize="20"
-                               TextAlignment="Center"/>
+                               TextAlignment="Center"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               VerticalAlignment="Center"/>
+                    <Button Style="{StaticResource BasicButton}"
+                            Width="25"
+                            Height="25"
+                            HorizontalAlignment="Left"
+                            Grid.Column="2"
+                            Grid.Row="0"
+                            Command="{Binding PlayNextAudio}">
+                        <Image Source="/MediaPlayer;component/music_control_images/next-playlist-audio.png"/>
+                    </Button>
+                </Grid>
             </UniformGrid>
         </Grid>
     </Grid>

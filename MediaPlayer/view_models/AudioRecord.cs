@@ -88,6 +88,24 @@ namespace MediaPlayer
                 }));
             }
         }
+        public AudioRecordCommand PlayNextAudio
+        {
+            get
+            {
+                return playNextAudio ?? (playNextAudio = new AudioRecordCommand(obj =>
+                {
+                }));
+            }
+        }
+        public AudioRecordCommand PlayPrevAudio
+        {
+            get
+            {
+                return playPrevAudio ?? (playPrevAudio = new AudioRecordCommand(obj =>
+                {
+                }));
+            }
+        }
 
         //all other properties
         public BitmapImage PlayPauseImageSource
@@ -159,6 +177,8 @@ namespace MediaPlayer
         AudioRecordCommand restartMusicCommand;
         AudioRecordCommand choosePlayingPlaylist;
         AudioRecordCommand removeFromPlaylist;
+        AudioRecordCommand playNextAudio;
+        AudioRecordCommand playPrevAudio;
         BitmapImage playPauseImageSource;
         TimeSpan newTime;
         int movedSeconds;
