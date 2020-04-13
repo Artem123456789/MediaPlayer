@@ -162,7 +162,7 @@
                         Value="{Binding Path=AudioProgress.IndicatorCoord}"
                         Thumb.DragCompleted="MoveAudio"
                         Thumb.DragDelta="MovingAudio"/>
-                <Grid>
+                <Grid VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>

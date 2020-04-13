@@ -94,7 +94,9 @@ namespace MediaPlayer
             {
                 return playNextAudio ?? (playNextAudio = new AudioRecordCommand(obj =>
                 {
-                }));
+                    ParentPlayList.ChoosePlayingAudio(ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.IndexOf(this) + 1));
+                    ParentPlayList.CurrentRecord.Play();
+                },(obj)=>ParentPlayList.CurrentRecord != ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.Count - 1)));
             }
         }
         public AudioRecordCommand PlayPrevAudio
@@ -103,7 +105,9 @@ namespace MediaPlayer
             {
                 return playPrevAudio ?? (playPrevAudio = new AudioRecordCommand(obj =>
                 {
-                }));
+                    ParentPlayList.ChoosePlayingAudio(ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.IndexOf(this) - 1));
+                    ParentPlayList.CurrentRecord.Play();
+                },(obj)=>ParentPlayList.CurrentRecord != ParentPlayList.AudioRecords.ElementAt(0)));
             }
         }
 
