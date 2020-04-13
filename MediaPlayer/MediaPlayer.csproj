@@ -203,5 +203,11 @@
   <ItemGroup>
     <Resource Include="music_control_images\pause-playlist.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="music_control_images\prev-playlist-audio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="music_control_images\next-playlist-audio.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
