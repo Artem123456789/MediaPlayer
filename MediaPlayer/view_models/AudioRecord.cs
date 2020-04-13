@@ -85,7 +85,7 @@ namespace MediaPlayer
                 return removeFromPlaylist ?? (removeFromPlaylist = new AudioRecordCommand(obj =>
                 {
                     ParentPlayList.RemoveAudio(this);
-                }));
+                },(obj)=> !IsPlayingInPlaylist));
             }
         }
         public AudioRecordCommand PlayNextAudio

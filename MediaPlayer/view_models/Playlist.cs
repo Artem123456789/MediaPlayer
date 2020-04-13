@@ -96,7 +96,7 @@ namespace MediaPlayer.view_models
                 return remove ?? (remove = new AudioRecordCommand(obj =>
                 {
                     ParentCollection.RemovePlaylist(this);
-                }));
+                },(obj)=> !IsPlaying));
             }
         }
         public BitmapImage PlayPauseImage
@@ -134,19 +134,6 @@ namespace MediaPlayer.view_models
                 isPlaying = value;
                 OnPropertyChanged("IsPlaying");
             }
-        }
-
-        public Playlist Copy()
-        {
-            Playlist playlist = new Playlist(ParentCollection);
-            foreach (var item in AudioRecords)
-            {
-                playlist.AudioRecords.Add(item);
-            }
-            playlist.CurrentRecord = CurrentRecord;
-            playlist.Header = Header;
-            playlist.IsPlaying = IsPlaying;
-            return playlist;
         }
 
         AudioRecordCommand addAudio;
