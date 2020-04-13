@@ -35,6 +35,8 @@ namespace MediaPlayer.view_models
                 {
                     try
                     {
+                        Collection.CurrentPlaylist.CurrentRecord.StopMusic();
+                        Collection.CurrentPlaylist.CurrentRecord.PlayBackStoped();
                         Collection.CurrentPlaylist = DefaultPlaylist;
                         DefaultPlaylist.CurrentRecord.BeforeChoose();
                         OpenFileDialog fileDialog = new OpenFileDialog();

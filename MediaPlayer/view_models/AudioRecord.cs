@@ -71,6 +71,8 @@ namespace MediaPlayer
                     {
                         ParentPlayList.CurrentRecord.StopMusic();
                         ParentPlayList.CurrentRecord.PlayBackStoped();
+                        ParentPlayList.CurrentRecord.AudioTime.Stop();
+                        ParentPlayList.CurrentRecord.AudioProgress.Stop();
                     }
                     ParentPlayList.ChoosePlayingAudio(this);
                 }));
@@ -311,7 +313,7 @@ namespace MediaPlayer
             }
             else
             {
-                if (ParentPlayList.AudioRecords.IndexOf(this) + 1 < ParentPlayList.AudioRecords.Count)
+                if ((ParentPlayList.AudioRecords.IndexOf(this) + 1 < ParentPlayList.AudioRecords.Count) && ParentPlayList.IsPlaying)
                 {
                     ParentPlayList.ChoosePlayingAudio(ParentPlayList.AudioRecords.ElementAt(ParentPlayList.AudioRecords.IndexOf(this) + 1));
                     ParentPlayList.CurrentRecord.Play();

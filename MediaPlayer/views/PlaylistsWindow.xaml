@@ -349,7 +349,7 @@
             <UniformGrid Grid.Row="1"
                          Grid.Column="0"
                          Columns="1" 
-                         Rows="3"
+                         Rows="2"
                          Margin="5">
                 <TextBox Name="NewPlaylistName" 
                          Text="{Binding NewPlaylistName, Mode=TwoWay}"
@@ -359,7 +359,6 @@
                         Command="{Binding AddPlaylist}"
                         FontSize="16"
                         Margin="3"/>
-                <Button Content="sd" Click="Button_Click"/>
             </UniformGrid>
         </Grid>
     </Grid>

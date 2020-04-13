@@ -202,12 +202,16 @@ namespace MediaPlayer.view_models
 
         public void ChoosePlayingAudio(AudioRecord audioRecord)
         {
+            if (!IsPlaying)
+            {
+                ParentCollection.ChooseCurrentPlaylist(this);
+                IsPlaying = true;
+            }
             try { CurrentRecord.IsPlayingInPlaylist = false; }
             catch(NullReferenceException){}
             CurrentRecord = audioRecord;
             CurrentRecord.IsPlayingInPlaylist = true;
             ChangePlayPauseImage();
-            if(!IsPlaying) ParentCollection.ChooseCurrentPlaylist(this);
         }
 
         public void ChangePlayPauseImage()

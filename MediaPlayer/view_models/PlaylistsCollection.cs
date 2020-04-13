@@ -44,6 +44,7 @@ namespace MediaPlayer.view_models
                 return addPlaylist ?? (addPlaylist = new AudioRecordCommand(obj =>
                 {
                     Playlists.Add(new Playlist(this) { Header = NewPlaylistName });
+                    NewPlaylistName = string.Empty;
                 }));
             }
         }
@@ -68,6 +69,8 @@ namespace MediaPlayer.view_models
                 CurrentPlaylist.IsPlaying = false;
                 CurrentPlaylist.CurrentRecord.StopMusic();
                 CurrentPlaylist.CurrentRecord.PlayBackStoped();
+                CurrentPlaylist.CurrentRecord.AudioTime.Stop();
+                CurrentPlaylist.CurrentRecord.AudioProgress.Stop();
                 CurrentPlaylist.ChangePlayPauseImage();
             }
             CurrentPlaylist = playlist;
