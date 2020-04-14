@@ -108,24 +108,7 @@
                  x:Name="PlaylistsList"
                  ItemsSource="{Binding Playlists}">
                 <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Margin" Value="5"/>
-                        <Setter Property="Background" Value="#C4C4C4"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBoxItem">
-                                    <Border Background="{TemplateBinding Background}">
-                                        <ContentPresenter/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#C4C4C4"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource PlaylistListBox}"/>
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -136,27 +119,8 @@
                                       Margin="5">
                                     <ListBox ItemsSource="{Binding AudioRecords}">
                                         <ListBox.ItemContainerStyle>
-                                        <Style TargetType="ListBoxItem">
-                                            <Setter Property="Margin" Value="5"/>
-                                            <Setter Property="BorderBrush" Value="Black"/>
-                                            <Setter Property="BorderThickness" Value="5"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="ListBoxItem">
-                                                        <Border Background="{TemplateBinding Background}">
-                                                            <ContentPresenter/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#C4C4C4"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                        </ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource PlaylistListBox}"/> 
+                                    </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>

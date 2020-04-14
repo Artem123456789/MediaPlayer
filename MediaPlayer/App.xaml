@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="resource_dictionaries/ToggleButton.xaml"/>
                 <ResourceDictionary Source="resource_dictionaries/PlaylistExpander.xaml"/>
                 <ResourceDictionary Source="resource_dictionaries/Window.xaml"/>
+                <ResourceDictionary Source="resource_dictionaries/ListBoxItems.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
