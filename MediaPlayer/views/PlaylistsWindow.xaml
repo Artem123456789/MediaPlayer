@@ -8,11 +8,7 @@
         xmlns:vm="clr-namespace:MediaPlayer.view_models"
         mc:Ignorable="d"
         Title="PlaylistsWindow" Height="450" Width="400"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        BorderBrush="Black"
-        BorderThickness="5,0,5,5"
-        ResizeMode="CanResizeWithGrip">
+        Style="{StaticResource MediaPlayerWindow}">
     <Window.Resources>
         <vm:WindowControll x:Key="WindowControll"/>
         <vm:PlaylistsCollection x:Key="PlaylistsCollection"/>

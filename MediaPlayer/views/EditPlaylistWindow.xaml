@@ -8,11 +8,7 @@
         xmlns:vm="clr-namespace:MediaPlayer.view_models"
         mc:Ignorable="d"
         Title="EditPlaylistWindow" Height="150" Width="200"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        BorderBrush="Black"
-        BorderThickness="5,0,5,5"
-        ResizeMode="NoResize">
+        Style="{StaticResource MediaPlayerWindow}">
     <Window.Resources>
         <vm:WindowControll x:Key="WindowControll"/>
     </Window.Resources>

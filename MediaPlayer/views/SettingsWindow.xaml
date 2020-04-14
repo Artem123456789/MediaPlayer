@@ -11,11 +11,7 @@
         mc:Ignorable="d"
         Height="350"
         Width="500"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        BorderBrush="Black"
-        BorderThickness="5,0,5,5"
-        ResizeMode="CanResizeWithGrip">
+        Style="{StaticResource MediaPlayerWindow}">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="20"/>

@@ -10,12 +10,7 @@
         WindowStartupLocation="CenterScreen"
         Height="400"
         Width="550"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        BorderBrush="Black"
-        Closing="PlaybackStoped"
-        BorderThickness="5,0,5,5"
-        ResizeMode="CanResizeWithGrip">
+        Style="{StaticResource MediaPlayerWindow}">
     <Window.Resources>
         <vm:WindowControll x:Key="WindowControll"/>
         <vm:Menu x:Key="Menu"/>
