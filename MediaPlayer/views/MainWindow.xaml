@@ -17,7 +17,6 @@
         BorderThickness="5,0,5,5"
         ResizeMode="CanResizeWithGrip">
     <Window.Resources>
-        <local:AudioRecord x:Key="PlayingRecord"/>
         <vm:WindowControll x:Key="WindowControll"/>
         <vm:Menu x:Key="Menu"/>
         <vm:PlaylistsCollection x:Key="PlaylistsCollection"/>
@@ -126,7 +125,7 @@
             </Menu>
             <!--Audio record state controll panel-->
             <UniformGrid Grid.Column="0" Grid.Row="1" 
-                         MaxWidth="300" 
+                         MaxWidth="340" 
                          Columns="2" 
                          Rows="1">
                 <Button Style="{StaticResource MusicControlButton}"
