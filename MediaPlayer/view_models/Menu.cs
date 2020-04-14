@@ -57,10 +57,9 @@ namespace MediaPlayer.view_models
             {
                 return openSettings ?? (openSettings = new AudioRecordCommand(obj =>
                 {
-
                     SettingsWindow window = new SettingsWindow();
-                    window.AudioRecord.AudioName = DefaultPlaylist.CurrentRecord.AudioName;
-                    window.AudioRecord.IsLoop = DefaultPlaylist.CurrentRecord.IsLoop;
+                    window.AudioRecord.AudioName = Collection.CurrentPlaylist.CurrentRecord.AudioName;
+                    window.AudioRecord.IsLoop = Collection.CurrentPlaylist.CurrentRecord.IsLoop;
                     window.ShowDialog();
                     DefaultPlaylist.CurrentRecord.IsLoop = window.AudioRecord.IsLoop;
                 }));
