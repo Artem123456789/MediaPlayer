@@ -20,6 +20,7 @@
         <BitmapImage x:Key="RemoveAudioPlaylistImage" UriSource="/MediaPlayer;component/music_control_images/remove-audio-playlist.png"/>
         <BitmapImage x:Key="EditPlaylistImage" UriSource="/MediaPlayer;component/music_control_images/edit-playlist.png"/>
         <BitmapImage x:Key="AddAudioPlaylistImage" UriSource="/MediaPlayer;component/music_control_images/add-playlist-audio.png"/>
+        <BitmapImage x:Key="CurrentAudioImage" UriSource="/MediaPlayer;component/music_control_images/playing-audio-playlist.png"/>
         <Thickness x:Key="PlaylistControllPanelMargin" Left="0" Top="0" Right="0" Bottom="10"/>
         <sys:Double x:Key="WindowControllsPanelMaxHeight">38</sys:Double>
         <sys:Double x:Key="WindowContrllGridMaxWidth">110</sys:Double>
@@ -121,6 +122,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition MaxHeight="{StaticResource AddPlaylistRowMaxHeight}"></RowDefinition>
             </Grid.RowDefinitions>
+            <!--Playslists list-->
             <ListBox
                 Grid.Row="0"
                 Grid.Column="0"
@@ -132,12 +134,14 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <UniformGrid Columns="1" Rows="2">
+                            <!--Expander for audio viewing and audio record list-->
                             <Expander Style="{StaticResource PlaylistExpander}" 
                                       Header="{Binding Header}">
                                     <ListBox ItemsSource="{Binding AudioRecords}">
                                         <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource PlaylistListBox}"/> 
                                     </ListBox.ItemContainerStyle>
+                                     <!--Audio template-->
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -154,7 +158,7 @@
                                                            Grid.Row="0"
                                                            Grid.Column="0"/>
                                                 <Image  Visibility="{Binding Path=IsPlayingInPlaylist, Converter={StaticResource BoolToVis}}"
-                                                        Grid.Row="0" Grid.Column="1" Source="/MediaPlayer;component/music_control_images/playing-audio-playlist.png"/>
+                                                        Grid.Row="0" Grid.Column="1" Source="{StaticResource CurrentAudioImage}"/>
                                                 <Button Style="{StaticResource BasicButton}"
                                                         Command="{Binding RemoveFromPlaylist}"
                                                         Grid.Row="1"
@@ -171,6 +175,7 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                             </Expander>
+                            <!--Playlist controll panel-->
                             <UniformGrid Columns="4" Rows="1" 
                                          Style="{StaticResource PlaylistControllPanel}">
                                 <Button Style="{StaticResource ControllPlaylistButton}"
@@ -196,6 +201,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <!--Add playlist interface-->
             <UniformGrid Grid.Row="1"
                          Grid.Column="0"
                          Columns="1" 
