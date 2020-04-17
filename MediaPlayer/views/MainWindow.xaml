@@ -20,7 +20,7 @@
         </Style>
         <GridLength x:Key="MenuPanelRowHeight">30</GridLength>
         <Thickness x:Key="SliderMargin" Left="20" Top="0" Right="20" Bottom="0"/>
-        <BitmapImage x:Key="MinimizeWindowImage" UriSource="/MediaPlayer;component/window_control_images/hide-window.png"/>
+        <BitmapImage x:Key="HideWindowImage" UriSource="/MediaPlayer;component/window_control_images/hide-window.png"/>
         <BitmapImage x:Key="RestoreWindowImage" UriSource="/MediaPlayer;component/window_control_images/maximize-window.png"/>
         <BitmapImage x:Key="CloseWindowImage" UriSource="/MediaPlayer;component/window_control_images/close-window.png"/>
         <BitmapImage x:Key="RestartMusicButtonImage" UriSource="/MediaPlayer;component/music_control_images/restart-music.png"/>
@@ -80,7 +80,7 @@
                         Grid.Row="0"
                         HorizontalAlignment="Left">
                     <Button.Content>
-                        <Image Source="{StaticResource MinimizeWindowImage}"/>
+                        <Image Source="{StaticResource HideWindowImage}"/>
                     </Button.Content>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
