@@ -61,7 +61,7 @@ namespace MediaPlayer.view_models
                     window.AudioRecord.AudioName = Collection.CurrentPlaylist.CurrentRecord.AudioName;
                     window.AudioRecord.IsLoop = Collection.CurrentPlaylist.CurrentRecord.IsLoop;
                     window.ShowDialog();
-                    DefaultPlaylist.CurrentRecord.IsLoop = window.AudioRecord.IsLoop;
+                    Collection.CurrentPlaylist.CurrentRecord.IsLoop = window.AudioRecord.IsLoop;
                 }));
             }
         }
@@ -87,6 +87,7 @@ namespace MediaPlayer.view_models
                     playlistsWindow.PlaylistsCollection.CurrentPlaylist = Collection.CurrentPlaylist;
                     playlistsWindow.ShowDialog();
                     Collection.Playlists = playlistsWindow.PlaylistsCollection.Playlists;
+                    Collection.DefaultPlaylist = playlistsWindow.PlaylistsCollection.DefaultPlaylist;
                     try { Collection.CurrentPlaylist = playlistsWindow.PlaylistsCollection.CurrentPlaylist; }
                     catch (NullReferenceException) { MessageBox.Show("f"); }
                 }));
@@ -101,7 +102,7 @@ namespace MediaPlayer.view_models
         public Menu()
         {
             SingleAudio = new AudioRecord();
-            DefaultPlaylist = new Playlist();
+            DefaultPlaylist = new Playlist(Collection);
             SingleAudio.ParentPlayList = DefaultPlaylist;
             Collection = new PlaylistsCollection();
             Collection.CurrentPlaylist = DefaultPlaylist;
