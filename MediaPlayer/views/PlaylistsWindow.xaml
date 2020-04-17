@@ -115,6 +115,7 @@
                         <UniformGrid Columns="1" Rows="2">
                             <Expander Style="{StaticResource PlaylistExpander}" 
                                       Header="{Binding Header}"
+                                      Foreground="#0085CA"
                                       FontSize="18"
                                       Margin="5">
                                     <ListBox ItemsSource="{Binding AudioRecords}">

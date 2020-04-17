@@ -3,7 +3,8 @@
                     xmlns:local="clr-namespace:MediaPlayer.resource_dictionaries">
     <Style TargetType="ListBoxItem" x:Key="PlaylistListBox">
         <Setter Property="Margin" Value="5"/>
-        <Setter Property="Background" Value="#C4C4C4"/>
+        <Setter Property="BorderThickness" Value="10"/>
+        <Setter Property="Background" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
@@ -15,7 +16,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#C4C4C4"/>
+                <Setter Property="Background" Value="White"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -34,7 +35,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#C4C4C4"/>
+                <Setter Property="Background" Value="White"/>
                 <Setter Property="Cursor" Value="Hand"/>
             </Trigger>
         </Style.Triggers>

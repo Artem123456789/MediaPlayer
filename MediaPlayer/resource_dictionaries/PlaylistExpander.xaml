@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style TargetType="Expander" x:Key="PlaylistExpander">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="Background" Value="#C4C4C4"/>
+        <Setter Property="Background" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Expander">
@@ -40,7 +40,7 @@
                                                             </BeginStoryboard>
                                                         </EventTrigger>
                                                     </Grid.Triggers>
-                                                    <Rectangle x:Name="PART_Rectangle" Fill="#C4C4C4" Opacity="0"/>
+                                                    <Rectangle x:Name="PART_Rectangle" Fill="White" Opacity="0"/>
                                                     <DockPanel Background="Transparent" Margin="0,5,0,10">
                                                         <TextBlock DockPanel.Dock="Left"
                                                                    FontWeight="Bold"
