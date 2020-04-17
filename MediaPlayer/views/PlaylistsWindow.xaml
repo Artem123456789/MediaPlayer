@@ -168,7 +168,7 @@
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding Remove}">
-                                    <Image Source="/MediaPlayer;component/music_control_images/remove-playlist.png"/>
+                                    <Image Source="/MediaPlayer;component/music_control_images/remove-audio-playlist.png"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding EditName}">

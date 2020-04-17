@@ -211,9 +211,6 @@
     <Resource Include="music_control_images\play-playlist.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="music_control_images\remove-playlist.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="music_control_images\edit-playlist.png" />
   </ItemGroup>
   <ItemGroup>
