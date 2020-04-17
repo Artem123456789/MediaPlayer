@@ -11,6 +11,7 @@ namespace MediaPlayer.view_models
 {
     public class PlaylistsCollection : INotifyPropertyChanged
     {
+        //properties
         public ObservableCollection<Playlist> Playlists { get; set; }
         public Playlist CurrentPlaylist 
         {
@@ -37,6 +38,9 @@ namespace MediaPlayer.view_models
                 OnPropertyChanged("NewPlaylistName");
             }
         }
+        public Playlist DefaultPlaylist { get; set; }
+
+        //commands properties
         public AudioRecordCommand AddPlaylist
         {
             get
@@ -48,12 +52,15 @@ namespace MediaPlayer.view_models
                 }));
             }
         }
-        public Playlist DefaultPlaylist { get; set; }
 
+        //fields
         AudioRecordCommand addPlaylist;
         Playlist currentPlaylist;
         string newPlaylistName;
 
+        /// <summary>
+        /// Default constructor. Sets default values
+        /// </summary>
         public PlaylistsCollection()
         {
             Playlists = new ObservableCollection<Playlist>();
@@ -61,7 +68,15 @@ namespace MediaPlayer.view_models
             CurrentPlaylist = DefaultPlaylist;
         }
 
+        /// <summary>
+        /// Removing playlist
+        /// </summary>
+        /// <param name="playlist">Playlist on remove</param>
         public void RemovePlaylist(Playlist playlist) => Playlists.Remove(playlist);
+        /// <summary>
+        /// Selects current playlist
+        /// </summary>
+        /// <param name="playlist">The playlist that becomes the current one</param>
         public void ChooseCurrentPlaylist(Playlist playlist)
         {
             if (CurrentPlaylist.Header != DefaultPlaylist.Header)

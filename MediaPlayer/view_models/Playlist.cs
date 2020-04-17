@@ -17,6 +17,7 @@ namespace MediaPlayer.view_models
 {
     public class Playlist : INotifyPropertyChanged
     {
+        //properties
         public ObservableCollection<AudioRecord> AudioRecords { get; set; }
         public AudioRecord CurrentRecord
         { 
@@ -31,74 +32,6 @@ namespace MediaPlayer.view_models
             }
         }
         public int CurrentRecordIndex { get; set; }
-        public AudioRecordCommand AddAudio
-        {
-            get
-            {
-                return addAudio ?? (addAudio = new AudioRecordCommand(obj =>
-                {
-                    try
-                    {
-                        AudioRecord audioRecord = new AudioRecord(this);
-                        audioRecord.BeforeChoose();
-                        OpenFileDialog openFileDialog = new OpenFileDialog();
-                        OpenFileDialog fileDialog = new OpenFileDialog();
-                        fileDialog.Filter = "MP3 files|*.mp3";
-                        if (fileDialog.ShowDialog() == true) audioRecord.AudioPath = fileDialog.FileName;
-                        audioRecord.AfterChoose();
-                        AudioRecords.Add(audioRecord);
-                    }
-                    catch(Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }));
-            }
-        }   
-        public AudioRecordCommand Play
-        {
-            get
-            {
-                return play ?? (play = new AudioRecordCommand(obj =>
-                {
-                    IsPlaying = !IsPlaying;
-                    if(IsPlaying) ParentCollection.ChooseCurrentPlaylist(this);
-                    else
-                    {
-                        CurrentRecord.StopMusic();
-                        CurrentRecord.PlayBackStoped();
-                    }
-                    if (CurrentRecord == null)
-                    {
-                        ChoosePlayingAudio(AudioRecords.ElementAt(0));
-                        CurrentRecordIndex = 0;
-                    }
-                    ChangePlayPauseImage();
-                }, (obj)=>AudioRecords.Count > 0));
-            }
-        }
-        public AudioRecordCommand EditName
-        {
-            get
-            {
-                return editName ?? (editName = new AudioRecordCommand(obj =>
-                {
-                    EditPlaylistWindow window = new EditPlaylistWindow();
-                    window.ShowDialog();
-                    Header = window.NewHeader;
-                }));
-            }
-        }
-        public AudioRecordCommand Remove
-        {
-            get
-            {
-                return remove ?? (remove = new AudioRecordCommand(obj =>
-                {
-                    ParentCollection.RemovePlaylist(this);
-                },(obj)=> !IsPlaying));
-            }
-        }
         public BitmapImage PlayPauseImage
         {
             get
@@ -136,6 +69,77 @@ namespace MediaPlayer.view_models
             }
         }
 
+        //commands properties
+        public AudioRecordCommand AddAudio
+        {
+            get
+            {
+                return addAudio ?? (addAudio = new AudioRecordCommand(obj =>
+                {
+                    try
+                    {
+                        AudioRecord audioRecord = new AudioRecord(this);
+                        audioRecord.BeforeChoose();
+                        OpenFileDialog openFileDialog = new OpenFileDialog();
+                        OpenFileDialog fileDialog = new OpenFileDialog();
+                        fileDialog.Filter = "MP3 files|*.mp3";
+                        if (fileDialog.ShowDialog() == true) audioRecord.AudioPath = fileDialog.FileName;
+                        audioRecord.AfterChoose();
+                        AudioRecords.Add(audioRecord);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }));
+            }
+        }
+        public AudioRecordCommand Play
+        {
+            get
+            {
+                return play ?? (play = new AudioRecordCommand(obj =>
+                {
+                    IsPlaying = !IsPlaying;
+                    if (IsPlaying) ParentCollection.ChooseCurrentPlaylist(this);
+                    else
+                    {
+                        CurrentRecord.StopMusic();
+                        CurrentRecord.PlayBackStoped();
+                    }
+                    if (CurrentRecord == null)
+                    {
+                        ChoosePlayingAudio(AudioRecords.ElementAt(0));
+                        CurrentRecordIndex = 0;
+                    }
+                    ChangePlayPauseImage();
+                }, (obj) => AudioRecords.Count > 0));
+            }
+        }
+        public AudioRecordCommand EditName
+        {
+            get
+            {
+                return editName ?? (editName = new AudioRecordCommand(obj =>
+                {
+                    EditPlaylistWindow window = new EditPlaylistWindow();
+                    window.ShowDialog();
+                    Header = window.NewHeader;
+                }));
+            }
+        }
+        public AudioRecordCommand Remove
+        {
+            get
+            {
+                return remove ?? (remove = new AudioRecordCommand(obj =>
+                {
+                    ParentCollection.RemovePlaylist(this);
+                }, (obj) => !IsPlaying));
+            }
+        }
+
+        //fields
         AudioRecordCommand addAudio;
         AudioRecordCommand play;
         AudioRecordCommand remove;
@@ -146,6 +150,9 @@ namespace MediaPlayer.view_models
         string header;
         bool isPlaying;
 
+        /// <summary>
+        /// Default contstructor
+        /// </summary>
         public Playlist()
         {
             AudioRecords = new ObservableCollection<AudioRecord>();
@@ -166,6 +173,10 @@ namespace MediaPlayer.view_models
             }
         }
 
+        /// <summary>
+        /// Does everything that the default constructor does and sets parent playlists collection.
+        /// </summary>
+        /// <param name="ParentCollection">playlist parent collection</param>
         public Playlist(PlaylistsCollection ParentCollection)
         {
             AudioRecords = new ObservableCollection<AudioRecord>();
@@ -187,6 +198,10 @@ namespace MediaPlayer.view_models
             this.ParentCollection = ParentCollection;
         }
 
+        /// <summary>
+        /// Selects the playing audio in the playlist
+        /// </summary>
+        /// <param name="audioRecord">An audio recording that will play</param>
         public void ChoosePlayingAudio(AudioRecord audioRecord)
         {
             if (!IsPlaying)
@@ -201,6 +216,9 @@ namespace MediaPlayer.view_models
             ChangePlayPauseImage();
         }
 
+        /// <summary>
+        /// An audio recording that will play
+        /// </summary>
         public void ChangePlayPauseImage()
         {
             BitmapImage image = new BitmapImage();
@@ -219,6 +237,10 @@ namespace MediaPlayer.view_models
             PlayPauseImage = image;
         }
 
+        /// <summary>
+        /// Removing audio from playlist
+        /// </summary>
+        /// <param name="audioRecord">Audio that will be deleted</param>
         public void RemoveAudio(AudioRecord audioRecord) => AudioRecords.Remove(audioRecord);
 
         public event PropertyChangedEventHandler PropertyChanged;
