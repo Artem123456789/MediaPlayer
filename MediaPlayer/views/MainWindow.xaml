@@ -7,9 +7,9 @@
         xmlns:vm="clr-namespace:MediaPlayer.view_models"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
         Height="400"
         Width="550"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{StaticResource MediaPlayerWindow}">
     <Window.Resources>
         <vm:WindowControll x:Key="WindowControll"/>
@@ -18,24 +18,54 @@
         <Style TargetType="MenuItem">
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
+        <sys:Double x:Key="WindowControllsPanelHeight">38</sys:Double>
+        <SolidColorBrush x:Key="WindowControllGridBackground" Color="Black"/>
+        <sys:Double x:Key="WindowContrllGridMaxWidth">110</sys:Double>
+        <BitmapImage x:Key="MinimizeWindowImage" UriSource="/MediaPlayer;component/window_control_images/hide-window.png"/>
+        <BitmapImage x:Key="RestoreWindowImage" UriSource="/MediaPlayer;component/window_control_images/maximize-window.png"/>
+        <BitmapImage x:Key="CloseWindowImage" UriSource="/MediaPlayer;component/window_control_images/close-window.png"/>
+        <GridLength x:Key="MenuPanelRowHeight">30</GridLength>
+        <sys:Double x:Key="AudioNameRowMinHeight">60</sys:Double>
+        <sys:Double x:Key="AudioTimePlaylistRowMinHeight">100</sys:Double>
+        <SolidColorBrush x:Key="MenuBackground" Color="White"/>
+        <sys:String x:Key="FileMenuButtonText">File</sys:String>
+        <sys:String x:Key="OpenAudioButtonText">Open</sys:String>
+        <sys:String x:Key="SettingsMenuButtonText">Settings</sys:String>
+        <sys:String x:Key="PlaylistsMenuButtonText">Playlists</sys:String>
+        <sys:Double x:Key="AudioRecordStateControllPanelMaxWidth">300</sys:Double>
+        <BitmapImage x:Key="RestartMusicButtonImage" UriSource="/MediaPlayer;component/music_control_images/restart-music.png"/>
+        <sys:Double x:Key="AudioNameFontSize">24</sys:Double>
+        <Style TargetType="TextBlock" x:Key="AudioNameTextBlock">
+            <Setter Property="FontSize" Value="{StaticResource AudioNameFontSize}"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <sys:Double x:Key="AudioTimeFontSize">20</sys:Double>
+        <Style TargetType="TextBlock" x:Key="AudioTimeTextBlock">
+            <Setter Property="FontSize" Value="{StaticResource AudioNameFontSize}"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <BitmapImage x:Key="PrevAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/prev-playlist-audio.png"/>
+        <BitmapImage x:Key="NextAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/next-playlist-audio.png"/>
     </Window.Resources>
     <Grid Name="MainGrid" DataContext="{StaticResource Menu}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition MaxHeight="38"></RowDefinition>
+            <RowDefinition MaxHeight="{StaticResource WindowControllsPanelHeight}"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <!-- Window controlls -->
         <Grid x:Name="WindowControlsGrid" 
-              Background="Black"
+              Background="{StaticResource WindowControllGridBackground}"
               Grid.Column="0" 
               Grid.Row="0"
               DataContext="{StaticResource WindowControll}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition MaxWidth="110"></ColumnDefinition>
+                <ColumnDefinition MaxWidth="{StaticResource WindowContrllGridMaxWidth}"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -61,7 +91,7 @@
                         Grid.Row="0"
                         HorizontalAlignment="Left">
                     <Button.Content>
-                        <Image Source="/MediaPlayer;component/window_control_images/hide-window.png"/>
+                        <Image Source="{StaticResource MinimizeWindowImage}"/>
                     </Button.Content>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -74,7 +104,7 @@
                         Grid.Column="1"
                         Grid.Row="0">
                     <Button.Content>
-                        <Image x:Name="RestoreWindowImage" Source="/MediaPlayer;component/window_control_images/maximize-window.png"/>
+                        <Image x:Name="RestoreWindowImage" Source="{StaticResource RestoreWindowImage}"/>
                     </Button.Content>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -88,7 +118,7 @@
                         Grid.Row="0"
                         HorizontalAlignment="Right">
                     <Button.Content>
-                        <Image Source="/MediaPlayer;component/window_control_images/close-window.png"/>
+                        <Image Source="{StaticResource CloseWindowImage}"/>
                     </Button.Content>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -106,22 +136,22 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="{Binding Source={StaticResource MenuPanelRowHeight}}"></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition MinHeight="60"></RowDefinition>
-                <RowDefinition MinHeight="100"></RowDefinition>
+                <RowDefinition MinHeight="{StaticResource AudioNameRowMinHeight}"></RowDefinition>
+                <RowDefinition MinHeight="{StaticResource AudioTimePlaylistRowMinHeight}"></RowDefinition>
             </Grid.RowDefinitions>
-            <Menu Background="White" DataContext="{StaticResource Menu}">
-                <MenuItem Header="File">
-                    <MenuItem Header="Open" Command="{Binding ChooseAudio}"/>
+            <Menu Background="{StaticResource MenuBackground}" DataContext="{StaticResource Menu}">
+                <MenuItem Header="{StaticResource FileMenuButtonText}">
+                    <MenuItem Header="{StaticResource OpenAudioButtonText}" Command="{Binding ChooseAudio}"/>
                 </MenuItem>
-                <MenuItem Header="Settings" Command="{Binding OpenSettings}"/>
-                <MenuItem Header="Playlists" Command="{Binding OpenPlaylists}" CommandParameter="{StaticResource PlaylistsCollection}"/>
+                <MenuItem Header="{StaticResource SettingsMenuButtonText}" Command="{Binding OpenSettings}"/>
+                <MenuItem Header="{StaticResource PlaylistsMenuButtonText}" Command="{Binding OpenPlaylists}" CommandParameter="{StaticResource PlaylistsCollection}"/>
             </Menu>
             <!--Audio record state controll panel-->
             <UniformGrid Grid.Column="0" Grid.Row="1" 
                          Columns="2"
-                         MaxWidth="300"
+                         MaxWidth="{StaticResource AudioRecordStateControllPanelMaxWidth}"
                          Rows="1">
                 <Button Style="{StaticResource MusicControlButton}"
                          Command="{Binding PlayPauseMusicCommand}">
@@ -132,16 +162,14 @@
                 <Button Style="{StaticResource MusicControlButton}"
                         Command="{Binding RestartMusicCommand}">
                     <Button.Content>
-                        <Image Source="/MediaPlayer;component/music_control_images/restart-music.png"/>
+                        <Image Source="{StaticResource RestartMusicButtonImage}"/>
                     </Button.Content>
                 </Button>
             </UniformGrid>
             <!--Audio record name text block-->
             <TextBlock Grid.Column="0" 
                        Grid.Row="2" 
-                       FontSize="24"
-                       TextAlignment="Center"
-                       VerticalAlignment="Center"
+                       Style="{StaticResource AudioNameTextBlock}"
                        Text="{Binding AudioName}"/>
             <!--Panel that shows the time of the audio recording-->
             <UniformGrid Grid.Column="0"
@@ -165,29 +193,23 @@
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Button Style="{StaticResource BasicButton}"
-                            Width="25"
-                            Height="25"
+                    <Button Style="{StaticResource PlaylistControllButton}"
                             HorizontalAlignment="Right"
                             Grid.Column="0"
                             Grid.Row="0"
                             Command="{Binding PlayPrevAudio}">
-                        <Image Source="/MediaPlayer;component/music_control_images/prev-playlist-audio.png"/>
+                        <Image Source="{StaticResource PrevAudioButtonImage}"/>
                     </Button>
                     <TextBlock Text="{Binding Path=AudioTime.TimerText, Mode=TwoWay}"
-                               FontSize="20"
-                               TextAlignment="Center"
+                               Style="{StaticResource AudioTimeTextBlock}"
                                Grid.Row="0"
-                               Grid.Column="1"
-                               VerticalAlignment="Center"/>
-                    <Button Style="{StaticResource BasicButton}"
-                            Width="25"
-                            Height="25"
+                               Grid.Column="1"/>
+                    <Button Style="{StaticResource PlaylistControllButton}"
                             HorizontalAlignment="Left"
                             Grid.Column="2"
                             Grid.Row="0"
                             Command="{Binding PlayNextAudio}">
-                        <Image Source="/MediaPlayer;component/music_control_images/next-playlist-audio.png"/>
+                        <Image Source="{StaticResource NextAudioButtonImage}"/>
                     </Button>
                 </Grid>
             </UniformGrid>
