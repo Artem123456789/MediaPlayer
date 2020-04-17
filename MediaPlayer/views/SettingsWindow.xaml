@@ -35,6 +35,7 @@
             <RowDefinition MaxHeight="{StaticResource WindowControllsPanelMaxHeight}"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <!--Window controlls panel-->
         <Grid x:Name="WindowControlsGrid" 
               Background="Black"
               DataContext="{StaticResource WindowControll}"

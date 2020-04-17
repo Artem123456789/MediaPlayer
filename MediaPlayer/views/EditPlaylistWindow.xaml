@@ -25,6 +25,7 @@
             <RowDefinition MaxHeight="{StaticResource WindowControllPanelMaxHeight}"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <!--Window controlls panel-->
         <Grid x:Name="WindowControlsGrid" 
               Background="Black"
               Grid.Column="0" 
@@ -81,6 +82,7 @@
                 </Button>
             </Grid>
         </Grid>
+        <!--Main grid-->
         <UniformGrid Grid.Row="1" 
                      Grid.Column="0"
                      Columns="1"
