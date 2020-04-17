@@ -205,10 +205,8 @@
                          Text="{Binding NewPlaylistName, Mode=TwoWay}"
                          FontSize="14"
                          Margin="3"/>
-                <Button Content="Add new" 
-                        Command="{Binding AddPlaylist}"
-                        FontSize="16"
-                        Margin="3"/>
+                <Button Command="{Binding AddPlaylist}"
+                        Style="{StaticResource AddPlaylistButton}"/>
             </UniformGrid>
         </Grid>
     </Grid>
