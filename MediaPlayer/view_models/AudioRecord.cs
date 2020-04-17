@@ -220,6 +220,10 @@ namespace MediaPlayer
             ChangePlayPauseImage(true);
         }
 
+        /// <summary>
+        /// Does everything that the default constructor does and sets audio parent playlist.
+        /// </summary>
+        /// <param name="parentPlaylist"></param>
         public AudioRecord(Playlist parentPlaylist)
         {
             ParentPlayList = parentPlaylist;
@@ -254,6 +258,9 @@ namespace MediaPlayer
             AudioTime.CurrentMinutes = TimeSpan.FromSeconds(movedSeconds).Minutes;
         }
 
+        /// <summary>
+        /// Plays audio
+        /// </summary>
         public void Play()
         {
             PlayAudio();
@@ -263,6 +270,9 @@ namespace MediaPlayer
             AudioProgress.Start(Audio);
         }
 
+        /// <summary>
+        /// Pauses audio
+        /// </summary>
         public void Pause()
         {
             try
@@ -278,12 +288,18 @@ namespace MediaPlayer
             }
         }
 
+        /// <summary>
+        /// Audio that will be deleted
+        /// </summary>
         public void BeforeChoose()
         {
             PlayBackStoped();
             StopMusic();
         }
 
+        /// <summary>
+        /// Actions that occur before after the audio
+        /// </summary>
         public void AfterChoose()
         {
             AudioName = GetMusicName(AudioPath);
