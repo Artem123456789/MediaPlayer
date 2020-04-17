@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MediaPlayer.views"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:vm="clr-namespace:MediaPlayer.view_models"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="PlaylistsWindow" Height="450" Width="400"
         Style="{StaticResource MediaPlayerWindow}">

@@ -15,6 +15,7 @@
         <BitmapImage x:Key="MinimizeWindowImage" UriSource="/MediaPlayer;component/window_control_images/hide-window.png"/>
         <BitmapImage x:Key="CloseWindowImage" UriSource="/MediaPlayer;component/window_control_images/close-window.png"/>
         <sys:Double x:Key="WindowControllPanelMaxHeight">38</sys:Double>
+        <sys:Double x:Key="WindowControllsColumnMaxWidth">70</sys:Double>
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -31,7 +32,7 @@
               DataContext="{StaticResource WindowControll}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition MaxWidth="70"></ColumnDefinition>
+                <ColumnDefinition MaxWidth="{StaticResource WindowControllsColumnMaxWidth}"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
