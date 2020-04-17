@@ -12,6 +12,8 @@
         Style="{StaticResource MediaPlayerWindow}">
     <Window.Resources>
         <vm:WindowControll x:Key="WindowControll"/>
+        <BitmapImage x:Key="MinimizeWindowImage" UriSource="/MediaPlayer;component/window_control_images/hide-window.png"/>
+        <BitmapImage x:Key="CloseWindowImage" UriSource="/MediaPlayer;component/window_control_images/close-window.png"/>
         <sys:Double x:Key="WindowControllPanelMaxHeight">38</sys:Double>
     </Window.Resources>
     <Grid Name="MainGrid">
@@ -54,7 +56,7 @@
                         Grid.Row="0"
                         HorizontalAlignment="Left">
                     <Button.Content>
-                        <Image Source="/MediaPlayer;component/window_control_images/hide-window.png"/>
+                        <Image Source="{StaticResource MinimizeWindowImage}"/>
                     </Button.Content>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -68,7 +70,7 @@
                         Grid.Row="0"
                         HorizontalAlignment="Right">
                     <Button.Content>
-                        <Image Source="/MediaPlayer;component/window_control_images/close-window.png"/>
+                        <Image Source="{StaticResource CloseWindowImage}"/>
                     </Button.Content>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">

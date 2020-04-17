@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:MediaPlayer"
         xmlns:vm="clr-namespace:MediaPlayer.view_models"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Height="400"
         Width="550"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{StaticResource MediaPlayerWindow}">
     <Window.Resources>
         <vm:WindowControll x:Key="WindowControll"/>
@@ -26,19 +26,17 @@
         <BitmapImage x:Key="RestartMusicButtonImage" UriSource="/MediaPlayer;component/music_control_images/restart-music.png"/>
         <BitmapImage x:Key="PrevAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/prev-playlist-audio.png"/>
         <BitmapImage x:Key="NextAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/next-playlist-audio.png"/>
-        <sys:Double x:Key="WindowControllsPanelHeight">38</sys:Double>
         <SolidColorBrush x:Key="WindowControllGridBackground" Color="Black"/>
         <SolidColorBrush x:Key="MenuBackground" Color="White"/>
         <sys:String x:Key="FileMenuButtonText">File</sys:String>
         <sys:String x:Key="OpenAudioButtonText">Open</sys:String>
         <sys:String x:Key="SettingsMenuButtonText">Settings</sys:String>
         <sys:String x:Key="PlaylistsMenuButtonText">Playlists</sys:String>
+        <sys:Double x:Key="WindowControllsPanelHeight">38</sys:Double>
         <sys:Double x:Key="WindowContrllGridMaxWidth">110</sys:Double>
         <sys:Double x:Key="AudioNameRowMinHeight">60</sys:Double>
         <sys:Double x:Key="AudioTimePlaylistRowMinHeight">100</sys:Double>
         <sys:Double x:Key="AudioRecordStateControllPanelMaxWidth">300</sys:Double>
-        <sys:Double x:Key="AudioNameFontSize">24</sys:Double>
-        <sys:Double x:Key="AudioTimeFontSize">20</sys:Double>
     </Window.Resources>
     <Grid Name="MainGrid" DataContext="{StaticResource Menu}">
         <Grid.ColumnDefinitions>
