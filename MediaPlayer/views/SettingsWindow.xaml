@@ -22,7 +22,7 @@
         <sys:String x:Key="PlayingAudioRecordNameLabel">Playing audiorecord name:</sys:String>
         <sys:String x:Key="VolumeLevelLabel">Volume level:</sys:String>
         <sys:String x:Key="LoopLabel">Loop:</sys:String>
-        <sys:Double x:Key="WindowControllsPanelHeight">38</sys:Double>
+        <sys:Double x:Key="WindowControllsPanelMaxHeight">38</sys:Double>
         <sys:Double x:Key="WindowContrllGridMaxWidth">110</sys:Double>
         <sys:Double x:Key="PlayingRecordNameRowMaxHeight">70</sys:Double>
         <sys:Double x:Key="VolumeLevelRowMinHeight">120</sys:Double>
@@ -32,7 +32,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition MaxHeight="{StaticResource WindowControllsPanelHeight}"></RowDefinition>
+            <RowDefinition MaxHeight="{StaticResource WindowControllsPanelMaxHeight}"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid x:Name="WindowControlsGrid" 
