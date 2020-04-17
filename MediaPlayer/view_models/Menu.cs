@@ -43,7 +43,7 @@ namespace MediaPlayer.view_models
                         Collection.CurrentPlaylist = DefaultPlaylist;
                         DefaultPlaylist.CurrentRecord.BeforeChoose();
                         OpenFileDialog fileDialog = new OpenFileDialog();
-                        fileDialog.Filter = "MP3 files|*.mp3";
+                        fileDialog.Filter = "Audio Files(*.flac;*.mp3;*.wav, *mp4, *m4a)|*.flac;*.mp3;*.wav, *mp4, *m4a|All files (*.*)|*.*";
                         if (fileDialog.ShowDialog() == true) DefaultPlaylist.CurrentRecord.AudioPath = fileDialog.FileName;
                             DefaultPlaylist.CurrentRecord.AfterChoose();
                     }

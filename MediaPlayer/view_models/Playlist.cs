@@ -82,7 +82,7 @@ namespace MediaPlayer.view_models
                         audioRecord.BeforeChoose();
                         OpenFileDialog openFileDialog = new OpenFileDialog();
                         OpenFileDialog fileDialog = new OpenFileDialog();
-                        fileDialog.Filter = "MP3 files|*.mp3";
+                        fileDialog.Filter = "Audio Files(*.flac;*.mp3;*.wav, *mp4, *m4a)|*.flac;*.mp3;*.wav, *mp4, *m4a|All files (*.*)|*.*";
                         if (fileDialog.ShowDialog() == true) audioRecord.AudioPath = fileDialog.FileName;
                         audioRecord.AfterChoose();
                         AudioRecords.Add(audioRecord);
