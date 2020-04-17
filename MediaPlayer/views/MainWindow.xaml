@@ -38,6 +38,7 @@
         <sys:Double x:Key="AudioTimeFontSize">20</sys:Double>
         <BitmapImage x:Key="PrevAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/prev-playlist-audio.png"/>
         <BitmapImage x:Key="NextAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/next-playlist-audio.png"/>
+        <Thickness x:Key="SliderMargin" Left="20" Top="0" Right="20" Bottom="0"/>
     </Window.Resources>
     <Grid Name="MainGrid" DataContext="{StaticResource Menu}">
         <Grid.ColumnDefinitions>
@@ -168,7 +169,7 @@
                          Rows="2">
                 <Slider Style="{StaticResource Horizontal_Slider}" 
                         Minimum="0"
-                        Margin="20,0,20,0"
+                        Margin="{StaticResource SliderMargin}"
                         Name="AudioProgress"
                         Maximum="{Binding Path=TotalAudioSecondsTime, Mode=TwoWay}"
                         Value="{Binding Path=AudioProgress.IndicatorCoord}"
