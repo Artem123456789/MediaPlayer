@@ -413,6 +413,14 @@ namespace MediaPlayer
             int slashIndex = 0;
             for (int i = path.Length - 1; i > 0; i--)
             {
+                if(path[i] == '.')
+                {
+                    path = path.Substring(0, i);
+                    break;
+                }
+            }
+            for (int i = path.Length - 1; i > 0; i--)
+            {
                 if (path[i] == '\\')
                 {
                     slashIndex = i;
