@@ -120,8 +120,9 @@
             </Menu>
             <!--Audio record state controll panel-->
             <UniformGrid Grid.Column="0" Grid.Row="1" 
-                         MaxWidth="340" 
-                         Columns="2" 
+                         Columns="2"
+                         MaxWidth="300"
+                         Margin="0,0,6,0"
                          Rows="1">
                 <Button Style="{StaticResource MusicControlButton}"
                          Command="{Binding PlayPauseMusicCommand}">

@@ -98,7 +98,6 @@
     <Compile Include="view_models\PlaylistsCollection.cs" />
     <Compile Include="view_models\SettingsAudioRecord.cs" />
     <Compile Include="view_models\WindowControll.cs" />
-    <Compile Include="WindowControllCommand.cs" />
     <Page Include="resource_dictionaries\Buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

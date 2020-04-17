@@ -21,41 +21,41 @@ namespace MediaPlayer.view_models
             RestoreWindowImage = restoreImage;
         }
 
-        public WindowControllCommand DragWindow
+        public AudioRecordCommand DragWindow
         {
             get
             {
-                return dragWindow ?? (dragWindow = new WindowControllCommand(obj =>
+                return dragWindow ?? (dragWindow = new AudioRecordCommand(obj =>
                 {
                     CurrentWindow.DragMove();
                 }));
             }
         }
-        public WindowControllCommand HideWindow
+        public AudioRecordCommand HideWindow
         {
             get
             {
-                return hideWindow ?? (hideWindow = new WindowControllCommand(obj =>
+                return hideWindow ?? (hideWindow = new AudioRecordCommand(obj =>
                 {
                     CurrentWindow.WindowState = WindowState.Minimized;
                 }));
             }
         }
-        public WindowControllCommand CloseWindow
+        public AudioRecordCommand CloseWindow
         {
             get
             {
-                return closeWindow ?? (closeWindow = new WindowControllCommand(obj =>
+                return closeWindow ?? (closeWindow = new AudioRecordCommand(obj =>
                 {
                     CurrentWindow.Close();
                 }));
             }
         }
-        public WindowControllCommand RestoreWindow
+        public AudioRecordCommand RestoreWindow
         {
             get
             {
-                return restoreWindow ?? (restoreWindow = new WindowControllCommand(obj =>
+                return restoreWindow ?? (restoreWindow = new AudioRecordCommand(obj =>
                 {
                     BitmapImage bitmapImage = new BitmapImage();
                     bitmapImage.BeginInit();
@@ -78,10 +78,10 @@ namespace MediaPlayer.view_models
         public Window CurrentWindow { get; set; }
         public Image RestoreWindowImage { get; set; }
 
-        WindowControllCommand dragWindow;
-        WindowControllCommand hideWindow;
-        WindowControllCommand closeWindow;
-        WindowControllCommand restoreWindow;
+        AudioRecordCommand dragWindow;
+        AudioRecordCommand hideWindow;
+        AudioRecordCommand closeWindow;
+        AudioRecordCommand restoreWindow;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
