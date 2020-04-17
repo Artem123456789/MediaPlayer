@@ -17,8 +17,21 @@
         <BitmapImage x:Key="HideWindowImage" UriSource="/MediaPlayer;component/window_control_images/hide-window.png"/>
         <BitmapImage x:Key="RestoreWindowImage" UriSource="/MediaPlayer;component/window_control_images/maximize-window.png"/>
         <BitmapImage x:Key="CloseWindowImage" UriSource="/MediaPlayer;component/window_control_images/close-window.png"/>
+        <BitmapImage x:Key="RemoveAudioPlaylistImage" UriSource="/MediaPlayer;component/music_control_images/remove-audio-playlist.png"/>
+        <BitmapImage x:Key="EditPlaylistImage" UriSource="/MediaPlayer;component/music_control_images/edit-playlist.png"/>
+        <BitmapImage x:Key="AddAudioPlaylistImage" UriSource="/MediaPlayer;component/music_control_images/add-playlist-audio.png"/>
+        <Thickness x:Key="PlaylistControllPanelMargin" Left="0" Top="0" Right="0" Bottom="10"/>
         <sys:Double x:Key="WindowControllsPanelMaxHeight">38</sys:Double>
         <sys:Double x:Key="WindowContrllGridMaxWidth">110</sys:Double>
+        <sys:Double x:Key="AddPlaylistRowMaxHeight">100</sys:Double>
+        <sys:Double x:Key="AudioPlaylistColumnMaxWidth">35</sys:Double>
+        <sys:Double x:Key="PlaylistControllPanellMaxWidth">150</sys:Double>
+        <Style TargetType="UniformGrid" x:Key="PlaylistControllPanel">
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="MaxWidth" Value="{StaticResource PlaylistControllPanellMaxWidth}"/>
+            <Setter Property="Margin" Value="{StaticResource PlaylistControllPanelMargin}"/>
+        </Style>
     </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -35,7 +48,7 @@
               DataContext="{StaticResource WindowControll}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition MaxWidth="110"></ColumnDefinition>
+                <ColumnDefinition MaxWidth="{StaticResource WindowContrllGridMaxWidth}"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -106,7 +119,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition MaxHeight="100"></RowDefinition>
+                <RowDefinition MaxHeight="{StaticResource AddPlaylistRowMaxHeight}"></RowDefinition>
             </Grid.RowDefinitions>
             <ListBox
                 Grid.Row="0"
@@ -120,10 +133,7 @@
                     <DataTemplate>
                         <UniformGrid Columns="1" Rows="2">
                             <Expander Style="{StaticResource PlaylistExpander}" 
-                                      Header="{Binding Header}"
-                                      Foreground="#0085CA"
-                                      FontSize="18"
-                                      Margin="5">
+                                      Header="{Binding Header}">
                                     <ListBox ItemsSource="{Binding AudioRecords}">
                                         <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource PlaylistListBox}"/> 
@@ -133,15 +143,14 @@
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition></ColumnDefinition>
-                                                    <ColumnDefinition MaxWidth="35"></ColumnDefinition>
-                                                    <ColumnDefinition MaxWidth="35"></ColumnDefinition>
+                                                    <ColumnDefinition MaxWidth="{StaticResource AudioPlaylistColumnMaxWidth}"></ColumnDefinition>
+                                                    <ColumnDefinition MaxWidth="{StaticResource AudioPlaylistColumnMaxWidth}"></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Text="{Binding AudioName}"   
-                                                           VerticalAlignment="Center"
-                                                           FontSize="16"
+                                                           Style="{StaticResource PlaylistAudioNameTextBlock}"
                                                            Grid.Row="0"
                                                            Grid.Column="0"/>
                                                 <Image  Visibility="{Binding Path=IsPlayingInPlaylist, Converter={StaticResource BoolToVis}}"
@@ -150,7 +159,7 @@
                                                         Command="{Binding RemoveFromPlaylist}"
                                                         Grid.Row="1"
                                                         Grid.Column="2">
-                                                    <Image Source="/MediaPlayer;component/music_control_images/remove-audio-playlist.png"/>
+                                                    <Image Source="{StaticResource RemoveAudioPlaylistImage}"/>
                                                 </Button>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -163,10 +172,7 @@
                                 </ListBox>
                             </Expander>
                             <UniformGrid Columns="4" Rows="1" 
-                                         VerticalAlignment="Bottom"
-                                         Margin="0,0,0,10"
-                                         HorizontalAlignment="Left"
-                                         MaxWidth="150">
+                                         Style="{StaticResource PlaylistControllPanel}">
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         HorizontalAlignment="Left"
                                         Command="{Binding Play}">
@@ -174,16 +180,16 @@
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding Remove}">
-                                    <Image Source="/MediaPlayer;component/music_control_images/remove-audio-playlist.png"/>
+                                    <Image Source="{StaticResource RemoveAudioPlaylistImage}"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding EditName}">
-                                    <Image Source="/MediaPlayer;component/music_control_images/edit-playlist.png"/>
+                                    <Image Source="{StaticResource EditPlaylistImage}"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding AddAudio}"
                                         HorizontalAlignment="Right">
-                                    <Image Source="/MediaPlayer;component/music_control_images/add-playlist-audio.png"/>
+                                    <Image Source="{StaticResource AddAudioPlaylistImage}"/>
                                 </Button>
                             </UniformGrid>
                         </UniformGrid>
