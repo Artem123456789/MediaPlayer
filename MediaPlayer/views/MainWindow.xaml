@@ -18,27 +18,27 @@
         <Style TargetType="MenuItem">
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
-        <sys:Double x:Key="WindowControllsPanelHeight">38</sys:Double>
-        <SolidColorBrush x:Key="WindowControllGridBackground" Color="Black"/>
-        <sys:Double x:Key="WindowContrllGridMaxWidth">110</sys:Double>
+        <GridLength x:Key="MenuPanelRowHeight">30</GridLength>
+        <Thickness x:Key="SliderMargin" Left="20" Top="0" Right="20" Bottom="0"/>
         <BitmapImage x:Key="MinimizeWindowImage" UriSource="/MediaPlayer;component/window_control_images/hide-window.png"/>
         <BitmapImage x:Key="RestoreWindowImage" UriSource="/MediaPlayer;component/window_control_images/maximize-window.png"/>
         <BitmapImage x:Key="CloseWindowImage" UriSource="/MediaPlayer;component/window_control_images/close-window.png"/>
-        <GridLength x:Key="MenuPanelRowHeight">30</GridLength>
-        <sys:Double x:Key="AudioNameRowMinHeight">60</sys:Double>
-        <sys:Double x:Key="AudioTimePlaylistRowMinHeight">100</sys:Double>
+        <BitmapImage x:Key="RestartMusicButtonImage" UriSource="/MediaPlayer;component/music_control_images/restart-music.png"/>
+        <BitmapImage x:Key="PrevAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/prev-playlist-audio.png"/>
+        <BitmapImage x:Key="NextAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/next-playlist-audio.png"/>
+        <sys:Double x:Key="WindowControllsPanelHeight">38</sys:Double>
+        <SolidColorBrush x:Key="WindowControllGridBackground" Color="Black"/>
         <SolidColorBrush x:Key="MenuBackground" Color="White"/>
         <sys:String x:Key="FileMenuButtonText">File</sys:String>
         <sys:String x:Key="OpenAudioButtonText">Open</sys:String>
         <sys:String x:Key="SettingsMenuButtonText">Settings</sys:String>
         <sys:String x:Key="PlaylistsMenuButtonText">Playlists</sys:String>
+        <sys:Double x:Key="WindowContrllGridMaxWidth">110</sys:Double>
+        <sys:Double x:Key="AudioNameRowMinHeight">60</sys:Double>
+        <sys:Double x:Key="AudioTimePlaylistRowMinHeight">100</sys:Double>
         <sys:Double x:Key="AudioRecordStateControllPanelMaxWidth">300</sys:Double>
-        <BitmapImage x:Key="RestartMusicButtonImage" UriSource="/MediaPlayer;component/music_control_images/restart-music.png"/>
         <sys:Double x:Key="AudioNameFontSize">24</sys:Double>
         <sys:Double x:Key="AudioTimeFontSize">20</sys:Double>
-        <BitmapImage x:Key="PrevAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/prev-playlist-audio.png"/>
-        <BitmapImage x:Key="NextAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/next-playlist-audio.png"/>
-        <Thickness x:Key="SliderMargin" Left="20" Top="0" Right="20" Bottom="0"/>
     </Window.Resources>
     <Grid Name="MainGrid" DataContext="{StaticResource Menu}">
         <Grid.ColumnDefinitions>
