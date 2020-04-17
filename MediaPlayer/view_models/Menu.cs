@@ -13,6 +13,7 @@ namespace MediaPlayer.view_models
 {
     public class Menu:INotifyPropertyChanged
     {
+        //properties
         public AudioRecord SingleAudio { get; set; }
         public Playlist DefaultPlaylist { get; set; }
         public PlaylistsCollection Collection 
@@ -27,6 +28,8 @@ namespace MediaPlayer.view_models
                 OnPropertyChanged("Collection");
             }
         }
+
+        //command properties
         public AudioRecordCommand ChooseAudio
         {
             get
@@ -94,27 +97,29 @@ namespace MediaPlayer.view_models
             }
         }
 
+        //fields
         AudioRecordCommand chooseAudio;
         AudioRecordCommand openSettings;
         AudioRecordCommand openPlaylists;
         PlaylistsCollection collection;
 
+        /// <summary>
+        /// Default constructor. Sets default values
+        /// </summary>
         public Menu()
+        {
+            BeforeInit();
+        }
+
+        /// <summary>
+        /// Initializes all properties and fields necessary for further work
+        /// </summary>
+        public void BeforeInit()
         {
             SingleAudio = new AudioRecord();
             DefaultPlaylist = new Playlist(Collection);
             SingleAudio.ParentPlayList = DefaultPlaylist;
             Collection = new PlaylistsCollection();
-            Collection.CurrentPlaylist = DefaultPlaylist;
-            DefaultPlaylist.AudioRecords.Add(SingleAudio);
-            DefaultPlaylist.CurrentRecord = SingleAudio;
-        }
-
-        public void BeforeInit()
-        {
-            SingleAudio = new AudioRecord();
-            DefaultPlaylist = new Playlist();
-            SingleAudio.ParentPlayList = DefaultPlaylist;
             Collection.CurrentPlaylist = DefaultPlaylist;
             DefaultPlaylist.AudioRecords.Add(SingleAudio);
             DefaultPlaylist.CurrentRecord = SingleAudio;
