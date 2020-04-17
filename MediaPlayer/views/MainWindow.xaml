@@ -35,17 +35,7 @@
         <sys:Double x:Key="AudioRecordStateControllPanelMaxWidth">300</sys:Double>
         <BitmapImage x:Key="RestartMusicButtonImage" UriSource="/MediaPlayer;component/music_control_images/restart-music.png"/>
         <sys:Double x:Key="AudioNameFontSize">24</sys:Double>
-        <Style TargetType="TextBlock" x:Key="AudioNameTextBlock">
-            <Setter Property="FontSize" Value="{StaticResource AudioNameFontSize}"/>
-            <Setter Property="TextAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
         <sys:Double x:Key="AudioTimeFontSize">20</sys:Double>
-        <Style TargetType="TextBlock" x:Key="AudioTimeTextBlock">
-            <Setter Property="FontSize" Value="{StaticResource AudioNameFontSize}"/>
-            <Setter Property="TextAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
         <BitmapImage x:Key="PrevAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/prev-playlist-audio.png"/>
         <BitmapImage x:Key="NextAudioButtonImage" UriSource="/MediaPlayer;component/music_control_images/next-playlist-audio.png"/>
     </Window.Resources>
