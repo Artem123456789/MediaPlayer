@@ -86,5 +86,7 @@
         <Setter Property="Content" Value="Add new"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Margin" Value="3"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="BorderBrush" Value="Black"/>
     </Style>
 </ResourceDictionary>
