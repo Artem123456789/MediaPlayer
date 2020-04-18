@@ -22,8 +22,7 @@
         <BitmapImage x:Key="AddAudioPlaylistImage" UriSource="/MediaPlayer;component/music_control_images/add-playlist-audio.png"/>
         <BitmapImage x:Key="CurrentAudioImage" UriSource="/MediaPlayer;component/music_control_images/playing-audio-playlist.png"/>
         <Thickness x:Key="PlaylistControllPanelMargin" Left="0" Top="0" Right="0" Bottom="10"/>
-        <Thickness x:Key="CentralPlaylistControllButtonsMargin" Left="3" Top="3" Right="3" Bottom="3"/>
-        <Thickness x:Key="SiderPlaylistControllButtonsMargin" Left="0" Top="3" Right="0" Bottom="0"/>
+        <Thickness x:Key="SidePlaylistControllButtonsMargin" Left="0" Top="3" Right="0" Bottom="0"/>
         <sys:Double x:Key="WindowControllsPanelMaxHeight">38</sys:Double>
         <sys:Double x:Key="WindowContrllGridMaxWidth">110</sys:Double>
         <sys:Double x:Key="AddPlaylistRowMaxHeight">100</sys:Double>
@@ -183,23 +182,23 @@
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         HorizontalAlignment="Left"
                                         Command="{Binding Play}"
-                                        Margin="{StaticResource SiderPlaylistControllButtonsMargin}">
+                                        Margin="{StaticResource SidePlaylistControllButtonsMargin}">
                                     <Image Name="PlayPauseImage" Source="{Binding PlayPauseImage}"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding Remove}"
-                                        Margin="{StaticResource CentralPlaylistControllButtonsMargin}">
+                                        Margin="0,3,3,0">
                                     <Image Source="{StaticResource RemoveAudioPlaylistImage}"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding EditName}"
-                                        Margin="{StaticResource CentralPlaylistControllButtonsMargin}">
+                                        Margin="3,3,0,0">
                                     <Image Source="{StaticResource EditPlaylistImage}"/>
                                 </Button>
                                 <Button Style="{StaticResource ControllPlaylistButton}"
                                         Command="{Binding AddAudio}"
                                         HorizontalAlignment="Right"
-                                        Margin="{StaticResource SiderPlaylistControllButtonsMargin}">
+                                        Margin="{StaticResource SidePlaylistControllButtonsMargin}">
                                     <Image Source="{StaticResource AddAudioPlaylistImage}"/>
                                 </Button>
                             </UniformGrid>
