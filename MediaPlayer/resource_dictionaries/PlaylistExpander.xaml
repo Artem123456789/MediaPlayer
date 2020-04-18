@@ -3,7 +3,9 @@
     <Style TargetType="Expander" x:Key="PlaylistExpander">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Background" Value="White"/>
-        <Setter Property="Foreground" Value="#0085CA"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderThickness" Value="10"/>
+        <Setter Property="BorderBrush" Value="Red"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="Template">
             <Setter.Value>
