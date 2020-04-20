@@ -145,7 +145,7 @@
                            VerticalAlignment="Bottom"/>
                 <Slider Name="VolumeSlider"
                         Value="{Binding VolumeLevel}"
-                        Style="{StaticResource Horizontal_Slider}"
+                        Style="{StaticResource Volume_Slider}"
                         Minimum="0"
                         VerticalAlignment="Center"
                         Maximum="100"
