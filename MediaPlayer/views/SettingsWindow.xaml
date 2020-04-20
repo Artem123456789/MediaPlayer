@@ -157,6 +157,8 @@
                        VerticalAlignment="Center"
                        Text="{StaticResource LoopLabel}"/>
             <ToggleButton Grid.Row="2"
+                          Width="70"
+                          Height="35"
                         IsChecked="{Binding IsLoop}"
                         Grid.Column="1"
                         Style="{StaticResource SwitchTypeToggleButton}"/>
