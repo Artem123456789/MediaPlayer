@@ -89,7 +89,7 @@ namespace MediaPlayer.view_models
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        
                     }
                 }));
             }
