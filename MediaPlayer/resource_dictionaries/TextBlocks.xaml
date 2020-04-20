@@ -4,7 +4,7 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <Style TargetType="TextBlock" x:Key="AudioTimeTextBlock">
         <Style.Resources>
-            <sys:Double x:Key="AudioTimeFontSize">18</sys:Double>
+            <sys:Double x:Key="AudioTimeFontSize">20</sys:Double>
         </Style.Resources>
         <Setter Property="FontSize" Value="{StaticResource AudioTimeFontSize}"/>
         <Setter Property="TextAlignment" Value="Center"/>

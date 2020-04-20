@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="resource_dictionaries/Buttons.xaml"/>
                 <ResourceDictionary Source="resource_dictionaries/Slider.xaml"/>
+                <ResourceDictionary Source="resource_dictionaries/VolumeSlider.xaml"/>
                 <ResourceDictionary Source="resource_dictionaries/ToggleButton.xaml"/>
                 <ResourceDictionary Source="resource_dictionaries/PlaylistExpander.xaml"/>
                 <ResourceDictionary Source="resource_dictionaries/Window.xaml"/>
